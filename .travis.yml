@@ -5,8 +5,7 @@ python:
 
 install:
 - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-- python get-pip.py --user
-- export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+- python get-pip.py
 - pip install pytest
 
 script:
