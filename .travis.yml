@@ -1,0 +1,12 @@
+language: python
+
+python:
+- "3.7.4"
+
+install:
+- curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+- python get-pip.py
+- pip install pytest
+
+script:
+- pytest
