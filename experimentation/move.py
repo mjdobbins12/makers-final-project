@@ -14,7 +14,21 @@ class Board:
 		return self.grid
 
 	def move(self, start_r, start_c, finish_r, finish_c):
-		if self.grid[finish_r][finish_c] != 'B':
+		if self.is_destination_free(finish_r, finish_c):
+			self.grid[start_r][start_c] = 'B'
+			self.grid[finish_r][finish_c] = '*'
+		else:
 			raise Exception("Invalid move")
-		self.grid[start_r][start_c] = 'B'
-		self.grid[finish_r][finish_c] = '*'
+
+	def is_destination_free(self, finish_r, finish_c):
+		return self.grid[finish_r][finish_c] == 'B'
+
+class Pawn:
+	def __init__(self, color):
+		self.color = color
+
+# board = Board()
+# p8 = Pawn('white')
+# board.grid[0][7] = p8
+#
+# print(board.show_board())
