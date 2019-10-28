@@ -1,8 +1,9 @@
 import chessboard
 
-board = chessboard.ChessBoard()
+test_board = chessboard.ChessBoard()
+
 def test_board_displayed():
-    assert board.show_board() == [
+    assert test_board.show_board() == [
         ["-","-","-","-","-","-","-","-"],
         ["-","-","-","-","-","-","-","-"],
         ["-","-","-","-","-","-","-","-"],
