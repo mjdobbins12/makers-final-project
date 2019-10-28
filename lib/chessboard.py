@@ -1,6 +1,5 @@
 class ChessBoard:
-    def show_board(self):
-        return [
+    board = [
         ["-","-","-","-","-","-","-","-"],
         ["-","-","-","-","-","-","-","-"],
         ["-","-","-","-","-","-","-","-"],
@@ -10,3 +9,11 @@ class ChessBoard:
         ["-","-","-","-","-","-","-","-"],
         ["-","-","-","-","-","-","-","-"]
         ]
+
+    def show_board(self):
+        return self.board
+
+    def populate_pawn_rows(self):
+        self.board[1] = ['p','p','p','p','p','p','p','p']
+        self.board[6] = ['p','p','p','p','p','p','p','p']
+        return self.board
