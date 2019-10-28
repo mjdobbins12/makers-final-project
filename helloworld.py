@@ -1,5 +1,6 @@
 class World:
-    def hello():
-        print('Hello world')
+    def hello(self, name):
+        print('Hello world ' + name)
 
-World.hello()
+test = World()
+test.hello('Grandmaster')
