@@ -15,8 +15,17 @@ class ChessBoard:
                         ["R","N","B","Q","K","B","N","R"]
                         ]
 
-        def show_board(self):
-                return self.board
+
+        def show_board(self, p1_name, p2_name):
+            print('')
+            print(p2_name)
+            print("_" * 33)
+            for row in self.board:
+                x = " | "
+                print(f"| {x.join(row)} |")
+                print("-" * 33)
+            print(p1_name)
+            print('')
 
         def move(self, start_row, start_col, end_row, end_col):      
                 if self.invalid_move(start_row, start_col, end_row, end_col):
@@ -43,4 +52,3 @@ class ChessBoard:
                         ]
                         )
 
-        

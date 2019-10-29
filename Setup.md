@@ -8,5 +8,9 @@ python get-pip.py --user
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 pip install pytest
 
+**Install mock**
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+pip install mock
+
 **Running PYtest**
 In Project root dir, as with rspec, just type `pytest`
