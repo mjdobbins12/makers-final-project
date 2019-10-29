@@ -37,7 +37,10 @@ class ChessBoard:
                         (start_row != 6 and start_row != 1) and abs(start_row - end_row) >= 2, # cannot move 2 spaces after 1st move
                         (abs(start_col - end_col) == 1 and abs(start_row - end_row) == 1 and not isinstance(self.board[end_row][end_col], pawn.Pawn)), # can only strike if pawn on target square
                         abs(start_col - end_col) > 1, # can't move diagonally more than 1 space
-                        start_col == end_col and isinstance(self.board[end_row][end_col], pawn.Pawn)]
+                        start_col == end_col and isinstance(self.board[end_row][end_col], pawn.Pawn), # cannot move forward one space into another pawn
+                        piece_to_move.colour == "Black" and abs(end_row - start_row) == 2 and isinstance(self.board[end_row+1][end_col], pawn.Pawn), # black cannot jump over pawn
+                        piece_to_move.colour == "White" and abs(end_row - start_row) == 2 and isinstance(self.board[end_row-1][end_col], pawn.Pawn)# white cannot jump over pawn
+                        ]
                         )
 
         

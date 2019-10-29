@@ -185,5 +185,15 @@ class TestPawnWhenBlocked:
                 test_board.move(1,4,3,4)
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(4,4,3,4)
+                        
+        def test_pawn_cannot_move_jump_over_pawn(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(1,4,3,4)
+                test_board.move(6,0,4,0)
+                test_board.move(3,4,4,4)
+                test_board.move(4,0,3,0)
+                test_board.move(4,4,5,4)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(6,4,4,4)
 
  
