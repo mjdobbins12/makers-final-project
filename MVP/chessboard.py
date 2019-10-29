@@ -33,25 +33,30 @@ class ChessBoard:
                 print('')
 
         def move(self, start_row, start_col, end_row, end_col):
-                if self.invalid_move(start_row, start_col, end_row, end_col):
+                if self.__invalid_move(start_row, start_col, end_row, end_col):
                         raise ValueError("Invalid Move")
                 piece_to_move = self.board[start_row][start_col]
                 self.board[start_row][start_col] = "-"
                 self.board[end_row][end_col] = piece_to_move
 
-        def invalid_move(self, start_row, start_col, end_row, end_col):
+
+
+
+        # private methods
+
+        def __invalid_move(self, start_row, start_col, end_row, end_col):
                 piece_to_move = self.board[start_row][start_col]
                 return any(
-                        [self.check_within_board_boundary(end_row,end_col),
+                        [self.__check_within_board_boundary(end_row,end_col),
                         piece_to_move.illegal_directions(start_row, start_col, end_row, end_col), # checks pawn allowed vectors
-                        self.pawn_specific_board_constraints(start_row, start_col, end_row, end_col) # references board to check possibility of moves
+                        self.__pawn_specific_board_constraints(start_row, start_col, end_row, end_col) # references board to check possibility of moves
                         ]
                         )
 
-        def check_within_board_boundary(self, end_row, end_col):
+        def __check_within_board_boundary(self, end_row, end_col):
                 return (end_row > 7 or end_col > 7 or end_row < 0 or end_col < 0)
 
-        def pawn_specific_board_constraints(self, start_row, start_col, end_row, end_col):
+        def __pawn_specific_board_constraints(self, start_row, start_col, end_row, end_col):
                 piece_to_move = self.board[start_row][start_col]
                 return any([start_col == end_col and isinstance(self.board[end_row][end_col], pawn.Pawn), # cannot move forward one space into another pawn
                         (abs(start_col - end_col) == 1 and abs(start_row - end_row) == 1 and not isinstance(self.board[end_row][end_col], pawn.Pawn)), # can only strike if pawn on target square
