@@ -68,6 +68,12 @@ class TestPawnAllowedMoves:
                 test_board.move(3,2,4,2)
                 assert test_board.show_board()[4][2] == ("p")
                 assert test_board.show_board()[3][2] == ("-")
+
+        def test_pawn_object_can_move_1_space_forward(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,6,5,6)
+                assert test_board.show_board()[5][6] == (test_board.pawn_1)
+                assert test_board.show_board()[6][6] == ("-")
                 
 class TestPawnStriking:
         def test_white_pawn_can_move_forward_left(self, run_before_tests):
@@ -94,6 +100,11 @@ class TestPieceObjects:
         def test_pawn_objects_are_stored_in_board(self, run_before_tests):
                 test_board = run_before_tests
                 assert isinstance(test_board.board[6][6], pawn.Pawn)
+
+        def test_pawn_objects_have_colour_property(self, run_before_tests):
+                test_board = run_before_tests
+                assert test_board.pawn_1.colour == ("Black")
+
                 
         
         
