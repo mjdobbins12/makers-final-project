@@ -73,25 +73,25 @@ class TestPawnAllowedMoves:
 class TestPawnStriking:
         def test_black_pawn_can_move_forward_left(self, run_before_tests):
                 test_board = run_before_tests
-                test_board.move(6,3,4,3)
+                test_board.move(6,4,4,4)
                 test_board.move(1,5,3,5)
-                test_board.move(4,3,3,5)
+                test_board.move(4,4,3,5)
                 assert test_board.show_board()[1][5] == ("-")
-                assert test_board.show_board()[6][3] == ("-")
-                assert test_board.show_board()[4][3] == ("-")
+                assert test_board.show_board()[6][4] == ("-")
+                assert test_board.show_board()[4][4] == ("-")
                 assert isinstance(test_board.board[3][5], pawn.Pawn)
                 assert test_board.board[3][5].colour == "Black"
                 
         def test_white_pawn_can_move_forward_left(self, run_before_tests):
                 test_board = run_before_tests
-                test_board.move(6,3,4,3)
+                test_board.move(6,4,4,4)
                 test_board.move(1,5,3,5)
-                test_board.move(3,5,4,3)
+                test_board.move(3,5,4,4)
                 assert test_board.show_board()[1][5] == ("-")
-                assert test_board.show_board()[6][3] == ("-")
+                assert test_board.show_board()[6][4] == ("-")
                 assert test_board.show_board()[3][5] == ("-")
-                assert isinstance(test_board.board[4][3], pawn.Pawn)
-                assert test_board.board[4][3].colour == "White"
+                assert isinstance(test_board.board[4][4], pawn.Pawn)
+                assert test_board.board[4][4].colour == "White"
 
 
 class TestPieceObjects:
@@ -161,5 +161,14 @@ class TestPawnMoveLength:
                 test_board = run_before_tests
                 test_board.move(6,1,4,1) 
                 with pytest.raises(ValueError, match=r"Invalid Move"):
-                        test_board.move(4,1,2,1)           
+                        test_board.move(4,1,2,1)
+
+        def test_pawn_cannot_strike_2_spaces_away_diagonally(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,1,4,1)
+                test_board.move(1,7,3,7)
+                test_board.move(4,1,3,1)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(1,3,3,1)
+
  
