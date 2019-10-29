@@ -36,7 +36,8 @@ class ChessBoard:
                         isinstance(piece_to_move, pawn.Pawn) and abs(start_row - end_row) > 2, # cannot move more than 2 spaces
                         (start_row != 6 and start_row != 1) and abs(start_row - end_row) >= 2, # cannot move 2 spaces after 1st move
                         (abs(start_col - end_col) == 1 and abs(start_row - end_row) == 1 and not isinstance(self.board[end_row][end_col], pawn.Pawn)), # can only strike if pawn on target square
-                        abs(start_col - end_col) > 1] # can't move diagonally more than 1 space
+                        abs(start_col - end_col) > 1, # can't move diagonally more than 1 space
+                        start_col == end_col and isinstance(self.board[end_row][end_col], pawn.Pawn)]
                         )
 
         

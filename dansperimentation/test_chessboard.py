@@ -177,5 +177,13 @@ class TestPawnMoveLength:
                 test_board.move(4,1,3,1)
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(1,3,3,1)
+                        
+class TestPawnWhenBlocked:
+        def test_pawn_cannot_move_one_space_when_blocked(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,4,4,4)
+                test_board.move(1,4,3,4)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(4,4,3,4)
 
  
