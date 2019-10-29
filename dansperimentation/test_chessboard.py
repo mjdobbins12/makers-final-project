@@ -1,8 +1,10 @@
 import chessboard
+import pawn
 import pytest
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
+        
         test_board = chessboard.ChessBoard()
         return test_board
 
@@ -17,7 +19,7 @@ class TestStartingBoard:
                 ["-","-","-","-","-","-","-","-"],
                 ["-","-","-","-","-","-","-","-"],
                 ["-","-","-","-","-","-","-","-"],
-                ['p','p','p','p','p','p','p','p'],
+                ['p','p','p','p','p','p',test_board.pawn_1,'p'],
                 ["R","N","B","Q","K","B","N","R"]
                 ]
 
@@ -27,7 +29,6 @@ class TestStartingBoard:
                 assert test_board.board[5][3] == ("-")
                 assert test_board.board[7][7] == ("R")
                 assert test_board.board[0][3] != ("p")
-                
                 
 class TestPawnAllowedMoves:
         def test_white_pawn_can_move_1_space_forward(self, run_before_tests):
@@ -88,6 +89,13 @@ class TestPawnStriking:
                 assert test_board.show_board()[6][3] == ("-")
                 assert test_board.show_board()[3][5] == ("-")
                 assert test_board.show_board()[4][3] == ("p")
+                
+class TestPieceObjects:
+        def test_pawn_objects_are_stored_in_board(self, run_before_tests):
+                test_board = run_before_tests
+                assert isinstance(test_board.board[6][6], pawn.Pawn)
+                
+        
         
         
         
