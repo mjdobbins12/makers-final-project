@@ -8,20 +8,10 @@ def run_before_tests():
         test_board = chessboard.ChessBoard()
         return test_board
 
-
 class TestStartingBoard:
         def test_board_displayed(self, run_before_tests):
                 test_board = run_before_tests
-                assert test_board.show_board() == [
-                ["R","N","B","K","Q","B","N","R"],
-                ['p','p','p','p','p','p','p',test_board.pawn_2],
-                ["-","-","-","-","-","-","-","-"],
-                ["-","-","-","-","-","-","-","-"],
-                ["-","-","-","-","-","-","-","-"],
-                ["-","-","-","-","-","-","-","-"],
-                ['p','p','p','p','p','p',test_board.pawn_1,'p'],
-                ["R","N","B","Q","K","B","N","R"]
-                ]
+                assert test_board.show_board() == test_board.board
 
         def test_referencing_board(self, run_before_tests):
                 test_board = run_before_tests
@@ -72,7 +62,7 @@ class TestPawnAllowedMoves:
         def test_pawn_object_can_move_1_space_forward(self, run_before_tests):
                 test_board = run_before_tests
                 test_board.move(6,6,5,6)
-                assert test_board.show_board()[5][6] == (test_board.pawn_1)
+                assert isinstance(test_board.board[5][6], pawn.Pawn)
                 assert test_board.show_board()[6][6] == ("-")
                 
 class TestPawnStriking:
@@ -103,11 +93,11 @@ class TestPieceObjects:
 
         def test_pawn_objects_can_have_colour_property(self, run_before_tests):
                 test_board = run_before_tests
-                assert test_board.pawn_1.colour == ("Black")
+                assert test_board.board[6][6].colour == ("Black")
 
         def test_pawn_objects__can_have_colour_property_white(self, run_before_tests):
                 test_board = run_before_tests
-                assert test_board.pawn_2.colour == ("White")
+                assert test_board.board[1][7].colour == ("White")
 
                 
         
