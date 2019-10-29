@@ -21,15 +21,17 @@ test_board = chessboard.ChessBoard()
 class TestChessBoard:
         def test_board_displayed(self):
                 assert test_board.board == [
-                ["R","N","B","K","Q","B","N","R"],
-                ['p','p','p','p','p','p','p','p'],
-                ["-","-","-","-","-","-","-","-"],
-                ["-","-","-","-","-","-","-","-"],
-                ["-","-","-","-","-","-","-","-"],
-                ["-","-","-","-","-","-","-","-"],
-                ['p','p','p','p','p','p','p','p'],
-                ["R","N","B","Q","K","B","N","R"]
-                ]
+                        ["R","N","B","K","Q","B","N","R"],
+                        [pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),
+                        pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White")],
+                        ["-","-","-","-","-","-","-","-"],
+                        ["-","-","-","-","-","-","-","-"],
+                        ["-","-","-","-","-","-","-","-"],
+                        ["-","-","-","-","-","-","-","-"],
+                        [pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),
+                        pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black")],
+                        ["R","N","B","Q","K","B","N","R"]
+                        ]
 
         @pytest.fixture
         def test_move(capfd):

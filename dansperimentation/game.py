@@ -39,6 +39,6 @@ class Game:
             print(self.p2_name + "'s turn!")
 
     def execute_turn(self, turn_from_x, turn_from_y, turn_to_x, turn_to_y):
-        self.board.move(int(turn_from_x), int(turn_from_y), int(turn_to_x), int(turn_to_y))
+        self.board.move(int(turn_from_y), int(turn_from_x), int(turn_to_y), int(turn_to_x))
         self.board.show_board(self.p1_name, self.p2_name)
         self.p1_turn = not self.p1_turn
