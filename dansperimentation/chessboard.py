@@ -2,10 +2,11 @@ import pawn
     
 class ChessBoard:
     def __init__(self):
-        self.pawn_1 = pawn.Pawn()
+        self.pawn_1 = pawn.Pawn("Black")
+        self.pawn_2 = pawn.Pawn("White")
         self.board = [
             ["R","N","B","K","Q","B","N","R"],
-            ['p','p','p','p','p','p','p','p'],
+            ['p','p','p','p','p','p','p',self.pawn_2],
             ["-","-","-","-","-","-","-","-"],
             ["-","-","-","-","-","-","-","-"],
             ["-","-","-","-","-","-","-","-"],

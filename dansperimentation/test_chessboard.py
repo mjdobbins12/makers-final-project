@@ -14,7 +14,7 @@ class TestStartingBoard:
                 test_board = run_before_tests
                 assert test_board.show_board() == [
                 ["R","N","B","K","Q","B","N","R"],
-                ['p','p','p','p','p','p','p','p'],
+                ['p','p','p','p','p','p','p',test_board.pawn_2],
                 ["-","-","-","-","-","-","-","-"],
                 ["-","-","-","-","-","-","-","-"],
                 ["-","-","-","-","-","-","-","-"],
@@ -101,9 +101,13 @@ class TestPieceObjects:
                 test_board = run_before_tests
                 assert isinstance(test_board.board[6][6], pawn.Pawn)
 
-        def test_pawn_objects_have_colour_property(self, run_before_tests):
+        def test_pawn_objects_can_have_colour_property(self, run_before_tests):
                 test_board = run_before_tests
                 assert test_board.pawn_1.colour == ("Black")
+
+        def test_pawn_objects__can_have_colour_property_white(self, run_before_tests):
+                test_board = run_before_tests
+                assert test_board.pawn_2.colour == ("White")
 
                 
         
