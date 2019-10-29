@@ -1,7 +1,10 @@
 class Pawn:
         def __init__(self, colour):
                 self.colour = colour
-                self.name = 'p'
+                if self.colour == "Black":
+                        self.name = '♟'
+                elif self.colour == "White":
+                        self.name = "♙"
         
         def illegal_directions(self, start_row, start_col, end_row, end_col):
                 return any([self.colour == "Black" and end_row > start_row,
