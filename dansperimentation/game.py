@@ -18,9 +18,6 @@ class Game:
         print(self.p1_name + ' vs. ' + self.p2_name)
         print(self.board.show_board())
 
-    def get_names2(self):
-        self.p1_name = self.input('test')
-
     def run_turns(self):
         while True:
             self.announce_whose_turn()

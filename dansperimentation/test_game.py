@@ -5,7 +5,7 @@ test_game = game.Game()
 
 class TestGame:
         def test_game_to_have_board_init(self):
-                assert test_game.board.show_board() == [
+                assert test_game.board.board == [
                 ["R","N","B","K","Q","B","N","R"],
                 ['p','p','p','p','p','p','p','p'],
                 ["-","-","-","-","-","-","-","-"],
