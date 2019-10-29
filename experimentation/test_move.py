@@ -18,7 +18,6 @@ class TestMove:
     		['B','B','B','B','B','B','B','B']
             ]
 
-
     def test_blocking(self):
         with pytest.raises(Exception) as excinfo:
             board1.grid[1][1] = '+'

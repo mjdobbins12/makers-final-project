@@ -3,18 +3,23 @@ class Board:
 	black_pieces = ['pb']
 
 	grid = [
-		['*','B','B','B','B','B','B','B'],
-        ['B','B','B','B','B','B','B','B'],
-        ['B','B','B','B','B','B','B','B'],
-        ['B','B','B','B','B','B','B','B'],
-        ['B','B','B','B','B','B','B','B'],
-        ['B','B','B','B','B','B','B','B'],
-        ['B','B','B','B','B','B','B','B'],
-		['B','B','B','B','B','B','B','B']
+		["R","N","B","Q","K","B","N","R"],
+        ['p','p','p','p','p','p','p','p'],
+        [" "," "," "," "," "," "," "," "],
+        [" "," "," "," "," "," "," "," "],
+        [" "," "," "," "," "," "," "," "],
+        [" "," "," "," "," "," "," "," "],
+        ['p','p','p','p','p','p','p','p'],
+        ["R","N","B","Q","K","B","N","R"]
         ]
 
 	def show_board(self):
-		return self.grid
+		print("_" * 33)
+		for row in self.grid:
+			x = " | "
+			print(f"\n| {x.join(row)} |")
+		print("￣" * 17)
+
 
 	def move(self, start_r, start_c, finish_r, finish_c):
 		if self.is_destination_free(finish_r, finish_c):
@@ -35,8 +40,8 @@ class Pawn:
 	def move(self, start_r, start_c, finish_r, finish_c):
 		range(start_r, start_c)
 
-	def range:
-		options.extend([(start_r + 1), (start_c + 1)])
+	def range(start_r, start_c):
+		self.options.extend([(start_r + 1, start_c + 1)])
 
 # board = Board()
 # p8 = Pawn('white')
