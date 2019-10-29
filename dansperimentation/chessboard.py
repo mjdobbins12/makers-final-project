@@ -34,3 +34,6 @@ class ChessBoard:
         if isinstance(piece_to_move, pawn.Pawn) and abs(start_row - end_row) > 2:
             raise ValueError("Invalid Move")
         
+        if (start_row != 6 and start_row != 1) and abs(start_row - end_row) >= 2:
+             raise ValueError("Invalid Move")
+        

@@ -136,4 +136,10 @@ class TestPawnMoveLength:
                 test_board = run_before_tests
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(6,1,3,1)
+                        
+        def test_pawn_cannot_move_2_spaces_twice(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,1,4,1) 
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(4,1,2,1)           
  
