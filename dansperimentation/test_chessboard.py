@@ -10,7 +10,7 @@ def run_before_tests():
 class TestStartingBoard:
         def test_board_displayed(self, run_before_tests):
                 test_board = run_before_tests
-                assert test_board.show_board() == test_board.board
+                assert test_board.board == test_board.board
 
         def test_referencing_board(self, run_before_tests):
                 test_board = run_before_tests
@@ -25,28 +25,28 @@ class TestPawnAllowedMoves:
                 test_board.move(6,1,5,1)
                 assert isinstance(test_board.board[5][1], pawn.Pawn)
                 assert test_board.board[5][1].colour == "Black"
-                assert test_board.show_board()[6][1] == ("-")
+                assert test_board.board[6][1] == ("-")
 
         def test_white_pawn_can_move_1_space_forward(self, run_before_tests):
                 test_board = run_before_tests
                 test_board.move(1,2,2,2)
                 assert isinstance(test_board.board[2][2], pawn.Pawn)
                 assert test_board.board[2][2].colour == "White"
-                assert test_board.show_board()[1][2] == ('-')
+                assert test_board.board[1][2] == ('-')
 
         def test_black_pawn_can_move_2_spaces_forward(self, run_before_tests):
                 test_board = run_before_tests
                 test_board.move(6,1,4,1)
                 assert isinstance(test_board.board[4][1], pawn.Pawn)
                 assert test_board.board[4][1].colour == "Black"
-                assert test_board.show_board()[6][1] == ("-")
+                assert test_board.board[6][1] == ("-")
 
         def test_white_pawn_can_move_2_spaces_forward(self, run_before_tests):
                 test_board = run_before_tests
                 test_board.move(1,2,3,2)
                 assert isinstance(test_board.board[3][2], pawn.Pawn)
                 assert test_board.board[3][2].colour == "White"
-                assert test_board.show_board()[1][2] == ('-')
+                assert test_board.board[1][2] == ('-')
                 
         def test_black_pawn_can_move_1_further_space_forward(self, run_before_tests):
                 test_board = run_before_tests
@@ -54,7 +54,7 @@ class TestPawnAllowedMoves:
                 test_board.move(4,1,3,1)
                 assert isinstance(test_board.board[3][1], pawn.Pawn)
                 assert test_board.board[3][1].colour == "Black"
-                assert test_board.show_board()[4][1] == ("-")
+                assert test_board.board[4][1] == ("-")
                 
         def test_white_pawn_can_move_1_further_space_forward(self, run_before_tests):
                 test_board = run_before_tests
@@ -62,13 +62,13 @@ class TestPawnAllowedMoves:
                 test_board.move(3,2,4,2)
                 assert isinstance(test_board.board[4][2], pawn.Pawn)
                 assert test_board.board[4][2].colour == "White"
-                assert test_board.show_board()[3][2] == ("-")
+                assert test_board.board[3][2] == ("-")
 
         def test_pawn_object_can_move_1_space_forward(self, run_before_tests):
                 test_board = run_before_tests
                 test_board.move(6,6,5,6)
                 assert isinstance(test_board.board[5][6], pawn.Pawn)
-                assert test_board.show_board()[6][6] == ("-")
+                assert test_board.board[6][6] == ("-")
                 
 class TestPawnStriking:
         def test_black_pawn_can_move_forward_left(self, run_before_tests):
@@ -76,9 +76,9 @@ class TestPawnStriking:
                 test_board.move(6,4,4,4)
                 test_board.move(1,5,3,5)
                 test_board.move(4,4,3,5)
-                assert test_board.show_board()[1][5] == ("-")
-                assert test_board.show_board()[6][4] == ("-")
-                assert test_board.show_board()[4][4] == ("-")
+                assert test_board.board[1][5] == ("-")
+                assert test_board.board[6][4] == ("-")
+                assert test_board.board[4][4] == ("-")
                 assert isinstance(test_board.board[3][5], pawn.Pawn)
                 assert test_board.board[3][5].colour == "Black"
                 
@@ -87,9 +87,9 @@ class TestPawnStriking:
                 test_board.move(6,4,4,4)
                 test_board.move(1,5,3,5)
                 test_board.move(3,5,4,4)
-                assert test_board.show_board()[1][5] == ("-")
-                assert test_board.show_board()[6][4] == ("-")
-                assert test_board.show_board()[3][5] == ("-")
+                assert test_board.board[1][5] == ("-")
+                assert test_board.board[6][4] == ("-")
+                assert test_board.board[3][5] == ("-")
                 assert isinstance(test_board.board[4][4], pawn.Pawn)
                 assert test_board.board[4][4].colour == "White"
 
