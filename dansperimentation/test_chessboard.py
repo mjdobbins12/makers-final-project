@@ -7,7 +7,7 @@ def run_before_tests():
         return test_board
 
 
-class TestChessBoard:
+class TestStartingBoard:
         def test_board_displayed(self, run_before_tests):
                 test_board = run_before_tests
                 assert test_board.show_board() == [
@@ -27,7 +27,9 @@ class TestChessBoard:
                 assert test_board.board[5][3] == ("-")
                 assert test_board.board[7][7] == ("R")
                 assert test_board.board[0][3] != ("p")
-
+                
+                
+class TestPawnAllowedMoves:
         def test_white_pawn_can_move_1_space_forward(self, run_before_tests):
                 test_board = run_before_tests
                 test_board.move(6,1,5,1)
@@ -40,7 +42,6 @@ class TestChessBoard:
                 assert test_board.show_board()[2][2] == ('p')
                 assert test_board.show_board()[1][2] == ('-')
 
-
         def test_white_pawn_can_move_2_spaces_forward(self, run_before_tests):
                 test_board = run_before_tests
                 test_board.move(6,1,4,1)
@@ -52,6 +53,51 @@ class TestChessBoard:
                 test_board.move(1,2,3,2)
                 assert test_board.show_board()[3][2] == ('p')
                 assert test_board.show_board()[1][2] == ('-')
+                
+        def test_white_pawn_can_move_1_further_space_forward(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,1,4,1)
+                test_board.move(4,1,3,1)
+                assert test_board.show_board()[3][1] == ("p")
+                assert test_board.show_board()[4][1] == ("-")
+                
+        def test_black_pawn_can_move_1_further_space_forward(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(1,2,3,2)
+                test_board.move(3,2,4,2)
+                assert test_board.show_board()[4][2] == ("p")
+                assert test_board.show_board()[3][2] == ("-")
+                
+class TestPawnStriking:
+        def test_white_pawn_can_move_forward_left(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,3,4,3)
+                test_board.move(1,5,3,5)
+                test_board.move(4,3,3,5)
+                assert test_board.show_board()[1][5] == ("-")
+                assert test_board.show_board()[6][3] == ("-")
+                assert test_board.show_board()[4][3] == ("-")
+                assert test_board.show_board()[3][5] == ("p")
+                
+        def test_black_pawn_can_move_forward_left(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,3,4,3)
+                test_board.move(1,5,3,5)
+                test_board.move(3,5,4,3)
+                assert test_board.show_board()[1][5] == ("-")
+                assert test_board.show_board()[6][3] == ("-")
+                assert test_board.show_board()[3][5] == ("-")
+                assert test_board.show_board()[4][3] == ("p")
+        
+        
+        
+        
+        
+                
+        
+
+                
+                
                 
         
         
