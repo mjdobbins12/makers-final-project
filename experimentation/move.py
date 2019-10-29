@@ -1,4 +1,7 @@
 class Board:
+	white_pieces = ['pw']
+	black_pieces = ['pb']
+
 	grid = [
 		['*','B','B','B','B','B','B','B'],
         ['B','B','B','B','B','B','B','B'],
@@ -24,8 +27,16 @@ class Board:
 		return self.grid[finish_r][finish_c] == 'B'
 
 class Pawn:
+	options = []
+
 	def __init__(self, color):
 		self.color = color
+
+	def move(self, start_r, start_c, finish_r, finish_c):
+		range(start_r, start_c)
+
+	def range:
+		options.extend([(start_r + 1), (start_c + 1)])
 
 # board = Board()
 # p8 = Pawn('white')
