@@ -13,25 +13,7 @@ class TestStartingBoard:
                 test_board = run_before_tests
                 assert test_board.board == test_board.board
 
-        def test_referencing_board(self, run_before_tests):
-                test_board = run_before_tests
-
-test_board = chessboard.ChessBoard()
-
 class TestChessBoard:
-        def test_board_displayed(self):
-                assert test_board.board == [
-                        ["R","N","B","K","Q","B","N","R"],
-                        [pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),
-                        pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White")],
-                        ["-","-","-","-","-","-","-","-"],
-                        ["-","-","-","-","-","-","-","-"],
-                        ["-","-","-","-","-","-","-","-"],
-                        ["-","-","-","-","-","-","-","-"],
-                        [pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),
-                        pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black")],
-                        ["R","N","B","Q","K","B","N","R"]
-                        ]
 
         @pytest.fixture
         def test_move(capfd):

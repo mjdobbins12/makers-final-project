@@ -5,19 +5,6 @@ import pawn
 test_game = game.Game()
 
 class TestGame:
-        def test_game_to_have_board_init(self):
-                assert test_game.board.board == [
-                        ["R","N","B","K","Q","B","N","R"],
-                        [pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),
-                        pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White")],
-                        ["-","-","-","-","-","-","-","-"],
-                        ["-","-","-","-","-","-","-","-"],
-                        ["-","-","-","-","-","-","-","-"],
-                        ["-","-","-","-","-","-","-","-"],
-                        [pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),
-                        pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black")],
-                        ["R","N","B","Q","K","B","N","R"]
-                        ]
 
         def test_game_to_have_player_1_start(self):
             assert test_game.p1_turn == True
