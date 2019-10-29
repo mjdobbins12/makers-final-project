@@ -21,13 +21,18 @@ class ChessBoard:
             print(p2_name)
             print("_" * 33)
             for row in self.board:
-                x = " | "
-                print(f"| {x.join(row)} |")
+                x = "|"
+                for el in row:
+                    if isinstance(el, pawn.Pawn):
+                        x += f" {el.name} |"
+                    else:
+                        x += f" {el} |"
+                print(x)
                 print("-" * 33)
             print(p1_name)
             print('')
 
-        def move(self, start_row, start_col, end_row, end_col):      
+        def move(self, start_row, start_col, end_row, end_col):
                 if self.invalid_move(start_row, start_col, end_row, end_col):
                         raise ValueError("Invalid Move")
                 piece_to_move = self.board[start_row][start_col]
@@ -51,4 +56,3 @@ class ChessBoard:
                         piece_to_move.colour == "White" and abs(end_row - start_row) == 2 and isinstance(self.board[end_row-1][end_col], pawn.Pawn)# white cannot jump over pawn
                         ]
                         )
-
