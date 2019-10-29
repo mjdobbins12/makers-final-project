@@ -14,5 +14,8 @@ class ChessBoard:
         return self.board
 
     def move(self, start_row, start_col, end_row, end_col):
+        piece_to_move = self.board[start_row][start_col]
         self.board[start_row][start_col] = "-"
-        self.board[end_row][end_col] = "-"
+        self.board[end_row][end_col] = piece_to_move
+        if piece_to_move == 'p' and abs(start_row - end_row) > 2:
+            raise ValueError("Invalid Move")
