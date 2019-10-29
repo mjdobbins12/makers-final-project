@@ -130,25 +130,10 @@ class TestBoardBoundaries:
                 test_board = run_before_tests
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(7,7,7,8)
-                
-                
-        
-        
-        
-        
-        
-                
-        
 
-                
-                
-                
-        
-        
-
-
-
-        # def test_pawn_cannot_move_3_spaces(self):
-        #         with pytest.raises(ValueError, match=r"Invalid Move"):
-        #                 test_board.move(6,1,3,1)
+class TestPawnMoveLength:
+        def test_pawn_cannot_move_3_spaces(self, run_before_tests):
+                test_board = run_before_tests
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(6,1,3,1)
  
