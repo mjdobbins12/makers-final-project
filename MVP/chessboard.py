@@ -3,15 +3,15 @@ import pawn
 class ChessBoard:
         def __init__(self):
                 self.board = [
-                        ["R","N","B","K","Q","B","N","R"],
-                        [pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),
-                        pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White")],
-                        ["-","-","-","-","-","-","-","-"],
-                        ["-","-","-","-","-","-","-","-"],
-                        ["-","-","-","-","-","-","-","-"],
-                        ["-","-","-","-","-","-","-","-"],
+                        ["R","N","B","Q","K","B","N","R"],
                         [pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),
                         pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black")],
+                        ["-","-","-","-","-","-","-","-"],
+                        ["-","-","-","-","-","-","-","-"],
+                        ["-","-","-","-","-","-","-","-"],
+                        ["-","-","-","-","-","-","-","-"],
+                        [pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),
+                        pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White")],
                         ["R","N","B","Q","K","B","N","R"]
                         ]
 
@@ -19,7 +19,9 @@ class ChessBoard:
         def show_board(self, p1_name, p2_name):
             print('')
             print(p2_name)
+            print("| a | b | c | d | e | f | g | h |")
             print("_" * 33)
+            ind = 8
             for row in self.board:
                 x = "|"
                 for el in row:
@@ -27,6 +29,8 @@ class ChessBoard:
                         x += f" {el.name} |"
                     else:
                         x += f" {el} |"
+                x += f" {ind}"
+                ind -= 1
                 print(x)
                 print("-" * 33)
             print(p1_name)
@@ -60,7 +64,7 @@ class ChessBoard:
                 piece_to_move = self.board[start_row][start_col]
                 return any([start_col == end_col and isinstance(self.board[end_row][end_col], pawn.Pawn), # cannot move forward one space into another pawn
                         (abs(start_col - end_col) == 1 and abs(start_row - end_row) == 1 and not isinstance(self.board[end_row][end_col], pawn.Pawn)), # can only strike if pawn on target square
-                        piece_to_move.colour == "Black" and abs(end_row - start_row) == 2 and isinstance(self.board[end_row+1][end_col], pawn.Pawn), # black cannot jump over pawn
-                        piece_to_move.colour == "White" and abs(end_row - start_row) == 2 and isinstance(self.board[end_row-1][end_col], pawn.Pawn) # white cannot jump over pawn
+                        piece_to_move.colour == "White" and abs(end_row - start_row) == 2 and isinstance(self.board[end_row+1][end_col], pawn.Pawn), # black cannot jump over pawn
+                        piece_to_move.colour == "Black" and abs(end_row - start_row) == 2 and isinstance(self.board[end_row-1][end_col], pawn.Pawn) # white cannot jump over pawn
                         ]
                         )
