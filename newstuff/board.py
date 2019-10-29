@@ -25,7 +25,7 @@ class Board:
 			raise Exception("Invalid move")
 
 	def is_destination_free(self, finish_r, finish_c):
-		return self.grid[finish_r][finish_c] == 'B'
+		return self.grid[finish_r][finish_c] == ' '
 
 class Pawn:
 	options = []
