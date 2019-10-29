@@ -17,20 +17,20 @@ class ChessBoard:
 
 
         def show_board(self, p1_name, p2_name):
-                print('')
-                print(p2_name)
-                print("_" * 33)
-                for row in self.board:
-                        x = "|"
-                        for el in row:
-                                if isinstance(el, pawn.Pawn):
-                                        x += f" {el.name} |"
-                                else:
-                                        x += f" {el} |"
+            print('')
+            print(p2_name)
+            print("_" * 33)
+            for row in self.board:
+                x = "|"
+                for el in row:
+                    if isinstance(el, pawn.Pawn):
+                        x += f" {el.name} |"
+                    else:
+                        x += f" {el} |"
                 print(x)
                 print("-" * 33)
-                print(p1_name)
-                print('')
+            print(p1_name)
+            print('')
 
         def move(self, start_row, start_col, end_row, end_col):
                 if self.__invalid_move(start_row, start_col, end_row, end_col):
