@@ -110,15 +110,25 @@ class TestPieceObjects:
         
 
 class TestPawnDirection:
-        def test_black_pawn_can_only_move_forwards(self, run_before_tests):
+        def test_black_pawn_cannot_move_backwards(self, run_before_tests):
                 test_board = run_before_tests
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(6,1,7,1)
 
-        def test_white_pawn_can_only_move_forwards(self, run_before_tests):
+        def test_white_pawn_cannot_move_backwards(self, run_before_tests):
                 test_board = run_before_tests
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(1,1,0,1)
+                        
+        def test_black_pawn_cannot_move_sideways(self, run_before_tests):
+                test_board = run_before_tests
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(6,1,6,2)
+                        
+        def test_white_pawn_cannot_move_sideways(self, run_before_tests):
+                test_board = run_before_tests
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(1,1,1,2)
 
 class TestBoardBoundaries:
         def test_pawn_cannot_move_outside_rows(self, run_before_tests):

@@ -23,12 +23,16 @@ class ChessBoard:
             raise ValueError("Invalid Move")
         
         piece_to_move = self.board[start_row][start_col]
-        self.board[start_row][start_col] = "-"
-        self.board[end_row][end_col] = piece_to_move
 
         if piece_to_move.colour == "Black" and end_row > start_row:
             raise ValueError("Invalid Move")
         if piece_to_move.colour == "White" and end_row < start_row:
+            raise ValueError("Invalid Move")
+        
+        if piece_to_move.colour == "Black" and start_row == end_row:
+            raise ValueError("Invalid Move")
+        
+        if piece_to_move.colour == "White" and start_row == end_row:
             raise ValueError("Invalid Move")
         
         if isinstance(piece_to_move, pawn.Pawn) and abs(start_row - end_row) > 2:
@@ -36,4 +40,7 @@ class ChessBoard:
         
         if (start_row != 6 and start_row != 1) and abs(start_row - end_row) >= 2:
              raise ValueError("Invalid Move")
+         
+        self.board[start_row][start_col] = "-"
+        self.board[end_row][end_col] = piece_to_move
         
