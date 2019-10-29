@@ -4,12 +4,14 @@ class ChessBoard:
     def __init__(self):
         self.board = [
             ["R","N","B","K","Q","B","N","R"],
-            ['p','p','p','p','p','p','p',pawn.Pawn("White")],
+            [pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),
+            pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White")],
             ["-","-","-","-","-","-","-","-"],
             ["-","-","-","-","-","-","-","-"],
             ["-","-","-","-","-","-","-","-"],
             ["-","-","-","-","-","-","-","-"],
-            ['p','p','p','p','p','p',pawn.Pawn("Black"),'p'],
+            [pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),
+            pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black")],
             ["R","N","B","Q","K","B","N","R"]
             ]
 
