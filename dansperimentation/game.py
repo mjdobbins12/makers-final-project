@@ -13,10 +13,10 @@ class Game:
         self.run_turns()
 
     def get_names(self):
-        self.p1_name = self.input("Enter player 1 name: ")
-        self.p2_name = self.input("Enter player 2 name: ")
+        self.p1_name = input("Enter player 1 name: ")
+        self.p2_name = input("Enter player 2 name: ")
         print(self.p1_name + ' vs. ' + self.p2_name)
-        self.board.show_board()
+        self.board.show_board(self.p1_name, self.p2_name)
 
     def run_turns(self):
         while True:
@@ -40,5 +40,5 @@ class Game:
 
     def execute_turn(self, turn_from_x, turn_from_y, turn_to_x, turn_to_y):
         self.board.move(int(turn_from_x), int(turn_from_y), int(turn_to_x), int(turn_to_y))
-        self.board.show_board()
+        self.board.show_board(self.p1_name, self.p2_name)
         self.p1_turn = not self.p1_turn
