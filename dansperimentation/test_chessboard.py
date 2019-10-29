@@ -133,13 +133,23 @@ class TestPawnDirection:
 class TestBoardBoundaries:
         def test_pawn_cannot_move_outside_rows(self, run_before_tests):
                 test_board = run_before_tests
+                test_board.move(6,4,4,4)
+                test_board.move(1,5,3,5)
+                test_board.move(4,4,3,5)
+                test_board.move(1,7,3,7)
+                test_board.move(3,5,2,5)
+                test_board.move(3,7,4,7)
+                test_board.move(2,5,1,5)
+                test_board.move(1,0,3,0)
+                test_board.move(1,5,0,5)
+                test_board.move(3,0,4,0)
                 with pytest.raises(ValueError, match=r"Invalid Move"):
-                        test_board.move(7,1,8,1)
+                        test_board.move(0,5,-1,5)
                         
         def test_pawn_cannot_move_outside_columns(self, run_before_tests):
                 test_board = run_before_tests
                 with pytest.raises(ValueError, match=r"Invalid Move"):
-                        test_board.move(7,7,7,8)
+                        test_board.move(6,7,6,8)
 
 class TestPawnMoveLength:
         def test_pawn_cannot_move_3_spaces(self, run_before_tests):
