@@ -119,10 +119,19 @@ class TestPawnDirection:
                 test_board = run_before_tests
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(1,1,0,1)
-# class TestBoardBoundaries:
-#         def test_pawn_cannot_move_
-        
-        
+
+class TestBoardBoundaries:
+        def test_pawn_cannot_move_outside_rows(self, run_before_tests):
+                test_board = run_before_tests
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(7,1,8,1)
+                        
+        def test_pawn_cannot_move_outside_columns(self, run_before_tests):
+                test_board = run_before_tests
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(7,7,7,8)
+                
+                
         
         
         

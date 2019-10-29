@@ -18,7 +18,10 @@ class ChessBoard:
     def show_board(self):
         return self.board
 
-    def move(self, start_row, start_col, end_row, end_col):
+    def move(self, start_row, start_col, end_row, end_col):      
+        if end_row > 7 or end_col > 7:
+            raise ValueError("Invalid Move")
+        
         piece_to_move = self.board[start_row][start_col]
         self.board[start_row][start_col] = "-"
         self.board[end_row][end_col] = piece_to_move
@@ -30,3 +33,4 @@ class ChessBoard:
             raise ValueError("Invalid Move")
         if piece_to_move.colour == "White" and end_row < start_row:
             raise ValueError("Invalid Move")
+        
