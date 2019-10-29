@@ -14,7 +14,6 @@ class TestStartingBoard:
                 assert test_board.board == test_board.board
 
 class TestChessBoard:
-
         @pytest.fixture
         def test_move(capfd):
                 board.move(1,0,2,0)
@@ -133,7 +132,6 @@ class TestPieceObjects:
                 test_board = run_before_tests
                 assert test_board.board[1][7].colour == ("White")
 
-        
 
 class TestPawnDirection:
         def test_black_pawn_cannot_move_backwards(self, run_before_tests):
