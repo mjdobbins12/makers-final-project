@@ -23,5 +23,10 @@ class ChessBoard:
         self.board[start_row][start_col] = "-"
         self.board[end_row][end_col] = piece_to_move
 
-        if piece_to_move == 'p' and abs(start_row - end_row) > 2:
+        # if piece_to_move == 'p' and abs(start_row - end_row) > 2:
+        #     raise ValueError("Invalid Move")
+
+        if piece_to_move.colour == "Black" and end_row > start_row:
+            raise ValueError("Invalid Move")
+        if piece_to_move.colour == "White" and end_row < start_row:
             raise ValueError("Invalid Move")
