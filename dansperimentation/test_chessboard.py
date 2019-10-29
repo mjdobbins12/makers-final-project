@@ -93,6 +93,13 @@ class TestPawnStriking:
                 assert isinstance(test_board.board[4][4], pawn.Pawn)
                 assert test_board.board[4][4].colour == "White"
 
+        def test_pawn_can_only_move_diagonally_to_strike(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,4,4,4)
+                test_board.move(1,0,3,0)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(4,4,3,3)
+
 
 class TestPieceObjects:
         def test_pawn_objects_are_stored_in_board(self, run_before_tests):
