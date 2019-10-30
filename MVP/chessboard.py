@@ -73,23 +73,23 @@ class ChessBoard:
                         )
 
         def __rook_specific_board_constraints(self, start_row, start_col, end_row, end_col):
+                return any([(self.__check__if_row_or_column_blocked(start_row, start_col, end_row, end_col)),
+                        ]
+                        )
+
+        def __check__if_row_or_column_blocked(self, start_row, start_col, end_row, end_col):
                 piece_to_move = self.board[start_row][start_col]
                 if isinstance(piece_to_move, rook.Rook):
                         if start_row == end_row:
                                 squares_between = list(range(start_col + 1, end_col))
                                 for element in squares_between:
                                         element = self.board[start_row][element]
+                                return (any(isinstance(x, piece.Piece)) for x in squares_between)
                         else:
                                 if start_row > end_row:
                                         squares_between = list(range(end_row, start_row))
-                                        print(squares_between)
                                 else:
                                         squares_between = list(range(start_row + 1, end_row))
-                                        print(squares_between)
                                 for element in squares_between:
                                         element = self.board[element][start_col]
-                                        print(element)
-                                
-                        return any([(any(isinstance(x, piece.Piece)) for x in squares_between),
-                                ]
-                                )
+                                return (any(isinstance(x, piece.Piece)) for x in squares_between)
