@@ -224,7 +224,7 @@ class TestRookCanMoveAsNormal:
                         test_board.move(7,0,5,0)
 
 class TestRookTaking:
-        def test_rook_can_take_piece(self, run_before_tests):
+        def test_rook_can_take_piece_upwards(self, run_before_tests):
                 test_board = run_before_tests
                 test_board.move(6,0,4,0)
                 test_board.move(1,5,3,5)
@@ -234,7 +234,7 @@ class TestRookTaking:
                 test_board.move(1,7,3,7)
                 test_board.move(5,5,4,5)
 
-        def test_rook_can_take_piece(self, run_before_tests):
+        def test_rook_can_take_piece_rightwards(self, run_before_tests):
                 test_board = run_before_tests
                 test_board.move(6,0,4,0)
                 test_board.move(1,5,3,5)
@@ -243,6 +243,16 @@ class TestRookTaking:
                 test_board.move(6,7,4,7)
                 test_board.move(4,5,5,5)
                 test_board.move(5,0,5,5)
+
+        def test_rook_can_take_piece_leftwards(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,7,4,7)
+                test_board.move(1,5,3,5)
+                test_board.move(7,7,5,7)
+                test_board.move(3,5,4,5)
+                test_board.move(6,0,4,0)
+                test_board.move(4,5,5,5)
+                test_board.move(5,7,5,5)
 
 
         def test_rook_cannot_take_own_piece(self, run_before_tests):
