@@ -58,6 +58,12 @@ class ChessBoard:
                                 self.__pawn_specific_board_constraints(start_row, start_col, end_row, end_col) # references board to check possibility of moves
                                 ]
                                 )
+                elif piece_to_move.name == "Knight":
+                         return any(
+                                [self.__check_within_board_boundary(end_row,end_col),
+                                piece_to_move.illegal_directions(start_row, start_col, end_row, end_col), # checks knight allowed vectors
+                                ]
+                                )
 
 
         def __check_within_board_boundary(self, end_row, end_col):
