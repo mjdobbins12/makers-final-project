@@ -209,6 +209,12 @@ class TestRookWhenBlocked:
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(7,0,3,0)
 
+        def test_rook_cannot_move_jump_over_piece(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(1,0,3,0)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(0,0,5,0)
+
 # class TestRookMovement:
 #         def test_rook_cannot_move_jump_over_piece(self, run_before_tests):
 #                 test_board = run_before_tests
