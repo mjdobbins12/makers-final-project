@@ -128,6 +128,11 @@ class TestPawnDirection:
                 test_board = run_before_tests
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(1,1,1,2)
+                        
+        def test_white_pawn_cannot_move_2_spaces_forward_and_sideways(self, run_before_tests):
+                test_board = run_before_tests
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(1,2,3,3)
 
 class TestBoardBoundaries:
         def test_pawn_cannot_move_outside_rows(self, run_before_tests):

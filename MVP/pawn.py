@@ -12,6 +12,7 @@ class Pawn:
                         start_row == end_row, # cannot move sideways
                         abs(start_row - end_row) > 2, # cannot move more than 2 spaces
                         (start_row != 6 and start_row != 1) and abs(start_row - end_row) >= 2, # cannot move 2 spaces after 1st move
-                        abs(start_col - end_col) > 1 # can't move diagonally more than 1 space
+                        abs(start_col - end_col) > 1, # can't move diagonally more than 1 space
+                        abs(start_row - end_row) == 2 and start_col != end_col # can't move two spaces forward and sideways
                         ]
                         )
