@@ -16,7 +16,11 @@ class Bishop(Piece):
             ])
 
     def __bishop_specific_board_constraints(self, board, start_row, start_col, end_row, end_col):
-                return (self.__check_if_diagonal_blocked(board, start_row, start_col, end_row, end_col))
+                piece_to_move = board[start_row][start_col]
+                return any([
+                    (self.__check_if_diagonal_blocked(board, start_row, start_col, end_row, end_col)),
+                    (isinstance(board[end_row][end_col], Piece) and board[end_row][end_col].colour == piece_to_move.colour),
+                ])
 
     def __check_if_diagonal_blocked(self, board, start_row, start_col, end_row, end_col):
             if start_row < end_row and start_col < end_col:
