@@ -89,7 +89,7 @@ class ChessBoard:
                                 return True
                 else:
                         if start_row > end_row:
-                                squares_between = list(range(end_row, start_row))
+                                squares_between = list(range(end_row + 1, start_row))
                         else:
                                 squares_between = list(range(start_row + 1, end_row))
                         squares_between[:] = [self.board[element][start_col] for element in squares_between]
