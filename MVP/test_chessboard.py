@@ -1,7 +1,7 @@
 import chessboard
 import pawn
 import pytest
-
+from piece import Piece
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
@@ -155,10 +155,10 @@ class TestBoardBoundaries:
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(6,7,6,8)
 
-        # the below test seems not to be running?
-        def pawn_can_move_2_spaces_forward(self):
+        def test_pawn_can_move_2_spaces_forward(self, run_before_tests):
+                test_board = run_before_tests
                 test_board.move(6,1,4,1)
-                assert test_board.board[4][1] == ("p")
+                assert isinstance(test_board.board[4][1], pawn.Pawn)
                 assert test_board.board[6][1] == ("-")
 
 
@@ -200,3 +200,65 @@ class TestPawnWhenBlocked:
                 test_board.move(4,4,5,4)
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(6,4,4,4)
+
+
+class TestRookWhenBlocked:
+        def test_rook_cannot_move_jump_over_piece(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,0,4,0)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(7,0,3,0)
+
+        def test_rook_cannot_move_jump_over_piece(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(1,0,3,0)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(0,0,5,0)
+
+
+class TestRookCanMoveAsNormal:
+        def test_rook_can_move_normally(self, run_before_tests):
+                        test_board = run_before_tests
+                        test_board.move(6,0,4,0)
+                        test_board.move(1,5,3,5)
+                        test_board.move(7,0,5,0)
+
+class TestRookTaking:
+        def test_rook_can_take_piece_upwards(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,0,4,0)
+                test_board.move(1,5,3,5)
+                test_board.move(7,0,5,0)
+                test_board.move(3,5,4,5)
+                test_board.move(5,0,5,5)
+                test_board.move(1,7,3,7)
+                test_board.move(5,5,4,5)
+
+        def test_rook_can_take_piece_rightwards(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,0,4,0)
+                test_board.move(1,5,3,5)
+                test_board.move(7,0,5,0)
+                test_board.move(3,5,4,5)
+                test_board.move(6,7,4,7)
+                test_board.move(4,5,5,5)
+                test_board.move(5,0,5,5)
+
+        def test_rook_can_take_piece_leftwards(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,7,4,7)
+                test_board.move(1,5,3,5)
+                test_board.move(7,7,5,7)
+                test_board.move(3,5,4,5)
+                test_board.move(6,0,4,0)
+                test_board.move(4,5,5,5)
+                test_board.move(5,7,5,5)
+
+
+        def test_rook_cannot_take_own_piece(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,0,4,0)
+                test_board.move(1,0,3,0)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(7,0,4,0)
+

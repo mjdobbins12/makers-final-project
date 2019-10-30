@@ -3,7 +3,8 @@ from piece import Piece
 class Pawn(Piece):
         def __init__(self, colour):
                 self.colour = colour
-                self.name = 'Pawn'
+                self.name = "Pawn"
+
                 if self.colour == "Black":
                         self.symbol = '♟'
                 elif self.colour == "White":

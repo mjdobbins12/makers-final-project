@@ -1,10 +1,13 @@
 import pawn
+import rook
+import piece
 import knight
 
 class ChessBoard:
         def __init__(self):
                 self.board = [
-                        ["R",knight.Knight("Black"),"B","Q","K","B",knight.Knight("Black"),"R"],
+
+                        [rook.Rook("Black"),knight.Knight("Black"),"B","Q","K","B",knight.Knight("Black"),rook.Rook("Black")],
                         [pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),
                         pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black")],
                         ["-","-","-","-","-","-","-","-"],
@@ -13,7 +16,8 @@ class ChessBoard:
                         ["-","-","-","-","-","-","-","-"],
                         [pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),
                         pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White")],
-                        ["R",knight.Knight("White"),"B","Q","K","B",knight.Knight("White"),"R"]
+                        [rook.Rook("White"),knight.Knight("White"),"B","Q","K","B",knight.Knight("White"),rook.Rook("White")]
+
                         ]
 
         def move(self, start_row, start_col, end_row, end_col):
@@ -31,7 +35,8 @@ class ChessBoard:
                         [self.__check_within_board_boundary(end_row,end_col),
                         piece_to_move.illegal_directions(start_row, start_col, end_row, end_col), # checks pawn allowed vectors
                         self.__knight_specific_board_constraints(start_row, start_col, end_row, end_col), # references board to check possibility of moves
-                        self.__pawn_specific_board_constraints(start_row, start_col, end_row, end_col) # references board to check possibility of moves
+                        self.__pawn_specific_board_constraints(start_row, start_col, end_row, end_col), # references board to check possibility of moves
+                        self.__rook_specific_board_constraints(start_row, start_col, end_row, end_col)
                         ]
                         )
 
@@ -48,7 +53,34 @@ class ChessBoard:
                                 piece_to_move.colour == "Black" and abs(end_row - start_row) == 2 and isinstance(self.board[end_row-1][end_col], pawn.Pawn) # white cannot jump over pawn
                                 ]
                                 )
-                
+
+        def __rook_specific_board_constraints(self, start_row, start_col, end_row, end_col):
+                piece_to_move = self.board[start_row][start_col]
+                if isinstance(piece_to_move, rook.Rook):
+                        return any([(self.__check_if_row_or_column_blocked(start_row, start_col, end_row, end_col)),
+                                (isinstance(self.board[end_row][end_col], piece.Piece) and self.board[end_row][end_col].colour == piece_to_move.colour), # 
+                                ]
+                                )
+
+        def __check_if_row_or_column_blocked(self, start_row, start_col, end_row, end_col):
+                piece_to_move = self.board[start_row][start_col]
+                if start_row == end_row:
+                        if start_col > end_col:
+                                squares_between = list(range(end_col + 1, start_col))
+                        else:
+                                squares_between = list(range(start_col + 1, end_col))
+                        squares_between[:] = [self.board[start_row][element] for element in squares_between]
+                        if any(isinstance(x, piece.Piece) for x in squares_between):
+                                return True
+                else:
+                        if start_row > end_row:
+                                squares_between = list(range(end_row + 1, start_row))
+                        else:
+                                squares_between = list(range(start_row + 1, end_row))
+                        squares_between[:] = [self.board[element][start_col] for element in squares_between]
+                        if any(isinstance(x, piece.Piece) for x in squares_between):
+                                return True
+    
         def __knight_specific_board_constraints(self, start_row, start_col, end_row, end_col):
                 piece_to_move = self.board[start_row][start_col]
                 if isinstance(piece_to_move, knight.Knight):
@@ -61,4 +93,4 @@ class ChessBoard:
                 
                 
                 
-                
+

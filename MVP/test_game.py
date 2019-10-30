@@ -1,3 +1,4 @@
+from piece import Piece
 import pytest
 import game
 import pawn
