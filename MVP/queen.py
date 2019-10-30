@@ -10,3 +10,10 @@ class Queen(Piece):
                         self.symbol = '♕'
 
         def invalid_move_types(self, start_row, start_col, end_row, end_col):
+                if abs(start_row - end_row) > 1 and abs(start_col - end_col) != 0 and abs(start_col - end_col) != abs(start_row - end_row):
+                        return True
+                elif abs(start_col - end_col) > 1 and abs(start_row - end_row) != 0 and abs(start_row - end_row) != abs(start_col - end_col):
+                        return True
+                else:
+                        return False
+                
