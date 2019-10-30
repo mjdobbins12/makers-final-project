@@ -1,9 +1,10 @@
 import pawn
+import rook
 
 class ChessBoard:
         def __init__(self):
                 self.board = [
-                        ["R","N","B","Q","K","B","N","R"],
+                        [rook.Rook("Black"),"N","B","Q","K","B","N",rook.Rook("Black")],
                         [pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),
                         pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black")],
                         ["-","-","-","-","-","-","-","-"],
@@ -12,7 +13,7 @@ class ChessBoard:
                         ["-","-","-","-","-","-","-","-"],
                         [pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),
                         pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White")],
-                        ["R","N","B","Q","K","B","N","R"]
+                        [rook.Rook("White"),"N","B","Q","K","B","N",rook.Rook("White")]
                         ]
 
 
@@ -52,7 +53,7 @@ class ChessBoard:
                 piece_to_move = self.board[start_row][start_col]
                 return any(
                         [self.__check_within_board_boundary(end_row,end_col),
-                        piece_to_move.illegal_directions(start_row, start_col, end_row, end_col), # checks pawn allowed vectors
+                        piece_to_move.illegal_directions(start_row, start_col, end_row, end_col), # checks piece allowed vectors
                         self.__pawn_specific_board_constraints(start_row, start_col, end_row, end_col) # references board to check possibility of moves
                         ]
                         )
@@ -68,3 +69,6 @@ class ChessBoard:
                         piece_to_move.colour == "Black" and abs(end_row - start_row) == 2 and isinstance(self.board[end_row-1][end_col], pawn.Pawn) # white cannot jump over pawn
                         ]
                         )
+
+        def __rook_specific_board_constraints(self, start_row, start_col, end_row, end_col):
+                piece_to_move = self.board[start_row][start_col]
