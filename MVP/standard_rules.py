@@ -9,7 +9,7 @@ import knight
 # the ChessBoard instance. 
 # Moves are checked against the current board by the ruleset, against its 
 # stored rules. A bit of back and forth between ChessBoard and RuleSet, but clearly
-# preferable to the game taking place within the ruleset object. 
+# preferable to the game taking place within the ruleset's own version of the board object. 
 
 # Board boundary is defined inside this object. 
 # Piece specific rules remain on the pieces themselves. This does lead to 
