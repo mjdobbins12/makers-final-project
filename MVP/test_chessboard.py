@@ -13,31 +13,6 @@ class TestStartingBoard:
                 test_board = run_before_tests
                 assert test_board.board == test_board.board
 
-class TestChessBoard:
-
-        @pytest.fixture
-        def test_move(capfd):
-                board.move(1,0,2,0)
-                out, err = capfd.readouterr()
-                assert out == '''_________________________________
-                        | R | N | B | Q | K | B | N | R |
-                        ---------------------------------
-                        |   | p | p | p | p | p | p | p |
-                        ---------------------------------
-                        | p |   |   |   |   |   |   |   |
-                        ---------------------------------
-                        |   |   |   |   |   |   |   |   |
-                        ---------------------------------
-                        |   |   |   |   |   |   |   |   |
-                        ---------------------------------
-                        |   |   |   |   |   |   |   |   |
-                        ---------------------------------
-                        | p | p | p | p | p | p | p | p |
-                        ---------------------------------
-                        | R | N | B | Q | K | B | N | R |
-                        ---------------------------------'''
-
-
 class TestPawnAllowedMoves:
         def test_black_pawn_can_move_1_space_forward(self, run_before_tests):
                 test_board = run_before_tests
@@ -133,8 +108,6 @@ class TestPieceObjects:
                 test_board = run_before_tests
                 assert test_board.board[1][7].colour == ("Black")
 
-
-
 class TestPawnDirection:
         def test_black_pawn_cannot_move_backwards(self, run_before_tests):
                 test_board = run_before_tests
@@ -177,7 +150,7 @@ class TestBoardBoundaries:
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(6,7,6,8)
 
-
+        # the below test seems not to be running?
         def pawn_can_move_2_spaces_forward(self):
                 test_board.move(6,1,4,1)
                 assert test_board.board[4][1] == ("p")
