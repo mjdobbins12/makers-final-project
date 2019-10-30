@@ -155,10 +155,10 @@ class TestBoardBoundaries:
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(6,7,6,8)
 
-        # the below test seems not to be running?
-        def pawn_can_move_2_spaces_forward(self):
+        def test_pawn_can_move_2_spaces_forward(self, run_before_tests):
+                test_board = run_before_tests
                 test_board.move(6,1,4,1)
-                assert test_board.board[4][1] == ("p")
+                assert isinstance(test_board.board[4][1], pawn.Pawn)
                 assert test_board.board[6][1] == ("-")
 
 
