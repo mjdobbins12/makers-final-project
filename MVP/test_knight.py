@@ -98,4 +98,14 @@ class TestKnightStriking:
                 test_board.move(1,3,2,3)
                 test_board.move(5,0,2,3)
                 assert isinstance(test_board.board[2][3], knight.Knight)
+                
+        def test_knight_cannot_strike_own_piece(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(7,1,5,0)
+                test_board.move(1,3,2,3)
+                test_board.move(6,2,4,2)
+                test_board.move(1,5,2,5)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(5,0,4,2)
+
 
