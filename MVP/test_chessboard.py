@@ -146,7 +146,7 @@ class TestBoardBoundaries:
                 test_board.move(3,7,4,7)
                 test_board.move(2,5,1,5)
                 test_board.move(1,0,3,0)
-                test_board.move(1,5,0,5)
+                test_board.move(1,5,0,6)
                 test_board.move(3,0,4,0)
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(0,5,-1,5)
@@ -201,7 +201,7 @@ class TestPawnWhenBlocked:
                 test_board.move(4,4,5,4)
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(6,4,4,4)
-                    
+
 class TestBishopAllowedMoves:
         def test_bishop_can_move_one_space_diagonally(self, run_before_tests):
                 test_board = run_before_tests

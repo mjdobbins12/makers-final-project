@@ -45,12 +45,6 @@ class ChessBoard:
 
         def __pawn_specific_board_constraints(self, start_row, start_col, end_row, end_col):
                 piece_to_move = self.board[start_row][start_col]
-                return any([start_col == end_col and isinstance(self.board[end_row][end_col], pawn.Pawn), # cannot move forward one space into another pawn
-                        (abs(start_col - end_col) == 1 and abs(start_row - end_row) == 1 and isinstance(self.board[start_row][start_col], pawn.Pawn) and not isinstance(self.board[end_row][end_col], pawn.Pawn)), # can only strike if pawn on target square
-                        piece_to_move.colour == "White" and abs(end_row - start_row) == 2 and isinstance(self.board[start_row][start_col], pawn.Pawn) and isinstance(self.board[end_row+1][end_col], pawn.Pawn), # black cannot jump over pawn
-                        piece_to_move.colour == "Black" and abs(end_row - start_row) == 2 and isinstance(self.board[start_row][start_col], pawn.Pawn) and isinstance(self.board[end_row-1][end_col], pawn.Pawn) # white cannot jump over pawn
-                        ]
-                        )
                 if isinstance(piece_to_move, pawn.Pawn):
                         return any([start_col == end_col and isinstance(self.board[end_row][end_col], piece.Piece), # cannot move forward one space into another pawn
                                 (abs(start_col - end_col) == 1 and abs(start_row - end_row) == 1 and not isinstance(self.board[end_row][end_col], piece.Piece)), # can only strike if pawn on target square
