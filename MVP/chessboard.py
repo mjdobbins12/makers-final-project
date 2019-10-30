@@ -1,11 +1,13 @@
 import pawn
 import rook
 import piece
+import knight
 
 class ChessBoard:
         def __init__(self):
                 self.board = [
-                        [rook.Rook("Black"),"N","B","Q","K","B","N",rook.Rook("Black")],
+
+                        [rook.Rook("Black"),knight.Knight("Black"),"B","Q","K","B",knight.Knight("Black"),rook.Rook("Black")],
                         [pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),
                         pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black"),pawn.Pawn("Black")],
                         ["-","-","-","-","-","-","-","-"],
@@ -14,29 +16,9 @@ class ChessBoard:
                         ["-","-","-","-","-","-","-","-"],
                         [pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),
                         pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White")],
-                        [rook.Rook("White"),"N","B","Q","K","B","N",rook.Rook("White")]
+                        [rook.Rook("White"),knight.Knight("White"),"B","Q","K","B",knight.Knight("White"),rook.Rook("White")]
+
                         ]
-
-
-        def show_board(self, p1_name, p2_name):
-            print('')
-            print(p2_name)
-            print("| a | b | c | d | e | f | g | h |")
-            print("_" * 33)
-            ind = 8
-            for row in self.board:
-                x = "|"
-                for el in row:
-                    if isinstance(el, pawn.Pawn):
-                        x += f" {el.name} |"
-                    else:
-                        x += f" {el} |"
-                x += f" {ind}"
-                ind -= 1
-                print(x)
-                print("-" * 33)
-            print(p1_name)
-            print('')
 
         def move(self, start_row, start_col, end_row, end_col):
                 if self.__invalid_move(start_row, start_col, end_row, end_col):
@@ -45,20 +27,19 @@ class ChessBoard:
                 self.board[start_row][start_col] = "-"
                 self.board[end_row][end_col] = piece_to_move
 
-
-
-
         # private methods
 
         def __invalid_move(self, start_row, start_col, end_row, end_col):
                 piece_to_move = self.board[start_row][start_col]
                 return any(
                         [self.__check_within_board_boundary(end_row,end_col),
-                        piece_to_move.illegal_directions(start_row, start_col, end_row, end_col), # checks piece allowed vectors
-                        self.__pawn_specific_board_constraints(start_row, start_col, end_row, end_col),
-                        self.__rook_specific_board_constraints(start_row, start_col, end_row, end_col) # references board to check possibility of moves
+                        piece_to_move.illegal_directions(start_row, start_col, end_row, end_col), # checks pawn allowed vectors
+                        self.__knight_specific_board_constraints(start_row, start_col, end_row, end_col), # references board to check possibility of moves
+                        self.__pawn_specific_board_constraints(start_row, start_col, end_row, end_col), # references board to check possibility of moves
+                        self.__rook_specific_board_constraints(start_row, start_col, end_row, end_col)
                         ]
                         )
+
 
         def __check_within_board_boundary(self, end_row, end_col):
                 return (end_row > 7 or end_col > 7 or end_row < 0 or end_col < 0)
@@ -99,3 +80,17 @@ class ChessBoard:
                         squares_between[:] = [self.board[element][start_col] for element in squares_between]
                         if any(isinstance(x, piece.Piece) for x in squares_between):
                                 return True
+    
+        def __knight_specific_board_constraints(self, start_row, start_col, end_row, end_col):
+                piece_to_move = self.board[start_row][start_col]
+                if isinstance(piece_to_move, knight.Knight):
+                        return any([
+                                hasattr(self.board[end_row][end_col], 'colour') and 
+                                        piece_to_move.colour == self.board[end_row][end_col].colour # knight cannot take any piece of same colour
+                                ]
+                                )
+
+                
+                
+                
+
