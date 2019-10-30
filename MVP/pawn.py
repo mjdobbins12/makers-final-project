@@ -3,10 +3,12 @@ from piece import Piece
 class Pawn(Piece):
         def __init__(self, colour):
                 self.colour = colour
+                self.name = "Pawn"
+
                 if self.colour == "Black":
-                        self.name = '♟'
+                        self.symbol = '♟'
                 elif self.colour == "White":
-                        self.name = "♙"
+                        self.symbol = "♙"
 
         def illegal_directions(self, start_row, start_col, end_row, end_col):
                 return any([self.colour == "Black" and end_row < start_row,
