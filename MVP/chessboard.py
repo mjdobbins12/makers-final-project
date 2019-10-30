@@ -83,7 +83,10 @@ class ChessBoard:
         def __check_if_row_or_column_blocked(self, start_row, start_col, end_row, end_col):
                 piece_to_move = self.board[start_row][start_col]
                 if start_row == end_row:
-                        squares_between = list(range(start_col + 1, end_col))
+                        if start_col > end_col:
+                                squares_between = list(range(end_col + 1, start_col))
+                        else:
+                                squares_between = list(range(start_col + 1, end_col))
                         squares_between[:] = [self.board[start_row][element] for element in squares_between]
                         if any(isinstance(x, piece.Piece) for x in squares_between):
                                 return True
