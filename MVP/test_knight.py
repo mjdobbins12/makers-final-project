@@ -3,12 +3,10 @@ import pawn
 import knight
 import pytest
 
-
 @pytest.fixture(autouse=True)
 def run_before_tests():
         test_board = chessboard.ChessBoard()
         return test_board
-
 
 class TestKnightightFirstStandardMoves:
         def test_white_knight_left_can_move_forward_left(self, run_before_tests):
