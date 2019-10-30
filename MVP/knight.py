@@ -9,6 +9,6 @@ class Knight:
         def illegal_directions(self, start_row, start_col, end_row, end_col):
                return any([
                         (not abs(start_row - end_row) == 1 and abs(start_col - end_col) == 2) or 
-                        (not abs(start_row - end_row) == 2 and abs(start_col - end_col) == 1)
+                        not abs(start_row - end_row) == 2 and abs(start_col - end_col) == 1
                         ]
                         )
