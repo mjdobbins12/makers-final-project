@@ -3,22 +3,15 @@ import ui
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, p1_name, p2_name):
         self.board = chessboard.ChessBoard()
-        self.p1_name = 'undefined'
-        self.p2_name = 'undefined'
+        self.p1_name = p1_name
+        self.p2_name = p2_name
         self.p1_turn = True
-        self.ui = ui.UI()
 
     def start(self):
-        self.get_names()
+        self.ui.get_names()
         self.run_turns()
-
-    def get_names(self):
-        self.p1_name = input("Enter player 1 name: ")
-        self.p2_name = input("Enter player 2 name: ")
-        print(self.p1_name + ' vs. ' + self.p2_name)
-        self.ui.show_board(self.board, self.p1_name, self.p2_name)
 
     def run_turns(self):
           while True:

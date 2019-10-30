@@ -15,27 +15,6 @@ class ChessBoard:
                         ["R","N","B","Q","K","B","N","R"]
                         ]
 
-#extracted showboard to ui
-        def show_board(self, p1_name, p2_name):
-            print('')
-            print(p2_name)
-            print("| a | b | c | d | e | f | g | h |")
-            print("_" * 33)
-            ind = 8
-            for row in self.board:
-                x = "|"
-                for el in row:
-                    if isinstance(el, pawn.Pawn):
-                        x += f" {el.name} |"
-                    else:
-                        x += f" {el} |"
-                x += f" {ind}"
-                ind -= 1
-                print(x)
-                print("-" * 33)
-            print(p1_name)
-            print('')
-
         def move(self, start_row, start_col, end_row, end_col):
                 if self.__invalid_move(start_row, start_col, end_row, end_col):
                         raise ValueError("Invalid Move")
