@@ -244,13 +244,11 @@ class TestRookTaking:
                 test_board.move(4,5,5,5)
                 test_board.move(5,0,5,5)
 
-                # with pytest.raises(ValueError, match=r"Invalid Move"):
-                #         test_board.move(7,0,3,0)
 
-        # def test_rook_cannot_take_own_piece(self, run_before_tests):
-        #         test_board = run_before_tests
-        #         test_board.move(6,0,4,0)
-        #         test_board.move(1,0,3,0)
-        #         with pytest.raises(ValueError, match=r"Invalid Move"):
-        #                 test_board.move(7,0,4,0)
+        def test_rook_cannot_take_own_piece(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,0,4,0)
+                test_board.move(1,0,3,0)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(7,0,4,0)
 

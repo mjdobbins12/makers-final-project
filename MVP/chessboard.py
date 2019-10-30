@@ -77,6 +77,7 @@ class ChessBoard:
                 piece_to_move = self.board[start_row][start_col]
                 if isinstance(piece_to_move, rook.Rook):
                         return any([(self.__check_if_row_or_column_blocked(start_row, start_col, end_row, end_col)),
+                                (isinstance(self.board[end_row][end_col], piece.Piece) and self.board[end_row][end_col].colour == piece_to_move.colour), # 
                                 ]
                                 )
 
