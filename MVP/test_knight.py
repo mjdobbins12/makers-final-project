@@ -24,3 +24,17 @@ class TestKnightAllowedMoves:
                 assert isinstance(test_board.board[5][2], knight.Knight)
                 assert test_board.board[5][2].colour == "White"
                 assert test_board.board[7][1] == ("-")
+                
+        def test_white_knight_right_can_move_forward_left(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(7,6,5,5)
+                assert isinstance(test_board.board[5][5], knight.Knight)
+                assert test_board.board[5][5].colour == "White"
+                assert test_board.board[7][6] == ("-")
+                
+        def test_white_knight_right_can_move_forward_right(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(7,6,5,7)
+                assert isinstance(test_board.board[5][7], knight.Knight)
+                assert test_board.board[5][7].colour == "White"
+                assert test_board.board[7][6] == ("-")
