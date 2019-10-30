@@ -1,5 +1,6 @@
 import chessboard
 import pawn
+import bishop
 import pytest
 from piece import Piece
 
@@ -200,7 +201,56 @@ class TestPawnWhenBlocked:
                 test_board.move(4,4,5,4)
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(6,4,4,4)
+                    
+class TestBishopAllowedMoves:
+        def test_bishop_can_move_one_space_diagonally(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,1,5,1)
+                test_board.move(1,4,3,4)
+                test_board.move(7,2,6,1)
+                assert isinstance(test_board.board[6][1], bishop.Bishop)
+                assert test_board.board[6][1].colour == "White"
+                assert test_board.board[7][2] == ("-")
 
+        def test_bishop_can_move_two_spaces_diagonally(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,3,4,3)
+                test_board.move(1,4,3,4)
+                test_board.move(7,2,5,4)
+                assert isinstance(test_board.board[5][4], bishop.Bishop)
+                assert test_board.board[5][4].colour == "White"
+                assert test_board.board[7][2] == ("-")
+
+        def test_bishop_can_move_in_different_diagonal_directions(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,3,5,3)
+                test_board.move(1,4,3,4)
+                test_board.move(7,2,5,4)
+                test_board.move(1,5,3,5)
+                test_board.move(5,4,3,2)
+                assert isinstance(test_board.board[3][2], bishop.Bishop)
+                assert test_board.board[3][2].colour == "White"
+                assert test_board.board[5][4] == ("-")
+
+        def test_bishop_can_move_diagonally_backwards(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,3,5,3)
+                test_board.move(1,4,3,4)
+                test_board.move(7,2,5,4)
+                test_board.move(1,5,3,5)
+                test_board.move(5,4,7,2)
+                assert isinstance(test_board.board[7][2], bishop.Bishop)
+                assert test_board.board[7][2].colour == "White"
+                assert test_board.board[5][4] == ("-")
+
+        def test_bishop_cannot_move_if_blocked(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,3,4,3)
+                test_board.move(1,3,3,3)
+                test_board.move(7,2,5,4)
+                test_board.move(1,4,3,4)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                    test_board.move(5,4,3,2)
 
 class TestRookWhenBlocked:
         def test_rook_cannot_move_jump_over_piece(self, run_before_tests):
@@ -261,4 +311,3 @@ class TestRookTaking:
                 test_board.move(1,0,3,0)
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(7,0,4,0)
-
