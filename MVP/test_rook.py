@@ -21,3 +21,6 @@ class TestIllegalMoves:
 
 	def test_rook_can_move_laterally(self):
 		assert test_rook_b.illegal_directions(5, 5, 5, 6) == False
+
+	def test_rook_cannot_jump_pieces(self):
+		assert test_rook_b.illegal_directions(5, 5, 5, 6) == False
