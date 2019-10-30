@@ -1,4 +1,5 @@
 import chessboard
+import ui
 
 class Game:
 
@@ -7,6 +8,7 @@ class Game:
         self.p1_name = 'undefined'
         self.p2_name = 'undefined'
         self.p1_turn = True
+        self.ui = ui.UI()
 
     def start(self):
         self.get_names()
@@ -16,7 +18,7 @@ class Game:
         self.p1_name = input("Enter player 1 name: ")
         self.p2_name = input("Enter player 2 name: ")
         print(self.p1_name + ' vs. ' + self.p2_name)
-        self.board.show_board(self.p1_name, self.p2_name)
+        self.ui.show_board(self.board, self.p1_name, self.p2_name)
 
     def run_turns(self):
           while True:
@@ -27,6 +29,12 @@ class Game:
               turn_to = input('Please enter square to move TO: ')
               if turn_to == 'quit': break
               self.convert_coordinates(turn_from, turn_to)
+
+    def announce_whose_turn(self):
+        if self.p1_turn == True:
+            print(self.p1_name + "'s turn!")
+        else:
+            print(self.p2_name + "'s turn!")
 
     def convert_coordinates(self, turn_from, turn_to):
         columns = {
@@ -45,16 +53,10 @@ class Game:
         turn_to_x = columns[turn_to[0]]
         self.execute_turn(turn_from_x, turn_from_y, turn_to_x, turn_to_y)
 
-    def announce_whose_turn(self):
-        if self.p1_turn == True:
-            print(self.p1_name + "'s turn!")
-        else:
-            print(self.p2_name + "'s turn!")
-
     def execute_turn(self, turn_from_x, turn_from_y, turn_to_x, turn_to_y):
         try:
             self.board.move(int(turn_from_x), int(turn_from_y), int(turn_to_x), int(turn_to_y))
             self.p1_turn = not self.p1_turn
-        except ValueError:
+        except:
             print('Invalid move - try again')
-        self.board.show_board(self.p1_name, self.p2_name)
+        self.ui.show_board(self.board, self.p1_name, self.p2_name)

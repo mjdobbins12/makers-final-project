@@ -15,7 +15,7 @@ class ChessBoard:
                         ["R","N","B","Q","K","B","N","R"]
                         ]
 
-
+#extracted showboard to ui
         def show_board(self, p1_name, p2_name):
             print('')
             print(p2_name)
