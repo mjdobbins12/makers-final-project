@@ -8,5 +8,8 @@ class Rook:
                 elif self.colour == "White":
                         self.symbol = '♖'
 
-                def illegal_directions(self, start_row, start_col, end_row, end_col):
-                        return "hi"
+        def illegal_directions(self, start_row, start_col, end_row, end_col):
+                return any([(start_row != end_row and start_col != end_col), # cant move diagonally
+
+                ]
+                )
