@@ -15,3 +15,7 @@ class TestUI:
         def teardown_method(self, method):
         # This method is being called after each test case, and it will revert input back to original function
             ui.input = input
+            
+# add feature test for a pawn move and strike
+
+# add test for showing the board (lower prio as not focused on frontend)

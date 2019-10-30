@@ -22,9 +22,6 @@ class ChessBoard:
                 self.board[start_row][start_col] = "-"
                 self.board[end_row][end_col] = piece_to_move
 
-
-
-
         # private methods
 
         def __invalid_move(self, start_row, start_col, end_row, end_col):
