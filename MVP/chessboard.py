@@ -42,7 +42,6 @@ class ChessBoard:
         def __check_within_board_boundary(self, end_row, end_col):
                 return (end_row > 7 or end_col > 7 or end_row < 0 or end_col < 0)
 
-
         def __bishop_specific_board_constraints(self, start_row, start_col, end_row, end_col):
                 piece_to_move = self.board[start_row][start_col]
                 if isinstance(piece_to_move, bishop.Bishop):
