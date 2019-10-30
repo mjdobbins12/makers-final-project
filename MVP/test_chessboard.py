@@ -311,3 +311,21 @@ class TestRookTaking:
                 test_board.move(1,0,3,0)
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(7,0,4,0)
+
+
+class TestQueenMoving:
+        def test_queen_can_move_laterally(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6, 3, 4, 3)
+                test_board.move(1, 5, 3, 5)
+                test_board.move(7, 3, 5, 3)
+                test_board.move(3, 5, 4, 5)
+                test_board.move(5, 3, 5, 7)
+
+        def test_queen_can_move_diagonally(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6, 3, 4, 3)
+                test_board.move(1, 5, 3, 5)
+                test_board.move(7, 3, 5, 3)
+                test_board.move(3, 5, 4, 5)
+                test_board.move(5, 3, 3, 5)
