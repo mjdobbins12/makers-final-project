@@ -1,4 +1,4 @@
-import pawn
+import piece
 import coordinate_conversion
 import game
 
@@ -49,8 +49,8 @@ class UI:
         for row in self.game.board.board:
             x = "|"
             for el in row:
-                if isinstance(el, pawn.Pawn):
-                    x += f" {el.name} |"
+                if isinstance(el, piece.Piece):
+                    x += f" {el.symbol} |"
                 else:
                     x += f" {el} |"
             x += f" {ind}"
