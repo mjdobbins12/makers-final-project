@@ -1,5 +1,7 @@
 import pytest
 import pawn
+from piece import Piece
+
 
 test_pawn_b = pawn.Pawn("Black")
 test_pawn_w = pawn.Pawn("White")

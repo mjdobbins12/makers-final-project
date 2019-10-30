@@ -1,6 +1,9 @@
+from piece import Piece
 import pytest
 import game
 import pawn
+
+
 
 test_game = game.Game()
 

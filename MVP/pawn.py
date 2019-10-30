@@ -1,4 +1,6 @@
-class Pawn:
+from piece import Piece
+
+class Pawn(Piece):
         def __init__(self, colour):
                 self.colour = colour
                 self.name = "Pawn"

@@ -1,4 +1,5 @@
 import pytest
+from piece import Piece
 import rook
 
 test_rook_b = rook.Rook("Black")
