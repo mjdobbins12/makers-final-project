@@ -51,12 +51,14 @@ class ChessBoard:
 
         def __invalid_move(self, start_row, start_col, end_row, end_col):
                 piece_to_move = self.board[start_row][start_col]
-                return any(
-                        [self.__check_within_board_boundary(end_row,end_col),
-                        piece_to_move.illegal_directions(start_row, start_col, end_row, end_col), # checks pawn allowed vectors
-                        self.__pawn_specific_board_constraints(start_row, start_col, end_row, end_col) # references board to check possibility of moves
-                        ]
-                        )
+                if piece_to_move.name == "Pawn":
+                        return any(
+                                [self.__check_within_board_boundary(end_row,end_col),
+                                piece_to_move.illegal_directions(start_row, start_col, end_row, end_col), # checks pawn allowed vectors
+                                self.__pawn_specific_board_constraints(start_row, start_col, end_row, end_col) # references board to check possibility of moves
+                                ]
+                                )
+
 
         def __check_within_board_boundary(self, end_row, end_col):
                 return (end_row > 7 or end_col > 7 or end_row < 0 or end_col < 0)
