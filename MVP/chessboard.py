@@ -63,7 +63,6 @@ class ChessBoard:
                                 )
 
         def __check_if_row_or_column_blocked(self, start_row, start_col, end_row, end_col):
-                piece_to_move = self.board[start_row][start_col]
                 if start_row == end_row:
                         if start_col > end_col:
                                 squares_between = list(range(end_col + 1, start_col))
@@ -80,7 +79,7 @@ class ChessBoard:
                         squares_between[:] = [self.board[element][start_col] for element in squares_between]
                         if any(isinstance(x, piece.Piece) for x in squares_between):
                                 return True
-    
+
         def __knight_specific_board_constraints(self, start_row, start_col, end_row, end_col):
                 piece_to_move = self.board[start_row][start_col]
                 if isinstance(piece_to_move, knight.Knight):
