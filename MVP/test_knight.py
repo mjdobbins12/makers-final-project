@@ -66,3 +66,11 @@ class TestKnightightFirstStandardMoves:
                 assert isinstance(test_board.board[2][7], knight.Knight)
                 assert test_board.board[2][7].colour == "Black"
                 assert test_board.board[0][6] == ("-")
+                
+class TestKnightightCannotLeaveBoard:
+        def test_knight_cannot_move_outside_columns(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(7,1,5,0)
+                test_board.move(1,5,3,5)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(5,0,-1,3)
