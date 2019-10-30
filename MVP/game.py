@@ -39,10 +39,10 @@ class Game:
             "g": 6,
             "h": 7
         }
-        turn_from_y = 7 - (int(turn_from[1]) - 1)
-        turn_from_x = columns[turn_from[0]]
-        turn_to_y = 7 - (int(turn_to[1]) - 1)
-        turn_to_x = columns[turn_to[0]]
+        turn_from_x = 7 - (int(turn_from[1]) - 1)
+        turn_from_y = columns[turn_from[0]]
+        turn_to_x = 7 - (int(turn_to[1]) - 1)
+        turn_to_y = columns[turn_to[0]]
         self.execute_turn(turn_from_x, turn_from_y, turn_to_x, turn_to_y)
 
     def announce_whose_turn(self):

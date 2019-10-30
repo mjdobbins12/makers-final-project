@@ -1,5 +1,6 @@
 import chessboard
 import pawn
+import bishop
 import pytest
 
 
@@ -128,7 +129,7 @@ class TestPawnDirection:
                 test_board = run_before_tests
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(1,1,1,2)
-                        
+
         def test_white_pawn_cannot_move_2_spaces_forward_and_sideways(self, run_before_tests):
                 test_board = run_before_tests
                 with pytest.raises(ValueError, match=r"Invalid Move"):
@@ -200,3 +201,13 @@ class TestPawnWhenBlocked:
                 test_board.move(4,4,5,4)
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(6,4,4,4)
+
+class TestBishopAllowedMoves:
+        def test_bishop_can_move_one_space_diagonally(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,1,5,1)
+                test_board.move(1,4,3,4)
+                test_board.move(7,2,6,1)
+                assert isinstance(test_board.board[6][1], bishop.Bishop)
+                assert test_board.board[6][1].colour == "White"
+                assert test_board.board[7][2] == ("-")
