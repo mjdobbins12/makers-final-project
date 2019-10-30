@@ -32,9 +32,12 @@ class Queen(Piece):
 
         def __queen_specific_board_constraints(self, board, start_row, start_col, end_row, end_col):
                 piece_to_move = board[start_row][start_col]
+                if start_row != end_row and start_col != end_col:
+                        blocker_to_check = self.__check_if_diagonal_blocked(board, start_row, start_col, end_row, end_col)
+                else:
+                        blocker_to_check = self.__check_if_row_or_column_blocked(board, start_row, start_col, end_row, end_col)
                 return any([
-                        (self.__check_if_diagonal_blocked(board, start_row, start_col, end_row, end_col)),
-                        (self.__check_if_row_or_column_blocked(board, start_row, start_col, end_row, end_col)),
+                        (blocker_to_check),
                         (isinstance(board[end_row][end_col], Piece) and board[end_row][end_col].colour == piece_to_move.colour)
                         ])
 
