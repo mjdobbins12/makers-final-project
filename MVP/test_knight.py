@@ -74,3 +74,12 @@ class TestKnightightCannotLeaveBoard:
                 test_board.move(1,5,3,5)
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(5,0,-1,3)
+                        
+class TestKnightOnlyMovesInLShape:
+        def test_knight_must_move_in_L_shape(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(7,1,5,0)
+                test_board.move(1,5,3,5)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(5,0,6,1)
+                
