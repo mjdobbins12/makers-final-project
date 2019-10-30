@@ -15,5 +15,5 @@ class TestKnightAllowedMoves:
                 test_board = run_before_tests
                 test_board.move(7,1,5,0)
                 assert isinstance(test_board.board[5][0], knight.Knight)
-                assert test_board.board[5][1].colour == "Black"
+                assert test_board.board[5][0].colour == "Black"
                 assert test_board.board[7][1] == ("-")

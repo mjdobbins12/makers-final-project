@@ -1,4 +1,5 @@
 import pawn
+import knight
 
 class ChessBoard:
         def __init__(self):
@@ -12,7 +13,7 @@ class ChessBoard:
                         ["-","-","-","-","-","-","-","-"],
                         [pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),
                         pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White")],
-                        ["R","N","B","Q","K","B","N","R"]
+                        ["R",knight.Knight("White"),"B","Q","K","B","N","R"]
                         ]
 
 
