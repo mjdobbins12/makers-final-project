@@ -89,13 +89,28 @@ class TestKnightOnlyMovesInLShape:
                 with pytest.raises(ValueError, match=r"Invalid Move"):
                         test_board.move(4,2,4,4)
                         
+        def test_knight_cannot_move_more_than_3_across(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(7,1,5,0)
+                test_board.move(1,5,3,5)
+                test_board.move(5,0,4,2)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(4,2,3,5)
+                        
+        def test_knight_cannot_move_more_than_3_forward(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(7,1,5,0)
+                test_board.move(1,5,3,5)
+                with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(5,0,2,1)
+                        
 class TestKnightStriking:
         def test_knight_can_strike(self, run_before_tests):
                 test_board = run_before_tests
                 test_board.move(7,1,5,0)
                 test_board.move(1,3,2,3)
-                test_board.move(5,0,2,3)
-                assert isinstance(test_board.board[2][3], knight.Knight)
+                test_board.move(5,0,3,1)
+                assert isinstance(test_board.board[3][1], knight.Knight)
                 
         def test_knight_cannot_strike_own_piece(self, run_before_tests):
                 test_board = run_before_tests
