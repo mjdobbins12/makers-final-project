@@ -1,3 +1,5 @@
+from piece import Piece
+
 class Bishop:
     def __init__(self, colour):
         self.colour = colour

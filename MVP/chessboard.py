@@ -1,5 +1,6 @@
 import pawn
 import bishop
+import piece
 
 class ChessBoard:
         def __init__(self):
@@ -54,7 +55,8 @@ class ChessBoard:
                 return any(
                         [self.__check_within_board_boundary(end_row,end_col),
                         piece_to_move.illegal_directions(start_row, start_col, end_row, end_col), # checks pawn allowed vectors
-                        self.__pawn_specific_board_constraints(start_row, start_col, end_row, end_col) # references board to check possibility of moves
+                        self.__pawn_specific_board_constraints(start_row, start_col, end_row, end_col), # references board to check possibility of moves
+                        self.__bishop_specific_board_constraints(start_row, start_col, end_row, end_col)
                         ]
                         )
 
@@ -69,3 +71,42 @@ class ChessBoard:
                         piece_to_move.colour == "Black" and abs(end_row - start_row) == 2 and isinstance(self.board[start_row][start_col], pawn.Pawn) and isinstance(self.board[end_row-1][end_col], pawn.Pawn) # white cannot jump over pawn
                         ]
                         )
+
+        def __bishop_specific_board_constraints(self, start_row, start_col, end_row, end_col):
+                piece_to_move = self.board[start_row][start_col]
+                if isinstance(piece_to_move, bishop.Bishop):
+                        return (self.__check_if_diagonal_blocked(start_row, start_col, end_row, end_col))
+
+        def __check_if_diagonal_blocked(self, start_row, start_col, end_row, end_col):
+                if start_row < end_row and start_col < end_col:
+                        check_square = self.board[start_row + 1][start_col + 1]
+                        if isinstance(check_square, piece.Piece):
+                                return True
+                        elif check_square == self.board[end_row][end_col]:
+                                return False
+                        else:
+                                self.__check_if_diagonal_blocked(self, start_row + 1, start_col + 1, end_row, end_col)
+                elif start_row > end_row and start_col > end_col:
+                        check_square = self.board[start_row - 1][start_col - 1]
+                        if isinstance(check_square, piece.Piece):
+                                return True
+                        elif check_square == self.board[end_row][end_col]:
+                                return False
+                        else:
+                                self.__check_if_diagonal_blocked(self, start_row - 1, start_col - 1, end_row, end_col)
+                elif start_row < end_row and start_col > end_col:
+                        check_square = self.board[start_row + 1][start_col - 1]
+                        if isinstance(check_square, piece.Piece):
+                                return True
+                        elif check_square == self.board[end_row][end_col]:
+                                return False
+                        else:
+                                self.__check_if_diagonal_blocked(self, start_row + 1, start_col - 1, end_row, end_col)
+                elif start_row > end_row and start_col < end_col:
+                        check_square = self.board[start_row - 1][start_col + 1]
+                        if isinstance(check_square, piece.Piece):
+                                return True
+                        elif check_square == self.board[end_row][end_col]:
+                                return False
+                        else:
+                                self.__check_if_diagonal_blocked(self, start_row - 1, start_col + 1, end_row, end_col)
