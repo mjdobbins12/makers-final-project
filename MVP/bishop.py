@@ -1,6 +1,6 @@
 from piece import Piece
 
-class Bishop:
+class Bishop(Piece):
     def __init__(self, colour):
         self.colour = colour
         self.name = "Bishop"
