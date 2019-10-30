@@ -34,7 +34,7 @@ class ChessBoard:
                         [self.__check_within_board_boundary(end_row,end_col),
                         piece_to_move.illegal_directions(start_row, start_col, end_row, end_col), # checks pawn allowed vectors
                         self.__pawn_specific_board_constraints(start_row, start_col, end_row, end_col), # references board to check possibility of moves
-                        self.__bishop_specific_board_constraints(start_row, start_col, end_row, end_col)
+                        self.__bishop_specific_board_constraints(start_row, start_col, end_row, end_col),
                         self.__knight_specific_board_constraints(start_row, start_col, end_row, end_col), # references board to check possibility of moves
                         self.__rook_specific_board_constraints(start_row, start_col, end_row, end_col)
                         ]
@@ -63,7 +63,7 @@ class ChessBoard:
                 piece_to_move = self.board[start_row][start_col]
                 if isinstance(piece_to_move, rook.Rook):
                         return any([(self.__check_if_row_or_column_blocked(start_row, start_col, end_row, end_col)),
-                                (isinstance(self.board[end_row][end_col], piece.Piece) and self.board[end_row][end_col].colour == piece_to_move.colour), # 
+                                (isinstance(self.board[end_row][end_col], piece.Piece) and self.board[end_row][end_col].colour == piece_to_move.colour), #
                                 ]
                                 )
 
@@ -89,11 +89,11 @@ class ChessBoard:
                 piece_to_move = self.board[start_row][start_col]
                 if isinstance(piece_to_move, knight.Knight):
                         return any([
-                                hasattr(self.board[end_row][end_col], 'colour') and 
+                                hasattr(self.board[end_row][end_col], 'colour') and
                                         piece_to_move.colour == self.board[end_row][end_col].colour # knight cannot take any piece of same colour
                                 ]
                                 )
-        
+
         def __bishop_specific_board_constraints(self, start_row, start_col, end_row, end_col):
                 piece_to_move = self.board[start_row][start_col]
                 if isinstance(piece_to_move, bishop.Bishop):
@@ -132,4 +132,3 @@ class ChessBoard:
                                 return False
                         else:
                                 self.__check_if_diagonal_blocked(self, start_row - 1, start_col + 1, end_row, end_col)
-                
