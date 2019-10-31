@@ -1,5 +1,13 @@
 class Piece:
 
+        def available_moves(self, board, start_row, start_col):
+                piece_to_move = board[start_row][start_col]
+                array = []
+                for i in range(0,8):
+                        for j in range(0,8):
+                                if piece_to_move.illegal_directions(board, start_row, start_col, i, j) == False:
+                                        array.append([i,j])
+                return array
 
         # shared movement constraints, e.g. for bishop + queen, rook + queen
 
