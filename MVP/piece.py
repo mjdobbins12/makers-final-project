@@ -1,5 +1,10 @@
 class Piece:
 
+        counter = 0
+
+        def increment_counter(self):
+                self.counter += 1
+
         def available_moves(self, board, start_row, start_col):
                 piece_to_move = board[start_row][start_col]
                 array = []
