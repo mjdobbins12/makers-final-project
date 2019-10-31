@@ -1,5 +1,13 @@
 class Piece:
 
+        def available_moves(self, board, start_row, start_col):
+                piece_to_move = board[start_row][start_col]
+                array = []
+                for i in range(0,8):
+                        for j in range(0,8):
+                                if piece_to_move.illegal_directions(board, start_row, start_col, i, j) == False:
+                                        array.append([i,j])
+                return array
 
         # shared movement constraints, e.g. for bishop + queen, rook + queen
 
@@ -8,7 +16,7 @@ class Piece:
                 i = start_row
                 j = start_col
                 if start_row < end_row and start_col < end_col:
-                    while (i < end_row):
+                    while (i < end_row) and (j < end_col):
                         check_square = board[i + 1][j + 1]
                         if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
                             return True
@@ -16,7 +24,7 @@ class Piece:
                             i += 1
                             j += 1
                 elif start_row > end_row and start_col > end_col:
-                    while (i > end_row):
+                    while (i > end_row) and (j > end_col):
                         check_square = board[i - 1][j - 1]
                         if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
                             return True
@@ -24,7 +32,7 @@ class Piece:
                             i -= 1
                             j -= 1
                 elif start_row < end_row and start_col > end_col:
-                    while (i < end_row):
+                    while (i < end_row) and (j > end_col):
                         check_square = board[i + 1][j - 1]
                         if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
                             return True
@@ -32,7 +40,7 @@ class Piece:
                             i += 1
                             j -= 1
                 elif start_row > end_row and start_col < end_col:
-                    while (i > end_row):
+                    while (i > end_row) and (j < end_col):
                         check_square = board[i - 1][j + 1]
                         if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
                             return True

@@ -359,3 +359,20 @@ class TestPawnPromotion:
                 test_board.move(6,6,7,6)
                 assert isinstance(test_board.board[7][6], queen.Queen)
                 assert test_board.board[7][6].colour == "Black"   
+
+class TestTakenPieces:
+        def test_taken_pieces_white(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,4,4,4)
+                test_board.move(1,5,3,5)
+                test_board.move(4,4,3,5)
+                assert test_board.taken_black[0].colour == 'Black'
+                assert isinstance(test_board.taken_black[0], pawn.Pawn)
+
+        def test_taken_pieces_black(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,4,4,4)
+                test_board.move(1,5,3,5)
+                test_board.move(3,5,4,4)
+                assert test_board.taken_white[0].colour == 'White'
+                assert isinstance(test_board.taken_white[0], pawn.Pawn)
