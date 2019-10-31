@@ -68,10 +68,10 @@ class UI:
         if len(self.game.board.taken_white) > 0:
             x = 'Taken:'
             for el in self.game.board.taken_white:
-                x += " {el.symbol}"
+                x += f" {el.symbol}"
             print(x)
         if len(self.game.board.taken_black) > 0:
             x = 'Taken:'
             for el in self.game.board.taken_black:
-                x += " {el.symbol}"
+                x += f" {el.symbol}"
             print(x)
