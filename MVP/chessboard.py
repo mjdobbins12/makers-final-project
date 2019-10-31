@@ -21,12 +21,17 @@ class ChessBoard:
                         pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White")],
                         [rook.Rook("White"),knight.Knight("White"),bishop.Bishop("White"),queen.Queen("White"),king.King("White"),bishop.Bishop("White"),knight.Knight("White"),rook.Rook("White")]
                         ]
+                self.taken_white = []
+                self.taken_black = []
+
+
 
         def move(self, start_row, start_col, end_row, end_col):
                 if self.__invalid_move(start_row, start_col, end_row, end_col):
                         raise ValueError("Invalid Move")
                 piece_to_move = self.board[start_row][start_col]
                 self.board[start_row][start_col] = "-"
+                self.__store_piece_if_struck(end_row, end_col)
                 self.board[end_row][end_col] = piece_to_move
 
         # private methods
@@ -42,3 +47,9 @@ class ChessBoard:
 
         def __check_within_board_boundary(self, end_row, end_col):
                 return (end_row > 7 or end_col > 7 or end_row < 0 or end_col < 0)
+
+        def __store_piece_if_struck(self, end_row, end_col):
+            if self.board[end_row][end_col] != '-' and self.board[end_row][end_col].colour == 'White':
+                self.taken_white.append(self.board[end_row][end_col])
+            if self.board[end_row][end_col] != '-' and self.board[end_row][end_col].colour == 'Black':
+                self.taken_black.append(self.board[end_row][end_col])
