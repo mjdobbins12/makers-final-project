@@ -329,3 +329,18 @@ class TestQueenMoving:
                 test_board.move(7, 3, 5, 3)
                 test_board.move(3, 5, 4, 5)
                 test_board.move(5, 3, 3, 5)
+                
+class TestPawnPromotion:
+        def test_pawn_becomes_queen_at_eighth_rank(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,0,4,0)
+                test_board.move(1,1,3,1)
+                test_board.move(4,0,3,1)
+                test_board.move(0,1,2,2)
+                test_board.move(1,1,2,1)
+                test_board.move(1,5,2,5)
+                test_board.move(2,1,1,1)
+                test_board.move(2,5,3,5)
+                test_board.move(1,1,0,1)
+                assert isinstance(test_board.board[5][1], queen.Queen)
+                assert test_board.board[5][1].colour == "White"   
