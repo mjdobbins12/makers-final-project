@@ -30,10 +30,10 @@ class ChessBoard:
                 if self.__invalid_move(start_row, start_col, end_row, end_col):
                         raise ValueError("Invalid Move")
                 piece_to_move = self.board[start_row][start_col]
+                if self.__check_castling(piece_to_move, end_row, start_col, end_col) == 'invalid move':
+                        raise ValueError("Invalid Move")
                 self.board[start_row][start_col] = "-"
                 self.__store_piece_if_struck(end_row, end_col)
-                if isinstance(piece_to_move, king.King) and (abs(start_col - end_col) == 2):
-                    self.__iscastling(end_row, end_col)
                 self.board[end_row][end_col] = piece_to_move
                 piece_to_move.increment_counter()
 
@@ -56,6 +56,13 @@ class ChessBoard:
                 self.taken_white.append(self.board[end_row][end_col])
             if self.board[end_row][end_col] != '-' and self.board[end_row][end_col].colour == 'Black':
                 self.taken_black.append(self.board[end_row][end_col])
+
+        def __check_castling(self, piece_to_move, end_row, start_col, end_col):
+            if isinstance(piece_to_move, king.King) and (abs(start_col - end_col) == 2):
+                try:
+                    self.__iscastling(end_row, end_col)
+                except:
+                    return 'invalid move'
 
         def __iscastling(self, end_row, end_col):
             if (end_col == 6) and (self.board[end_row][7].counter == 0):
