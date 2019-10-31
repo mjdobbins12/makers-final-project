@@ -7,6 +7,7 @@ import rook
 test_king_b = king.King("Black")
 test_king_w = king.King("White")
 board = chessboard.ChessBoard()
+board1 = chessboard.ChessBoard()
 
 class TestKingProperties:
     def test_king_name(self):
@@ -55,6 +56,19 @@ class TestCastling:
         board.move(7,4,7,6)
         assert isinstance(board.board[7][6], king.King)
         assert isinstance(board.board[7][5], rook.Rook)
-        print(board.board[7][7])
         assert board.board[7][4] == '-'
         assert board.board[7][7] == '-'
+
+    def test_castling_forbidden_if_king_has_moved(self):
+        board1.move(6,6,5,6)
+        board1.move(1,0,3,0)
+        board1.move(7,5,6,6)
+        board1.move(1,1,3,1)
+        board1.move(7,6,5,5)
+        board1.move(1,2,3,2)
+        board1.move(7,4,7,5)
+        board1.move(1,3,3,3)
+        board1.move(7,5,7,4)
+        board1.move(1,4,3,4)
+        with pytest.raises(ValueError, match=r"Invalid Move"):
+                      board1.move(7,4,7,6)
