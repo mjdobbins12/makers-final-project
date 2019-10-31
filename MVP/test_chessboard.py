@@ -269,10 +269,10 @@ class TestRookWhenBlocked:
 
 class TestRookCanMoveAsNormal:
         def test_rook_can_move_normally(self, run_before_tests):
-                        test_board = run_before_tests
-                        test_board.move(6,0,4,0)
-                        test_board.move(1,5,3,5)
-                        test_board.move(7,0,5,0)
+                test_board = run_before_tests
+                test_board.move(6,0,4,0)
+                test_board.move(1,5,3,5)
+                test_board.move(7,0,5,0)
 
 class TestRookTaking:
         def test_rook_can_take_piece_upwards(self, run_before_tests):
@@ -330,7 +330,7 @@ class TestQueenMoving:
                 test_board.move(7, 3, 5, 3)
                 test_board.move(3, 5, 4, 5)
                 test_board.move(5, 3, 3, 5)
-                
+
 class TestPawnPromotion:
         def test_white_pawn_becomes_queen_at_eighth_rank(self, run_before_tests):
                 test_board = run_before_tests
@@ -345,7 +345,7 @@ class TestPawnPromotion:
                 test_board.move(1,1,0,1)
                 assert isinstance(test_board.board[0][1], queen.Queen)
                 assert test_board.board[0][1].colour == "White"
-                
+
         def test_black_pawn_becomes_queen_at_first_rank(self, run_before_tests):
                 test_board = run_before_tests
                 test_board.move(1,7,3,7)
@@ -358,7 +358,7 @@ class TestPawnPromotion:
                 test_board.move(5,1,4,1)
                 test_board.move(6,6,7,6)
                 assert isinstance(test_board.board[7][6], queen.Queen)
-                assert test_board.board[7][6].colour == "Black"   
+                assert test_board.board[7][6].colour == "Black"
 
 class TestTakenPieces:
         def test_taken_pieces_white(self, run_before_tests):
