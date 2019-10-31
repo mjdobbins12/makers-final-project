@@ -24,11 +24,22 @@ class King(Piece):
         else:
             return False
 
-
     def illegal_directions(self, board, start_row, start_col, end_row, end_col):
+        if abs(start_col - end_col) == 2:
+            return any([
+                (self.__invalid_castling(board, start_row, start_col, end_row, end_col))
+                ])
+        else:
+            return any([
+                (self.invalid_move_types(start_row, start_col, end_row, end_col)),
+                (self.__king_specific_board_constraints(board, start_row, start_col, end_row, end_col))
+                ])
+
+    def __invalid_castling(self, board, start_row, start_col, end_row, end_col):
         return any([
-            (self.invalid_move_types(start_row, start_col, end_row, end_col)),
-            (self.__king_specific_board_constraints(board, start_row, start_col, end_row, end_col))
+            self.counter > 0,
+            start_row in range(1,7),
+            start_row != end_row
             ])
 
     def invalid_move_types(self, start_row, start_col, end_row, end_col):

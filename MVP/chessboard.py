@@ -32,7 +32,9 @@ class ChessBoard:
                 piece_to_move = self.board[start_row][start_col]
                 self.board[start_row][start_col] = "-"
                 self.__store_piece_if_struck(end_row, end_col)
+                self.__iscastling(piece_to_move, end_row, end_col)
                 self.board[end_row][end_col] = piece_to_move
+                piece_to_move.increment_counter()
 
         # private methods
 
@@ -53,3 +55,12 @@ class ChessBoard:
                 self.taken_white.append(self.board[end_row][end_col])
             if self.board[end_row][end_col] != '-' and self.board[end_row][end_col].colour == 'Black':
                 self.taken_black.append(self.board[end_row][end_col])
+
+        def __iscastling(self, piece_to_move, end_row, end_col):
+            if isinstance(piece_to_move, king.King):
+                if end_col == 6:
+                    self.board[end_row][5] = self.board[end_row][7]
+                    self.board[end_row][7] = '-'
+                else:
+                    self.board[end_row][3] = self.board[end_row][0]
+                    self.board[end_row][0] = '-'
