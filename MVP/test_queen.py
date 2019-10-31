@@ -50,3 +50,20 @@ class TestQueenTaking:
           test_board.move(7,3,5,3)
           test_board.move(1,0,3,0)
           test_board.move(5,3,3,5)
+
+        def test_queen_cant_move_if_blocked_forward(self, run_before_tests):
+          test_board = run_before_tests
+          test_board.move(6,3,4,3)
+          test_board.move(1,5,3,5)
+          with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(7,3,3,3)
+
+        def test_queen_cant_move_if_blocked(self, run_before_tests):
+          test_board = run_before_tests
+          with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(7,3,4,0)
+
+        def test_queen_cant_jump(self, run_before_tests):
+          test_board = run_before_tests
+          with pytest.raises(ValueError, match=r"Invalid Move"):
+                        test_board.move(7,3,5,1)
