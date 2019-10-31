@@ -59,3 +59,19 @@ class UI:
             print("-" * 33)
         print(p1_name)
         print('')
+        self.__print_taken_pieces_ifany()
+
+
+    # private methods
+
+    def __print_taken_pieces_ifany(self):
+        if len(self.game.board.taken_white) > 0:
+            x = 'Taken:'
+            for el in self.game.board.taken_white:
+                x += " {el.symbol}"
+            print(x)
+        if len(self.game.board.taken_black) > 0:
+            x = 'Taken:'
+            for el in self.game.board.taken_black:
+                x += " {el.symbol}"
+            print(x)
