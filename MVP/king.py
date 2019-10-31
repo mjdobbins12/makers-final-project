@@ -9,6 +9,22 @@ class King(Piece):
         elif self.colour == "White":
             self.symbol = '♔'
 
+    def in_check(self, board, start_row, start_col):
+        check_evaluations = []
+        king_in_question = board[start_row][start_col]
+        for i in range(0,8):
+            for j in range(0,8):
+                if isinstance(board[i][j], Piece):
+                    if [start_row,start_col] in board[i][j].available_moves(board, i, j):
+                        check_evaluations.append(True)
+                    else:
+                        check_evaluations.append(False)
+        if True in check_evaluations:
+            return True
+        else:
+            return False
+
+
     def illegal_directions(self, board, start_row, start_col, end_row, end_col):
         return any([
             (self.invalid_move_types(start_row, start_col, end_row, end_col)),
