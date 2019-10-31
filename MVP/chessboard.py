@@ -25,6 +25,7 @@ class ChessBoard:
                 self.taken_black = []
 
 
+# to be changed to pass through to new turn (keep for testing)
 
         def move(self, start_row, start_col, end_row, end_col):
                 if self.__invalid_move(start_row, start_col, end_row, end_col):
@@ -45,7 +46,7 @@ class ChessBoard:
                         (piece_to_move.illegal_directions(current_board, start_row, start_col, end_row, end_col)) # checks pawn allowed vectors
                         ]
                         )
-                
+
         def __apply_promotion(self, piece, row, col):
                 current_board = self.board
                 if piece.name == "Pawn" and (row == 0 or row == 7):

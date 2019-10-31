@@ -9,6 +9,8 @@ class Game:
         self.p1_turn = True
         self.log = []
 
+
+# to be changed to instantiate a new turn
     def execute_turn(self, turn_from_x, turn_from_y, turn_to_x, turn_to_y):
         try:
             self.board.move(int(turn_from_x), int(turn_from_y), int(turn_to_x), int(turn_to_y))
