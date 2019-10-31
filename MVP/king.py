@@ -41,11 +41,6 @@ class King(Piece):
         else:
             return False
 
-
-
-
-
-
     def illegal_directions(self, board, start_row, start_col, end_row, end_col):
         return any([
             (self.invalid_move_types(start_row, start_col, end_row, end_col)),
