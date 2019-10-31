@@ -1,4 +1,5 @@
 import chessboard
+import turn
 
 class Game:
 
@@ -13,7 +14,7 @@ class Game:
 # to be changed to instantiate a new turn
     def execute_turn(self, turn_from_x, turn_from_y, turn_to_x, turn_to_y):
         try:
-            self.board.move(int(turn_from_x), int(turn_from_y), int(turn_to_x), int(turn_to_y))
+            turn.Turn(self.board).move(int(turn_from_x), int(turn_from_y), int(turn_to_x), int(turn_to_y))
             self.log_turn(int(turn_from_x), int(turn_from_y), int(turn_to_x), int(turn_to_y))
             self.p1_turn = not self.p1_turn
             return 'valid move'

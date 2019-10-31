@@ -7,8 +7,9 @@ import king
 import queen
 
 class Turn:
-    def __init__(self, board):
-        self.board = board
+    def __init__(self, chessboard):
+        self.chessboard = chessboard
+        self.board = chessboard.board
 
     def move(self, start_row, start_col, end_row, end_col):
             if self.__invalid_move(start_row, start_col, end_row, end_col):
@@ -40,6 +41,6 @@ class Turn:
 
     def __store_piece_if_struck(self, end_row, end_col):
         if self.board[end_row][end_col] != '-' and self.board[end_row][end_col].colour == 'White':
-            self.taken_white.append(self.board[end_row][end_col])
+            self.chessboard.taken_white.append(self.board[end_row][end_col])
         if self.board[end_row][end_col] != '-' and self.board[end_row][end_col].colour == 'Black':
-            self.taken_black.append(self.board[end_row][end_col])
+            self.chessboard.taken_black.append(self.board[end_row][end_col])
