@@ -16,7 +16,7 @@ class Piece:
                 i = start_row
                 j = start_col
                 if start_row < end_row and start_col < end_col:
-                    while (i < end_row):
+                    while (i < end_row) and (j < end_col):
                         check_square = board[i + 1][j + 1]
                         if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
                             return True
@@ -24,7 +24,7 @@ class Piece:
                             i += 1
                             j += 1
                 elif start_row > end_row and start_col > end_col:
-                    while (i > end_row):
+                    while (i > end_row) and (j > end_col):
                         check_square = board[i - 1][j - 1]
                         if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
                             return True
@@ -32,7 +32,7 @@ class Piece:
                             i -= 1
                             j -= 1
                 elif start_row < end_row and start_col > end_col:
-                    while (i < end_row):
+                    while (i < end_row) and (j > end_col):
                         check_square = board[i + 1][j - 1]
                         if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
                             return True
@@ -40,7 +40,7 @@ class Piece:
                             i += 1
                             j -= 1
                 elif start_row > end_row and start_col < end_col:
-                    while (i > end_row):
+                    while (i > end_row) and (j < end_col):
                         check_square = board[i - 1][j + 1]
                         if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
                             return True
