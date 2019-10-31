@@ -42,3 +42,11 @@ class TestQueenTaking:
           test_board.move(6,0,4,0)
           test_board.move(3,6,4,6)
           test_board.move(7,3,4,6)
+
+        def test_queen_can_take_diagonally(self, run_before_tests):
+          test_board = run_before_tests
+          test_board.move(6,3,4,3)
+          test_board.move(1,5,3,5)
+          test_board.move(7,3,5,3)
+          test_board.move(1,0,3,0)
+          test_board.move(5,3,3,5)
