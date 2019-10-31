@@ -1,10 +1,10 @@
-import pawn
-import bishop
-import rook
 import piece
-import knight
-import queen
 import king
+import queen
+import rook
+import bishop
+import knight
+import pawn
 
 # Allows rules to be extracted with tests passing. Starting board 
 # is taken from rule set, then gameplay happens in that instance of board inside
