@@ -12,11 +12,9 @@ class King(Piece):
     def in_check(self, board, start_row, start_col):
         check_evaluations = []
         king_in_question = board[start_row][start_col]
-        print(king_in_question)
         for i in range(0,8):
             for j in range(0,8):
                 if isinstance(board[i][j], Piece):
-                    print(board[i][j])
                     if [start_row,start_col] in board[i][j].available_moves(board, i, j):
                         check_evaluations.append(True)
                     else:
@@ -28,14 +26,18 @@ class King(Piece):
 
     def is_checkmate(self, board, target_king_row, target_king_col):
         checkmate_evaluations = []
-        possible_king_moves_array = self.available_moves(board, target_king_row, target_king_col)
-        for coords in possible_king_moves_array:
-            if self.in_check(board, coords[0], coords[1]):
-                checkmate_evaluations.append(True)
+        if self.in_check(board, target_king_row, target_king_col) == True:
+            possible_king_moves_array = self.available_moves(board, target_king_row, target_king_col)
+            for coords in possible_king_moves_array:
+                if self.in_check(board, coords[0], coords[1]):
+                    checkmate_evaluations.append(True)
+                else:
+                    checkmate_evaluations.append(False)
+            print(checkmate_evaluations)
+            if False not in checkmate_evaluations:
+                return True
             else:
-                checkmate_evaluations.append(False)
-        if True in checkmate_evaluations:
-            return True
+                return False
         else:
             return False
 
