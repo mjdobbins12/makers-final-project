@@ -28,6 +28,7 @@ class ChessBoard:
                 piece_to_move = self.board[start_row][start_col]
                 self.board[start_row][start_col] = "-"
                 self.board[end_row][end_col] = piece_to_move
+                self.__apply_promotion(piece_to_move, end_row, end_col)
 
         # private methods
 
@@ -39,6 +40,11 @@ class ChessBoard:
                         (piece_to_move.illegal_directions(current_board, start_row, start_col, end_row, end_col)) # checks pawn allowed vectors
                         ]
                         )
+                
+        def __apply_promotion(self, piece, row, col):
+                current_board = self.board
+                if piece.name == "Pawn" and (row == 0 or row == 7):
+                        current_board[row][col] = queen.Queen(piece.colour)
 
         def __check_within_board_boundary(self, end_row, end_col):
                 return (end_row > 7 or end_col > 7 or end_row < 0 or end_col < 0)

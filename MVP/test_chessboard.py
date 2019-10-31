@@ -2,6 +2,7 @@ import chessboard
 import pawn
 import bishop
 import pytest
+import queen
 from piece import Piece
 
 @pytest.fixture(autouse=True)
@@ -337,10 +338,10 @@ class TestPawnPromotion:
                 test_board.move(1,1,3,1)
                 test_board.move(4,0,3,1)
                 test_board.move(0,1,2,2)
-                test_board.move(1,1,2,1)
+                test_board.move(3,1,2,1)
                 test_board.move(1,5,2,5)
                 test_board.move(2,1,1,1)
                 test_board.move(2,5,3,5)
                 test_board.move(1,1,0,1)
-                assert isinstance(test_board.board[5][1], queen.Queen)
-                assert test_board.board[5][1].colour == "White"   
+                assert isinstance(test_board.board[0][1], queen.Queen)
+                assert test_board.board[0][1].colour == "White"   
