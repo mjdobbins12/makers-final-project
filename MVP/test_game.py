@@ -16,3 +16,7 @@ class TestGame:
             test_game.execute_turn('1', '7', '3', '7')
             assert test_game.log[0] == ['White', 6, 0, 4, 0]
             assert test_game.log[1] == ['Black', 1, 7, 3, 7]
+
+        def test_move_other_player_figure_prohibited(self):
+            assert test_game.p1_turn == True
+            assert test_game.execute_turn('1', '6', '3', '6') == 'invalid move'
