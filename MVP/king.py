@@ -9,11 +9,6 @@ class King(Piece):
         elif self.colour == "White":
             self.symbol = '♔'
 
-
-
-
-
-
     def in_check(self, board, start_row, start_col):
         check_evaluations = []
         king_in_question = board[start_row][start_col]
@@ -31,14 +26,18 @@ class King(Piece):
 
     def is_checkmate(self, board, target_king_row, target_king_col):
         checkmate_evaluations = []
-        possible_king_moves_array = self.available_moves(board, target_king_row, target_king_col)
-        for coords in possible_king_moves_array:
-            if self.in_check(board, coords[0], coords[1]):
-                checkmate_evaluations.append(True)
+        if self.in_check(board, target_king_row, target_king_col) == True:
+            possible_king_moves_array = self.available_moves(board, target_king_row, target_king_col)
+            for coords in possible_king_moves_array:
+                if self.in_check(board, coords[0], coords[1]):
+                    checkmate_evaluations.append(True)
+                else:
+                    checkmate_evaluations.append(False)
+            print(checkmate_evaluations)
+            if False not in checkmate_evaluations:
+                return True
             else:
-                checkmate_evaluations.append(False)
-        if True in checkmate_evaluations:
-            return True
+                return False
         else:
             return False
 

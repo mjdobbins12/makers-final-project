@@ -14,6 +14,13 @@ class TestCheckmate:
                 test_board = run_before_tests
                 assert test_board.board[0][4].is_checkmate(test_board.board, 0, 4) == False
 
+        def test_king_is_not_in_checkmate2(self, run_before_tests):
+                test_board = run_before_tests
+                test_board.move(6,5,5,5)
+                test_board.move(1,4,3,4)
+                test_board.move(6,6,4,6)
+                assert test_board.board[0][4].is_checkmate(test_board.board, 0, 4) == False
+
         # fool's mate
         def test_fools_mate_is_checkmate(self, run_before_tests):
                 test_board = run_before_tests
