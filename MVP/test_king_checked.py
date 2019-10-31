@@ -15,7 +15,7 @@ class TestKingInCheck:
 
         def test_starting_king_not_in_check(self, run_before_tests):
                 test_board = run_before_tests
-                assert test_board.board[0][4].in_check() == False
+                assert test_board.board[0][4].in_check(test_board.board, 0, 4) == False
         
         def test_king_can_be_in_check(self, run_before_tests):
                 test_board = run_before_tests
@@ -23,4 +23,4 @@ class TestKingInCheck:
                 test_board.move(1,4,2,4)
                 test_board.move(6,7,4,7)
                 test_board.move(0,5,4,1)
-                assert test_board.board[0][4].in_check() == True
+                assert test_board.board[0][4].in_check(test_board.board, 0, 4) == True
