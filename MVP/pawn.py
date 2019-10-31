@@ -35,9 +35,9 @@ class Pawn(Piece):
                         return any([start_col == end_col and isinstance(board[end_row][end_col], Piece),  # cannot move forward one space into another pawn
                                 (abs(start_col - end_col) == 1 and abs(start_row - end_row) == 1 and not isinstance(
                                 board[end_row][end_col], Piece)),  # can only strike if pawn on target square
-                                piece_to_move.colour == "White" and abs(end_row - start_row) == 2 and isinstance(
+                                piece_to_move.colour == "White" and abs(end_row - start_row) == 2 and end_row < 7 and isinstance(
                                 board[end_row+1][end_col], Piece),  # black cannot jump over pawn
-                                piece_to_move.colour == "Black" and abs(end_row - start_row) == 2 and isinstance(
+                                piece_to_move.colour == "Black" and abs(end_row - start_row) == 2 and end_row > 0 and isinstance(
                                 board[end_row-1][end_col], Piece)  # white cannot jump over pawn
                                 ]
                                 )

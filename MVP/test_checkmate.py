@@ -1,14 +1,15 @@
 import pytest
 from piece import Piece
-from chessboard import ChessBoard
+import chessboard
 from king import King
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
-        test_board = ChessBoard()
+        test_board = chessboard.ChessBoard()
         return test_board
 
-class TestKingInCheck:
+class TestCheckmate:
+
         def test_king_is_not_in_checkmate(self, run_before_tests):
                 test_board = run_before_tests
                 assert test_board.board[0][4].is_checkmate(test_board.board, 0, 4) == False
@@ -19,4 +20,4 @@ class TestKingInCheck:
                 test_board.move(1,4,3,4)
                 test_board.move(6,6,4,6)
                 test_board.move(0,3,4,7)
-                assert test_board.board[0][4].is_checkmate(test_board.board, 7, 4) == True
+                assert test_board.board[7][4].is_checkmate(test_board.board, 7, 4) == True

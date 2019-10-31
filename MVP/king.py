@@ -12,9 +12,11 @@ class King(Piece):
     def in_check(self, board, start_row, start_col):
         check_evaluations = []
         king_in_question = board[start_row][start_col]
+        print(king_in_question)
         for i in range(0,8):
             for j in range(0,8):
                 if isinstance(board[i][j], Piece):
+                    print(board[i][j])
                     if [start_row,start_col] in board[i][j].available_moves(board, i, j):
                         check_evaluations.append(True)
                     else:
@@ -24,6 +26,18 @@ class King(Piece):
         else:
             return False
 
+    def is_checkmate(self, board, target_king_row, target_king_col):
+        checkmate_evaluations = []
+        possible_king_moves_array = self.available_moves(board, target_king_row, target_king_col)
+        for coords in possible_king_moves_array:
+            if self.in_check(board, coords[0], coords[1]):
+                checkmate_evaluations.append(True)
+            else:
+                checkmate_evaluations.append(False)
+        if True in checkmate_evaluations:
+            return True
+        else:
+            return False
 
     def illegal_directions(self, board, start_row, start_col, end_row, end_col):
         return any([
