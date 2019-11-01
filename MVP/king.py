@@ -24,23 +24,6 @@ class King(Piece):
         else:
             return False
 
-    def is_checkmate(self, board, target_king_row, target_king_col):
-        checkmate_evaluations = []
-        if self.in_check(board, target_king_row, target_king_col) == True:
-            possible_king_moves_array = self.available_moves(board, target_king_row, target_king_col)
-            for coords in possible_king_moves_array:
-                if self.in_check(board, coords[0], coords[1]):
-                    checkmate_evaluations.append(True)
-                else:
-                    checkmate_evaluations.append(False)
-            print(checkmate_evaluations)
-            if False not in checkmate_evaluations:
-                return True
-            else:
-                return False
-        else:
-            return False
-
     def illegal_directions(self, board, start_row, start_col, end_row, end_col):
         if abs(start_col - end_col) == 2:
             return any([
@@ -52,18 +35,18 @@ class King(Piece):
                 (self.__king_specific_board_constraints(board, start_row, start_col, end_row, end_col))
                 ])
 
+    def invalid_move_types(self, start_row, start_col, end_row, end_col):
+        if (start_row != end_row and start_col != end_col) and (abs(start_row - end_row) != abs(start_col - end_col)):
+            return True
+        else:
+            return False
+
     def __invalid_castling(self, board, start_row, start_col, end_row, end_col):
         return any([
             self.counter > 0,
             start_row in range(1,7),
             start_row != end_row
             ])
-
-    def invalid_move_types(self, start_row, start_col, end_row, end_col):
-        if (start_row != end_row and start_col != end_col) and (abs(start_row - end_row) != abs(start_col - end_col)):
-            return True
-        else:
-            return False
 
     def __king_specific_board_constraints(self, board, start_row, start_col, end_row, end_col):
         piece_to_move = board[start_row][start_col]

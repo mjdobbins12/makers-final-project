@@ -30,17 +30,3 @@ class ChessBoard:
 
         def move(self, start_row, start_col, end_row, end_col):
                 turn.Turn(self).move(start_row, start_col, end_row, end_col)
-
-        # private methods
-
-        def __invalid_move(self, start_row, start_col, end_row, end_col):
-            turn.Turn(self).__invalid_move(start_row, start_col, end_row, end_col)
-
-        def __apply_promotion(self, piece, row, col):
-            turn.Turn(self).__apply_promotion(piece, row, col)
-
-        def __check_within_board_boundary(self, end_row, end_col):
-            turn.Turn(self).__check_within_board_boundary(end_row, end_col)
-
-        def __store_piece_if_struck(self, end_row, end_col):
-            turn.Turn(self).__store_piece_if_struck(end_row, end_col)
