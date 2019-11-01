@@ -15,6 +15,7 @@ class King(Piece):
         for i in range(0,8):
             for j in range(0,8):
                 if isinstance(board[i][j], Piece):
+                    # print([[board[i][j].name, board[i][j].colour], board[i][j].available_moves(board, i, j)])
                     if [start_row,start_col] in board[i][j].available_moves(board, i, j):
                         check_evaluations.append(True)
                     else:

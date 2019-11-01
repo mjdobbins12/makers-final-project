@@ -111,6 +111,7 @@ class TestKinginCheck:
         test_game.execute_turn(1,4,2,4)
         test_game.execute_turn(7,3,5,1)
         test_game.execute_turn(0,3,4,7)
+        print(test_game.board.board[4][7].illegal_directions(test_game.board.board, 4,7,7,4))
         assert test_game.board.board[7][4].in_check(test_game.board.board, 7, 4) == False
 
 
