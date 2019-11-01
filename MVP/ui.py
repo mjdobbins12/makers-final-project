@@ -75,13 +75,13 @@ class UI:
     # private methods
 
     def __print_taken_pieces_ifany(self):
-        if len(self.game.board.taken_white) > 0:
+        if len(self.game.player_2.taken_pieces) > 0:
             x = 'Taken:'
-            for el in self.game.board.taken_white:
+            for el in self.game.player_2.taken_pieces:
                 x += f" {el.symbol}"
             print(x)
-        if len(self.game.board.taken_black) > 0:
+        if len(self.game.player_1.taken_pieces) > 0:
             x = 'Taken:'
-            for el in self.game.board.taken_black:
+            for el in self.game.player_1.taken_pieces:
                 x += f" {el.symbol}"
             print(x)
