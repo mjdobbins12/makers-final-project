@@ -51,7 +51,30 @@ class King(Piece):
     def __king_specific_board_constraints(self, board, start_row, start_col, end_row, end_col):
         piece_to_move = board[start_row][start_col]
         return any([
+            (self.__check_king_adjacent_to_target_square(board, start_row, start_col, end_row, end_col)),
             (abs(start_row - end_row) > 1),
             (abs(start_col - end_col) > 1),
             (isinstance(board[end_row][end_col], Piece) and board[end_row][end_col].colour == piece_to_move.colour)
             ])
+
+    def __check_king_adjacent_to_target_square(self, board, start_row, start_col, end_row, end_col):
+        opposite_king_position = self.__find_opposite_colour_king(board, start_row, start_col)
+        if abs(abs(end_row) - abs(opposite_king_position[0])) > 1 or abs(abs(end_col) - abs(opposite_king_position[1])) > 1:
+            return False
+        else:
+            return True
+
+    def __find_opposite_colour_king(self, board, start_row, start_col):
+        if isinstance(board[start_row][start_col], King):
+            if board[start_row][start_col].colour == "White":
+                        for i in range(0,8):
+                            for j in range(0,8):
+                                if isinstance(board[i][j], King):
+                                    if board[i][j].colour == "Black":
+                                        return [i,j]
+            elif board[start_row][start_col].colour == "Black":
+                        for i in range(0,8):
+                            for j in range(0,8):
+                                if isinstance(board[i][j], King):
+                                    if board[i][j].colour == "White":
+                                        return [i,j]

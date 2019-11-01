@@ -15,50 +15,47 @@ def game_before_tests():
         test_game = game.Game("p1", "p2")
         return test_game
 
-test_king_b = king.King("Black")
-test_king_w = king.King("White")
+# class TestKingProperties:
+#     def test_king_name(self):
+#         assert test_king_b.name == "King"
+#         assert test_king_w.name == "King"
 
-class TestKingProperties:
-    def test_king_name(self):
-        assert test_king_b.name == "King"
-        assert test_king_w.name == "King"
+#     def test_king_symbol(self):
+#         assert test_king_b.symbol == "♚"
+#         assert test_king_w.symbol == "♔"
 
-    def test_king_symbol(self):
-        assert test_king_b.symbol == "♚"
-        assert test_king_w.symbol == "♔"
+#     def test_king_counter(self):
+#         assert test_king_b.counter == 0
+#         assert test_king_w.counter == 0
 
-    def test_king_counter(self):
-        assert test_king_b.counter == 0
-        assert test_king_w.counter == 0
+# class TestKingMovement:
+#     def test_king_can_move_up(self, board_before_tests):
+#         test_board = board_before_tests
+#         assert test_king_b.illegal_directions(test_board.board,4,4,3,4) == False
 
-class TestKingMovement:
-    def test_king_can_move_up(self, board_before_tests):
-        test_board = board_before_tests
-        assert test_king_b.illegal_directions(test_board.board,4,4,3,4) == False
+#     def test_king_can_move_down(self, board_before_tests):
+#         test_board = board_before_tests
+#         assert test_king_b.illegal_directions(test_board.board,4,4,5,4) == False
 
-    def test_king_can_move_down(self, board_before_tests):
-        test_board = board_before_tests
-        assert test_king_b.illegal_directions(test_board.board,4,4,5,4) == False
+#     def test_king_can_move_sideways(self, board_before_tests):
+#         test_board = board_before_tests
+#         assert test_king_b.illegal_directions(test_board.board,4,4,4,5) == False
 
-    def test_king_can_move_sideways(self, board_before_tests):
-        test_board = board_before_tests
-        assert test_king_b.illegal_directions(test_board.board,4,4,4,5) == False
+#     def test_king_can_move_diagonally(self, board_before_tests):
+#         test_board = board_before_tests
+#         assert test_king_b.illegal_directions(test_board.board,4,4,3,3) == False
 
-    def test_king_can_move_diagonally(self, board_before_tests):
-        test_board = board_before_tests
-        assert test_king_b.illegal_directions(test_board.board,4,4,3,3) == False
+#     def test_king_cannot_move_two_squares_laterally(self, board_before_tests):
+#         test_board = board_before_tests
+#         assert test_king_b.illegal_directions(test_board.board,4,4,4,2) == True
 
-    def test_king_cannot_move_two_squares_laterally(self, board_before_tests):
-        test_board = board_before_tests
-        assert test_king_b.illegal_directions(test_board.board,4,4,4,2) == True
+#     def test_king_cannot_move_two_squares_vertically(self, board_before_tests):
+#         test_board = board_before_tests
+#         assert test_king_b.illegal_directions(test_board.board,3,4,5,4) == True
 
-    def test_king_cannot_move_two_squares_vertically(self, board_before_tests):
-        test_board = board_before_tests
-        assert test_king_b.illegal_directions(test_board.board,3,4,5,4) == True
-
-    def test_king_cannot_move_two_squares_diagonally(self, board_before_tests):
-        test_board = board_before_tests
-        assert test_king_b.illegal_directions(test_board.board,4,4,2,2) == True
+#     def test_king_cannot_move_two_squares_diagonally(self, board_before_tests):
+#         test_board = board_before_tests
+#         assert test_king_b.illegal_directions(test_board.board,4,4,2,2) == True
 
 class TestCastling:
 
