@@ -1,42 +1,57 @@
 class Piece:
 
+        counter = 0
+
+        def increment_counter(self):
+                self.counter += 1
+
+        def available_moves(self, board, start_row, start_col):
+                piece_to_move = board[start_row][start_col]
+                array = []
+                for i in range(0,8):
+                        for j in range(0,8):
+                                if piece_to_move.illegal_directions(board, start_row, start_col, i, j) == False:
+                                        array.append([i,j])
+                return array
 
         # shared movement constraints, e.g. for bishop + queen, rook + queen
 
         def check_if_diagonal_blocked(self, board, start_row, start_col, end_row, end_col):
                 piece_to_move = board[start_row][start_col]
+                i = start_row
+                j = start_col
                 if start_row < end_row and start_col < end_col:
-                    check_square = board[start_row + 1][start_col + 1]
-                    if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
-                        return True
-                    elif check_square == board[end_row][end_col]:
-                        return False
-                    else:
-                        self.__check_if_diagonal_blocked(self, start_row + 1, start_col + 1, end_row, end_col)
+                    while (i < end_row) and (j < end_col):
+                        check_square = board[i + 1][j + 1]
+                        if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
+                            return True
+                        else:
+                            i += 1
+                            j += 1
                 elif start_row > end_row and start_col > end_col:
-                    check_square = board[start_row - 1][start_col - 1]
-                    if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
-                        return True
-                    elif check_square == board[end_row][end_col]:
-                        return False
-                    else:
-                        self.__check_if_diagonal_blocked(self, start_row - 1, start_col - 1, end_row, end_col)
+                    while (i > end_row) and (j > end_col):
+                        check_square = board[i - 1][j - 1]
+                        if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
+                            return True
+                        else:
+                            i -= 1
+                            j -= 1
                 elif start_row < end_row and start_col > end_col:
-                    check_square = board[start_row + 1][start_col - 1]
-                    if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
-                        return True
-                    elif check_square == board[end_row][end_col]:
-                        return False
-                    else:
-                        self.__check_if_diagonal_blocked(self, start_row + 1, start_col - 1, end_row, end_col)
+                    while (i < end_row) and (j > end_col):
+                        check_square = board[i + 1][j - 1]
+                        if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
+                            return True
+                        else:
+                            i += 1
+                            j -= 1
                 elif start_row > end_row and start_col < end_col:
-                    check_square = board[start_row - 1][start_col + 1]
-                    if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
-                        return True
-                    elif check_square == board[end_row][end_col]:
-                        return False
-                    else:
-                        self.__check_if_diagonal_blocked(self, start_row - 1, start_col + 1, end_row, end_col)
+                    while (i > end_row) and (j < end_col):
+                        check_square = board[i - 1][j + 1]
+                        if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
+                            return True
+                        else:
+                            i -= 1
+                            j += 1
 
         def check_if_row_or_column_blocked(self, board, start_row, start_col, end_row, end_col):
                 if start_row == end_row:
