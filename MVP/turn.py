@@ -13,7 +13,7 @@ class Turn:
 
     def move(self, start_row, start_col, end_row, end_col):
         piece_to_move = self.board[start_row][start_col]
-        if self.__invalid_move(start_row, start_col, end_row, end_col):
+        if self.__check_for_invalid_move(start_row, start_col, end_row, end_col):
             raise ValueError("Invalid Move")
         if self.__try_castling(piece_to_move, end_row, start_col, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
@@ -21,11 +21,11 @@ class Turn:
         self.__store_piece_if_struck(end_row, end_col)
         self.board[end_row][end_col] = piece_to_move
         piece_to_move.increment_counter()
-        self.__apply_promotion(piece_to_move, end_row, end_col)
+        self.__check_pawn_promotion(piece_to_move, end_row, end_col)
 
     # private methods
 
-    def __invalid_move(self, start_row, start_col, end_row, end_col):
+    def __check_for_invalid_move(self, start_row, start_col, end_row, end_col):
         current_board = self.board
         piece_to_move = self.board[start_row][start_col]
         return any(
@@ -34,7 +34,7 @@ class Turn:
             ]
             )
 
-    def __apply_promotion(self, piece, row, col):
+    def __check_pawn_promotion(self, piece, row, col):
         current_board = self.board
         if piece.name == "Pawn" and (row == 0 or row == 7):
             current_board[row][col] = queen.Queen(piece.colour)
