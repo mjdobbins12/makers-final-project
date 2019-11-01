@@ -23,3 +23,10 @@ class TestPlayerActions:
         def test_player_captured_pieces(self):
                 test_player_1.store_piece(test_pawn)
                 assert test_player_1.taken_pieces == [test_pawn]
+                
+        def test_update_score(self):
+                test_player_1.store_piece(test_pawn)
+                assert test_player_1.taken_pieces == [test_pawn]
+                
+                
+                
