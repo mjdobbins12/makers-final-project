@@ -119,8 +119,7 @@ class TestKingsCantBeAdjacent:
         test_game.execute_turn(6,4,5,5)
         test_game.execute_turn(1,4,2,5)
         test_game.execute_turn(5,5,4,6)
-        with pytest.raises(ValueError, match=r"Invalid Move"):
-                    test_game.execute_turn(2,5,3,6)
+        assert test_game.execute_turn(2,5,3,6) == 'invalid move'
 
     def test_kings_cant_be_adjacent2(self, game_before_tests):
         test_game = game_before_tests
@@ -131,8 +130,7 @@ class TestKingsCantBeAdjacent:
         test_game.execute_turn(6,4,5,3)
         test_game.execute_turn(1,4,2,3)
         test_game.execute_turn(5,3,4,2)
-        with pytest.raises(ValueError, match=r"Invalid Move"):
-                    test_game.execute_turn(2,3,3,2)
+        assert test_game.execute_turn(2,3,3,2) == 'invalid move'
 
         
 
