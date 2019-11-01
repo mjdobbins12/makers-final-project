@@ -8,8 +8,8 @@ class Game:
 
     def __init__(self, p1_name, p2_name):
         self.board = chessboard.ChessBoard()
-        self.player_1 = player.Player("p1_name", "White")
-        self.player_2 = player.Player("p2_name", "Black")
+        self.player_1 = player.Player(p1_name, "White")
+        self.player_2 = player.Player(p2_name, "Black")
         self.p1_turn = True
         self.log = []
 
@@ -48,7 +48,7 @@ class Game:
             return True
         else:
             return False
-    
+
     def __find_current_colour_king(self, board):
         for i in range(0,8):
             for j in range(0,8):
@@ -60,4 +60,3 @@ class Game:
                     if isinstance(board[i][j], King):
                         if board[i][j].colour == "Black":
                             return [i,j]
-
