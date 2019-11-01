@@ -21,13 +21,13 @@ class UI:
 
     def loop_turns(self):
           while True:
-              self.show_board(self.game.board, self.game.p1_name, self.game.p2_name)
+              self.show_board(self.game.board, self.game.player_1.name, self.game.player_2.name)
               if self.game.is_checkmate():
                   if self.game.p1_turn:
-                    print(f'Checkmate, {self.game.p2_name} wins! ')
+                    print(f'Checkmate, {self.game.player_2.name} wins! ')
                     break
                   elif self.game.p1_turn == False:
-                    print(f'Checkmate, {self.game.p1_name} wins!')
+                    print(f'Checkmate, {self.game.player_1.name} wins!')
                     break
               self.announce_whose_turn()
               print('Enter quit to stop the game')
