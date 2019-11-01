@@ -1,5 +1,6 @@
 import chessboard
 import turn
+import player
 from king import King
 from piece import Piece
 from checkmate import Checkmate
@@ -9,8 +10,8 @@ class Game:
 
     def __init__(self, p1_name, p2_name):
         self.board = chessboard.ChessBoard()
-        self.p1_name = p1_name
-        self.p2_name = p2_name
+        self.player_1 = player.Player(p1_name, "White")
+        self.player_2 = player.Player(p2_name, "Black")
         self.p1_turn = True
         self.log = []
 
@@ -38,6 +39,4 @@ class Game:
         colour = 'White' if self.p1_turn else 'Black'
         if self.board.board[x][y].colour != colour:
             raise ValueError("PlayerDoesNotOwnPiece")
-
-    
 
