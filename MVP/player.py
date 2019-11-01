@@ -3,6 +3,7 @@ class Player:
                 self.name = name
                 self.colour = colour
                 self.taken_pieces = []
+                self.score = 0
 
         def store_piece(self, piece):
                 self.taken_pieces.append(piece)
