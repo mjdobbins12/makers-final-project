@@ -354,8 +354,8 @@ class TestTakenPieces:
                 test_game.execute_turn(6,4,4,4)
                 test_game.execute_turn(1,5,3,5)
                 test_game.execute_turn(4,4,3,5)
-                assert test_game.board.taken_black[0].colour == 'Black'
-                assert isinstance(test_game.board.taken_black[0], pawn.Pawn)
+                assert test_game.player_1.taken_pieces[0].colour == 'Black'
+                assert isinstance(test_game.player_1.taken_pieces[0], pawn.Pawn)
 
         def test_taken_pieces_black(self, run_before_tests):
                 test_game = run_before_tests
@@ -363,5 +363,5 @@ class TestTakenPieces:
                 test_game.execute_turn(1,5,3,5)
                 test_game.execute_turn(6,6,4,6)
                 test_game.execute_turn(3,5,4,4)
-                assert test_game.board.taken_white[0].colour == 'White'
-                assert isinstance(test_game.board.taken_white[0], pawn.Pawn)
+                assert test_game.player_2.taken_pieces[0].colour == 'White'
+                assert isinstance(test_game.player_2.taken_pieces[0], pawn.Pawn)

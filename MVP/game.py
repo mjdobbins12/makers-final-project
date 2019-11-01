@@ -18,7 +18,7 @@ class Game:
     def execute_turn(self, turn_from_x, turn_from_y, turn_to_x, turn_to_y):
         try:
             self.check_player_owns_piece(int(turn_from_x), int(turn_from_y))
-            turn.Turn(self.board).move(int(turn_from_x), int(turn_from_y), int(turn_to_x), int(turn_to_y))
+            turn.Turn(self.board, self.player_1, self.player_2).move(int(turn_from_x), int(turn_from_y), int(turn_to_x), int(turn_to_y))
             self.log_turn(int(turn_from_x), int(turn_from_y), int(turn_to_x), int(turn_to_y))
             self.p1_turn = not self.p1_turn
             return 'valid move'
