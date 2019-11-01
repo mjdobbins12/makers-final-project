@@ -3,7 +3,7 @@ from piece import Piece
 import rook
 
 
-test_rook_b = rook.Rook("Black")
+
 test_rook_w = rook.Rook("White")
 
 class TestRookProperties:
