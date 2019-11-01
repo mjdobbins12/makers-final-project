@@ -35,18 +35,18 @@ class King(Piece):
                 (self.__king_specific_board_constraints(board, start_row, start_col, end_row, end_col))
                 ])
 
+    def invalid_move_types(self, start_row, start_col, end_row, end_col):
+        if (start_row != end_row and start_col != end_col) and (abs(start_row - end_row) != abs(start_col - end_col)):
+            return True
+        else:
+            return False
+
     def __invalid_castling(self, board, start_row, start_col, end_row, end_col):
         return any([
             self.counter > 0,
             start_row in range(1,7),
             start_row != end_row
             ])
-
-    def invalid_move_types(self, start_row, start_col, end_row, end_col):
-        if (start_row != end_row and start_col != end_col) and (abs(start_row - end_row) != abs(start_col - end_col)):
-            return True
-        else:
-            return False
 
     def __king_specific_board_constraints(self, board, start_row, start_col, end_row, end_col):
         piece_to_move = board[start_row][start_col]
