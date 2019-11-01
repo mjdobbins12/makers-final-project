@@ -101,7 +101,12 @@ class TestPawnStriking:
                 test_game.execute_turn(6,4,4,4)
                 test_game.execute_turn(1,0,3,0)
                 assert test_game.execute_turn(4,4,3,3) == 'invalid move'
-
+                
+        def test_pawn_cannot_strike_pieces_of_same_colour(self, run_before_tests):
+                test_game = run_before_tests
+                test_game.execute_turn(6,1,5,1)
+                test_game.execute_turn(1,1,2,1)
+                assert test_game.execute_turn(6,2,5,1) == 'invalid move'
 
 class TestPieceObjects:
         def test_pawn_objects_are_stored_in_board(self, run_before_tests):
