@@ -22,9 +22,6 @@ class ChessBoard:
                         pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White")],
                         [rook.Rook("White"),knight.Knight("White"),bishop.Bishop("White"),queen.Queen("White"),king.King("White"),bishop.Bishop("White"),knight.Knight("White"),rook.Rook("White")]
                         ]
-                self.taken_white = []
-                self.taken_black = []
-
 
 # these just pass through for testing purposes - do not reference these in new tests !!!!!!
 

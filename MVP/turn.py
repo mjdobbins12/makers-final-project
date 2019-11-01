@@ -7,10 +7,12 @@ import king
 import queen
 
 class Turn:
-    def __init__(self, chessboard):
+    def __init__(self, chessboard, player_1, player_2):
         self.chessboard = chessboard
         self.board = chessboard.board
-        # self.player = player
+        self.player_1 = player_1
+        self.player_2 = player_2
+        
 
     def move(self, start_row, start_col, end_row, end_col):
         piece_to_move = self.board[start_row][start_col]
@@ -45,10 +47,10 @@ class Turn:
 
     def __store_piece_if_struck(self, end_row, end_col):
         if self.board[end_row][end_col] != '-' and self.board[end_row][end_col].colour == 'White':
-            self.chessboard.taken_white.append(self.board[end_row][end_col])
+            self.player_2.store_piece(self.board[end_row][end_col])
             return self.board[end_row][end_col]
         if self.board[end_row][end_col] != '-' and self.board[end_row][end_col].colour == 'Black':
-            self.chessboard.taken_black.append(self.board[end_row][end_col])
+            self.player_1.store_piece(self.board[end_row][end_col])
 
 
     # all castling checks:
