@@ -9,6 +9,7 @@ test_king_w = king.King("White")
 board = chessboard.ChessBoard()
 board1 = chessboard.ChessBoard()
 board2 = chessboard.ChessBoard()
+board3 = chessboard.ChessBoard()
 
 class TestKingProperties:
     def test_king_name(self):
@@ -87,3 +88,10 @@ class TestCastling:
         board2.move(1,4,3,4)
         with pytest.raises(ValueError, match=r"Invalid Move"):
                       board2.move(7,4,7,6)
+
+    def test_king_cant_castle_over_other_piece(self):
+        board3.move(7,6,5,5)
+        with pytest.raises(ValueError, match=r"Invalid Move"):
+                      board3.move(7,4,7,6)
+        
+

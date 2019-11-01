@@ -56,13 +56,31 @@ class Turn:
                 return 'invalid move'
 
     def __iscastling(self, end_row, end_col):
-        if (end_col == 6) and (self.board[end_row][7].counter == 0):
+        if self.__check_castle_king_side(end_row, end_col):
             self.board[end_row][5] = self.board[end_row][7]
             self.board[end_row][7] = '-'
-        elif (end_col == 2) and (self.board[end_row][0].counter == 0):
+        elif self.__check_castle_queen_side(end_row, end_col):
             self.board[end_row][3] = self.board[end_row][0]
             self.board[end_row][0] = '-'
         else:
             raise ValueError("Invalid Move")
 
+    def __check_castle_queen_side(self, end_row, end_col):
+            return all([
+                    (end_col == 2),
+                    (self.board[end_row][4].counter == 0),
+                    (self.board[end_row][0].counter == 0),
+                    (not isinstance(self.board[end_row][1], piece.Piece)),
+                    (not isinstance(self.board[end_row][2], piece.Piece)),
+                    (not isinstance(self.board[end_row][3], piece.Piece))
+                ])
+    
+    def __check_castle_king_side(self, end_row, end_col):
+            return all([
+                    (end_col == 6),
+                    (self.board[end_row][4].counter == 0),
+                    (self.board[end_row][7].counter == 0),
+                    (not isinstance(self.board[end_row][5], piece.Piece)),
+                    (not isinstance(self.board[end_row][6], piece.Piece)),
+                ])
     
