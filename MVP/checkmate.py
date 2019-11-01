@@ -1,5 +1,4 @@
 from king import King
-from game import Game
 
 class Checkmate:
         def __init__(self, game):

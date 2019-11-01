@@ -2,6 +2,8 @@ import chessboard
 import turn
 from king import King
 from piece import Piece
+from checkmate import Checkmate
+
 
 class Game:
 
@@ -21,6 +23,12 @@ class Game:
             return 'valid move'
         except:
             return 'invalid move'
+
+    def is_checkmate(self):
+        if Checkmate(self).is_checkmate():
+            return True
+        else:
+            return False
 
     def log_turn(self, turn_from_x, turn_from_y, turn_to_x, turn_to_y):
         colour = 'White' if self.p1_turn else 'Black'
