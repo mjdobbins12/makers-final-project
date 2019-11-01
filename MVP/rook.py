@@ -24,26 +24,8 @@ class Rook(Piece):
 
         def __rook_specific_board_constraints(self, board, start_row, start_col, end_row, end_col):
                 piece_to_move = board[start_row][start_col]
-                return any([(self.__check_if_row_or_column_blocked(board, start_row, start_col, end_row, end_col)),
+                return any([(self.check_if_row_or_column_blocked(board, start_row, start_col, end_row, end_col)),
                                 (isinstance(board[end_row][end_col], Piece)
                                 and board[end_row][end_col].colour == piece_to_move.colour),
                                 ]
                                 )
-
-        def __check_if_row_or_column_blocked(self, board, start_row, start_col, end_row, end_col):
-                if start_row == end_row:
-                        if start_col > end_col:
-                                squares_between = list(range(end_col + 1, start_col))
-                        else:
-                                squares_between = list(range(start_col + 1, end_col))
-                        squares_between[:] = [board[start_row][element] for element in squares_between]
-                        if any(isinstance(x, Piece) for x in squares_between):
-                                return True
-                else:
-                        if start_row > end_row:
-                                squares_between = list(range(end_row + 1, start_row))
-                        else:
-                                squares_between = list(range(start_row + 1, end_row))
-                        squares_between[:] = [board[element][start_col] for element in squares_between]
-                        if any(isinstance(x, Piece) for x in squares_between):
-                                return True
