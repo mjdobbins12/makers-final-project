@@ -7,9 +7,10 @@ import king
 import queen
 
 class Turn:
-    def __init__(self, chessboard):
+    def __init__(self, chessboard, player):
         self.chessboard = chessboard
         self.board = chessboard.board
+        # self.player = player
 
     def move(self, start_row, start_col, end_row, end_col):
         if self.__invalid_move(start_row, start_col, end_row, end_col):

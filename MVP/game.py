@@ -1,5 +1,6 @@
 import chessboard
 import turn
+import player
 from king import King
 from piece import Piece
 
@@ -7,8 +8,8 @@ class Game:
 
     def __init__(self, p1_name, p2_name):
         self.board = chessboard.ChessBoard()
-        self.p1_name = p1_name
-        self.p2_name = p2_name
+        self.player_1 = player.Player("Player_1", "White")
+        self.player_2 = player.Player("Player_2", "Black")
         self.p1_turn = True
         self.log = []
 
