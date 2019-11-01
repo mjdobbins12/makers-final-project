@@ -7,7 +7,7 @@ import king
 import queen
 
 class Turn:
-    def __init__(self, chessboard, player):
+    def __init__(self, chessboard):
         self.chessboard = chessboard
         self.board = chessboard.board
         # self.player = player

@@ -8,8 +8,8 @@ class Game:
 
     def __init__(self, p1_name, p2_name):
         self.board = chessboard.ChessBoard()
-        self.player_1 = player.Player("Player_1", "White")
-        self.player_2 = player.Player("Player_2", "Black")
+        self.player_1 = player.Player("p1_name", "White")
+        self.player_2 = player.Player("p2_name", "Black")
         self.p1_turn = True
         self.log = []
 
