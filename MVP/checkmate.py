@@ -1,7 +1,4 @@
-import chessboard
-import turn
 from king import King
-from piece import Piece
 from game import Game
 
 class Checkmate:
@@ -37,3 +34,5 @@ class Checkmate:
                             if isinstance(self.game.board.board[i][j], King):
                                 if self.game.board.board[i][j].colour == "Black":
                                     return [i,j]
+
+      

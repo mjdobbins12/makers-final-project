@@ -12,9 +12,9 @@ class Turn:
         self.board = chessboard.board
 
     def move(self, start_row, start_col, end_row, end_col):
+        piece_to_move = self.board[start_row][start_col]
         if self.__invalid_move(start_row, start_col, end_row, end_col):
             raise ValueError("Invalid Move")
-        piece_to_move = self.board[start_row][start_col]
         if self.__check_castling(piece_to_move, end_row, start_col, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
         self.board[start_row][start_col] = "-"
@@ -40,7 +40,7 @@ class Turn:
             current_board[row][col] = queen.Queen(piece.colour)
 
     def __check_within_board_boundary(self, end_row, end_col):
-        return (end_row > 7 or end_col > 7 or end_row < 0 or end_col < 0)
+        return (end_row > (len(self.board) - 1) or end_col > (len(self.board[0]) - 1) or end_row < 0 or end_col < 0)
 
     def __store_piece_if_struck(self, end_row, end_col):
         if self.board[end_row][end_col] != '-' and self.board[end_row][end_col].colour == 'White':
@@ -64,3 +64,5 @@ class Turn:
             self.board[end_row][0] = '-'
         else:
             raise ValueError("Invalid Move")
+
+    
