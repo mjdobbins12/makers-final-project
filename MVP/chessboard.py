@@ -9,11 +9,9 @@ import turn
 
 import standard_rules
 
-import many_queens_ruleset
-
 class ChessBoard:
         def __init__(self):
-                self.rule_set = many_queens_ruleset.ManyQueens()
+                self.rule_set = standard_rules.StandardRules()
                 self.board = self.rule_set.starting_board
 
         def move(self, start_row, start_col, end_row, end_col):

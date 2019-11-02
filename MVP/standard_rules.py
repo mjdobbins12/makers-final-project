@@ -11,11 +11,11 @@ import pawn
 # the ChessBoard instance. 
 # Moves are checked against the current board by the ruleset, against its 
 # stored rules. A bit of back and forth between ChessBoard and RuleSet, but clearly
-# preferable to the game taking place within the ruleset's own version of the board object. 
+# preferable to the game taking place within the ruleset's own version of the board object. 
 
 # Board boundary is defined inside this object. 
 # Piece specific rules remain on the pieces themselves. This does lead to 
-# Some flexibility; by creating a different starting board below with special variants of pieces
+# Some flexibility; by creating a different starting board below with special variants of pieces
 # we could introduce different constraints to the game. However, would need more methods to 
 # be able to change rules mid-game
 
@@ -46,4 +46,3 @@ class StandardRules:
 
         def check_within_board_boundary(self, end_row, end_col):
                 return (end_row > 7 or end_col > 7 or end_row < 0 or end_col < 0)
-        
