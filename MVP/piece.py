@@ -1,6 +1,7 @@
 class Piece:
 
         counter = 0
+        value = 1
 
         def increment_counter(self):
                 self.counter += 1
