@@ -41,9 +41,6 @@ class UI:
 
 
     def announce_whose_turn(self):
-
-        self.show_board(self.game.board, self.game.player_1.name, self.game.player_2.name)
-
         if self.game.p1_turn == True:
             print(self.game.player_1.name + "'s turn!")
         else:
