@@ -21,6 +21,14 @@ class UI:
 
     def loop_turns(self):
           while True:
+              self.show_board(self.game.board, self.game.player_1.name, self.game.player_2.name)
+              if self.game.is_checkmate():
+                  if self.game.p1_turn:
+                    print(f'Checkmate, {self.game.player_2.name} wins! ')
+                    break
+                  elif self.game.p1_turn == False:
+                    print(f'Checkmate, {self.game.player_1.name} wins!')
+                    break
               self.announce_whose_turn()
               print('Enter quit to stop the game')
               turn_from = input('Please enter square to move FROM: ')
@@ -33,11 +41,10 @@ class UI:
 
 
     def announce_whose_turn(self):
-        self.show_board(self.game.board, self.game.p1_name, self.game.p2_name)
         if self.game.p1_turn == True:
-            print(self.game.p1_name + "'s turn!")
+            print(self.game.player_1.name + "'s turn!")
         else:
-            print(self.game.p2_name + "'s turn!")
+            print(self.game.player_2.name + "'s turn!")
 
 
     def show_board(self, board, p1_name, p2_name):
@@ -59,3 +66,19 @@ class UI:
             print("-" * 33)
         print(p1_name)
         print('')
+        self.__print_taken_pieces_ifany()
+
+
+    # private methods
+
+    def __print_taken_pieces_ifany(self):
+        if len(self.game.player_2.taken_pieces) > 0:
+            x = 'Taken:'
+            for el in self.game.player_2.taken_pieces:
+                x += f" {el.symbol}"
+            print(x)
+        if len(self.game.player_1.taken_pieces) > 0:
+            x = 'Taken:'
+            for el in self.game.player_1.taken_pieces:
+                x += f" {el.symbol}"
+            print(x)

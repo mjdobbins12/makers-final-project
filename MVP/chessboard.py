@@ -5,6 +5,7 @@ import piece
 import knight
 import king
 import queen
+import turn
 
 import standard_rules
 
@@ -21,5 +22,6 @@ class ChessBoard:
                 piece_to_move = self.board[start_row][start_col]
                 self.board[start_row][start_col] = "-"
                 self.board[end_row][end_col] = piece_to_move
+
 
 

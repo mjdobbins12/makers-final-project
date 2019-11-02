@@ -1,10 +1,16 @@
 import pytest
 import pawn
 from piece import Piece
-
+import chessboard
+import game
 
 test_pawn_b = pawn.Pawn("Black")
 test_pawn_w = pawn.Pawn("White")
+
+@pytest.fixture(autouse=True)
+def run_before_tests():
+        test_game = game.Game('p1', 'p2')
+        return test_game
 
 class TestpawnProperties:
 
@@ -39,3 +45,10 @@ class TestIllegalMoves:
 
     def test_pawn_cannot_move_a_knight_move(self):
       assert test_pawn_b.invalid_move_types(3, 1, 5, 2) == True
+
+class TestAvailableMoves:
+    
+    def test_available_moves_is_array_of_allowed_moves(self, run_before_tests):
+      test_game = run_before_tests
+      assert test_game.board.board[6][6].available_moves(test_game.board.board,6,6) == [[4,6],[5,6]]
+      assert test_game.board.board[6][1].available_moves(test_game.board.board,6,1) == [[4,1],[5,1]]
