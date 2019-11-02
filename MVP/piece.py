@@ -18,41 +18,29 @@ class Piece:
 
         def check_if_diagonal_blocked(self, board, start_row, start_col, end_row, end_col):
                 piece_to_move = board[start_row][start_col]
-                i = start_row
-                j = start_col
-                if start_row < end_row and start_col < end_col:
-                        while (i < end_row) and (j < end_col):
-                                check_square = board[i + 1][j + 1]
-                                if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
-                                        return True
-                                else:
-                                        i += 1
-                                        j += 1
-                elif start_row > end_row and start_col > end_col:
-                        while (i > end_row) and (j > end_col):
-                                check_square = board[i - 1][j - 1]
-                                if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
-                                        return True
-                                else:
-                                        i -= 1
-                                        j -= 1
-                elif start_row < end_row and start_col > end_col:
-                        while (i < end_row) and (j > end_col):
-                                check_square = board[i + 1][j - 1]
-                                if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
-                                        return True
-                                else:
-                                        i += 1
-                                        j -= 1
-                elif start_row > end_row and start_col < end_col:
-                        while (i > end_row) and (j < end_col):
-                                check_square = board[i - 1][j + 1]
-                                if isinstance(check_square, Piece) and check_square.colour == piece_to_move.colour:
-                                        return True
-                                else:
-                                        i -= 1
-                                        j += 1
-
+                squares_between = []
+                
+                if start_row != end_row and start_col != end_col:
+                        if start_row < end_row and start_col < end_col: # +1 +1
+                                rows_between = list(range(start_row + 1, end_row))
+                                cols_between = list(range(start_col + 1, end_col))
+                        elif start_row > end_row and start_col > end_col: # -1 -1
+                                rows_between = list(range(end_row + 1, start_row))
+                                cols_between = list(range(end_col + 1, start_col))
+                        elif start_row < end_row and start_col > end_col: # +1 -1
+                                rows_between = list(range(start_row + 1, end_row))
+                                cols_between = list(range(end_col + 1, start_col))
+                        elif start_row > end_row and start_col < end_col: # -1 +1
+                                rows_between = list(range(end_row + 1, start_row))
+                                cols_between = list(range(start_col + 1, end_col))
+                        for i,j in zip(rows_between,cols_between):
+                                squares_between.append(board[i][j])
+                        if any(isinstance(x, Piece) for x in squares_between):
+                                return True
+                        else:
+                                return False
+                
+                
         def check_if_row_or_column_blocked(self, board, start_row, start_col, end_row, end_col):
                 if start_row == end_row:
                         if start_col > end_col:
