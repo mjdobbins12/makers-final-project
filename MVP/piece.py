@@ -43,7 +43,7 @@ class Piece:
                                 cols_between = list(range(start_col + 1, end_col))
                         for i,j in zip(rows_between,cols_between):
                                 squares_between.append(board[i][j])
-                                # print([start_row, start_col, end_row, end_col, squares_between, i, j])
+                                # print([start_row, start_col, end_row, end_col, squares_between, i, j]) # useful for checking method working!
                         if any(isinstance(x, Piece) for x in squares_between):
                                 return True
                         else:
