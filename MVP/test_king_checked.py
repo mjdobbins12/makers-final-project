@@ -22,6 +22,13 @@ class TestKingInCheck:
                 test_game.execute_turn(0,4,1,4)
                 test_game.execute_turn(6,4,5,4)
                 assert test_game.board.board[5][4].in_check(test_game.board.board, 5, 4) == False
+                test_game.execute_turn(1,4,2,4)
+                assert test_game.board.board[2][4].in_check(test_game.board.board, 2, 4) == False
+                test_game.execute_turn(5,4,5,5)
+                assert test_game.board.board[5][5].in_check(test_game.board.board, 5, 5) == False
+                test_game.execute_turn(0,3,2,5) # black queen puts king in check
+                assert test_game.board.board[5][5].in_check(test_game.board.board, 5, 5) == True # white king in check?
+                assert test_game.board.board[2][4].in_check(test_game.board.board, 2, 4) == False # black king in check?
         
         def test_king_can_be_in_check(self, run_before_tests):
                 test_game = run_before_tests
