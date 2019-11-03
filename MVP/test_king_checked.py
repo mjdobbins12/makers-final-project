@@ -19,5 +19,8 @@ class TestKingInCheck:
                 test_game.execute_turn(6,3,4,3)
                 test_game.execute_turn(1,2,2,2)
                 test_game.execute_turn(6,7,4,7)
+                print(test_game.board.board[0][3].available_moves(test_game.board.board,0,3))
+                print(test_game.board.board[0][3].queen_specific_board_constraints(test_game.board.board,0,3,3,0))
+                print(test_game.board.board[0][3].check_if_diagonal_blocked(test_game.board.board,0,3,3,0))
                 test_game.execute_turn(0,3,3,0)
                 assert test_game.board.board[7][4].in_check(test_game.board.board, 7, 4) == True 

@@ -26,15 +26,24 @@ class Piece:
                                 cols_between = list(range(start_col + 1, end_col))
                         elif start_row > end_row and start_col > end_col: # -1 -1
                                 rows_between = list(range(end_row + 1, start_row))
+                                if rows_between != []:
+                                        rows_between.reverse()
                                 cols_between = list(range(end_col + 1, start_col))
+                                if cols_between != []:
+                                        cols_between.reverse()
                         elif start_row < end_row and start_col > end_col: # +1 -1
                                 rows_between = list(range(start_row + 1, end_row))
                                 cols_between = list(range(end_col + 1, start_col))
+                                if cols_between != []:
+                                        cols_between.reverse()
                         elif start_row > end_row and start_col < end_col: # -1 +1
                                 rows_between = list(range(end_row + 1, start_row))
+                                if rows_between != []:
+                                        rows_between.reverse()
                                 cols_between = list(range(start_col + 1, end_col))
                         for i,j in zip(rows_between,cols_between):
                                 squares_between.append(board[i][j])
+                                # print([start_row, start_col, end_row, end_col, squares_between, i, j])
                         if any(isinstance(x, Piece) for x in squares_between):
                                 return True
                         else:

@@ -11,7 +11,7 @@ class Queen(Piece):
 
         def illegal_directions(self, board, start_row, start_col, end_row, end_col):
                 return any([self.invalid_move_types(start_row, start_col, end_row, end_col),
-                        self.__queen_specific_board_constraints(board, start_row, start_col, end_row, end_col)
+                        self.queen_specific_board_constraints(board, start_row, start_col, end_row, end_col)
                         ])
 
 
@@ -29,15 +29,16 @@ class Queen(Piece):
                 else:
                         return False
 
-        def __queen_specific_board_constraints(self, board, start_row, start_col, end_row, end_col):
+        def queen_specific_board_constraints(self, board, start_row, start_col, end_row, end_col):
                 piece_to_move = board[start_row][start_col]
                 end_square_taken = (isinstance(board[end_row][end_col], Piece) and board[end_row][end_col].colour == piece_to_move.colour)
                 if (start_row != end_row and start_col != end_col) and abs(start_row - end_row) == abs(start_col - end_col):
                         blocker_to_check = self.check_if_diagonal_blocked(board, start_row, start_col, end_row, end_col)
                         # print([board[start_row][start_col], blocker_to_check, [start_row, start_col, end_row, end_col], end_square_taken])
-
-                else:
+                elif start_row == end_row or start_col == end_col:
                         blocker_to_check = self.check_if_row_or_column_blocked(board, start_row, start_col, end_row, end_col)
+                else: 
+                        return True
                 return any([
                         (blocker_to_check),
                         (end_square_taken)
