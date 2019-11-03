@@ -1,3 +1,5 @@
+import king
+
 class Piece:
 
         counter = 0
@@ -50,7 +52,6 @@ class Piece:
                         else:
                                 return False
                 
-                
         def check_if_row_or_column_blocked(self, board, start_row, start_col, end_row, end_col):
                 if start_row == end_row:
                         if start_col > end_col:
@@ -74,3 +75,24 @@ class Piece:
                                         for element in squares_between]
                         if any(isinstance(x, Piece) for x in squares_between):
                                 return True
+                        
+        def move_leaves_king_in_check(self, board, end_row, end_col):
+                king_coords = self.__find_current_colour_king(board)
+                king_in_question = self.game.board.board[king_coords[0]][king_coords[1]]
+                if king_in_question.in_check(end_row, end_col): # check whether king would be in check after proposed move
+                        return True
+                else:
+                        return False
+        
+        def __find_current_colour_king(self, board):
+                for i in range(0,8):
+                        for j in range(0,8):
+                                if self.colour == "White":
+                                        if isinstance(board[i][j], King):
+                                                if board[i][j].colour == "White":
+                                                        return [i,j]
+                                        else:
+                                                if isinstance(board[i][j], King):
+                                                        if board[i][j].colour == "Black":
+                                                                return [i,j]
+
