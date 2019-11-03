@@ -1,12 +1,14 @@
 import pytest
-from piece import Piece
+
 import chessboard
+import game
 import king
 from game import Game
+from piece import Piece
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
-        test_game = Game("p1", "p2")
+        test_game = game.Game('p1', 'p2')
         return test_game
 
 class TestAvailableMoves:
@@ -29,3 +31,4 @@ class TestAvailableMoves:
                 test_game.execute_turn(6, 4, 4, 4)
                 test_game.execute_turn(1, 5, 3, 5)
                 assert test_game.board.board[7][3].available_moves(test_game.board.board, 7, 3) == [[3,7],[4,6],[5,5],[6,4]]
+

@@ -4,6 +4,7 @@ class Pawn(Piece):
         def __init__(self, colour):
                 self.colour = colour
                 self.name = "Pawn"
+                self.value = 1
 
                 if self.colour == "Black":
                         self.symbol = '♟'
@@ -21,6 +22,7 @@ class Pawn(Piece):
                 return any([self.colour == "Black" and end_row < start_row,
                         self.colour == "White" and end_row > start_row,
                         start_row == end_row, # cannot move sideways
+                        
                         abs(start_row - end_row) > 2, # cannot move more than 2 spaces
                         (start_row != 6 and start_row != 1) and abs(start_row - end_row) >= 2, # cannot move 2 spaces after 1st move
                         abs(start_col - end_col) > 1, # can't move diagonally more than 1 space
@@ -38,6 +40,8 @@ class Pawn(Piece):
                                 piece_to_move.colour == "White" and abs(end_row - start_row) == 2 and end_row < 7 and isinstance(
                                 board[end_row+1][end_col], Piece),  # black cannot jump over pawn
                                 piece_to_move.colour == "Black" and abs(end_row - start_row) == 2 and end_row > 0 and isinstance(
-                                board[end_row-1][end_col], Piece)  # white cannot jump over pawn
+                                board[end_row-1][end_col], Piece),  # white cannot jump over pawn
+                                hasattr(board[end_row][end_col], 'colour') and
+                                        piece_to_move.colour == board[end_row][end_col].colour # cannot take any pieces of same colour
                                 ]
                                 )
