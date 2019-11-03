@@ -24,7 +24,7 @@ class UI:
               self.show_board(self.game.board, self.game.player_1.name, self.game.player_2.name)
               if self.game.is_checkmate():
                   if self.game.p1_turn:
-                    print(f'Checkmate, {self.game.player_2.name} wins! ')
+                    print(f'Checkmate, {self.game.player_2.name} wins!')
                     break
                   elif self.game.p1_turn == False:
                     print(f'Checkmate, {self.game.player_1.name} wins!')
