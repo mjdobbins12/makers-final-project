@@ -22,8 +22,3 @@ class ChessBoard:
                         pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White"),pawn.Pawn("White")],
                         [rook.Rook("White"),knight.Knight("White"),bishop.Bishop("White"),queen.Queen("White"),king.King("White"),bishop.Bishop("White"),knight.Knight("White"),rook.Rook("White")]
                         ]
-
-# these just pass through for testing purposes - do not reference these in new tests !!!!!!
-
-        def move(self, start_row, start_col, end_row, end_col):
-                turn.Turn(self).move(start_row, start_col, end_row, end_col)
