@@ -13,6 +13,15 @@ class TestKingInCheck:
         def test_starting_king_not_in_check(self, run_before_tests):
                 test_game = run_before_tests
                 assert test_game.board.board[0][4].in_check(test_game.board.board, 0, 4) == False
+
+        def test_king_not_in_check_from_own_pieces(self, run_before_tests):
+                test_game = run_before_tests
+                test_game.execute_turn(6,4,4,4)
+                test_game.execute_turn(1,4,3,4)
+                test_game.execute_turn(7,4,6,4)
+                test_game.execute_turn(0,4,1,4)
+                test_game.execute_turn(6,4,5,4)
+                assert test_game.board.board[5][4].in_check(test_game.board.board, 5, 4) == False
         
         def test_king_can_be_in_check(self, run_before_tests):
                 test_game = run_before_tests
