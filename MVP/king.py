@@ -21,6 +21,7 @@ class King(Piece):
                         else:
                             check_evaluations.append(False)
         if True in check_evaluations:
+            print("CHECK TEST")
             return True
         else:
             return False
