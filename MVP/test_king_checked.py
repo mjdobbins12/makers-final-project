@@ -36,4 +36,23 @@ class TestKingInCheck:
                 test_game.execute_turn(1,2,2,2)
                 test_game.execute_turn(6,7,4,7)
                 test_game.execute_turn(0,3,3,0)
-                assert test_game.board.board[7][4].in_check(test_game.board.board, 7, 4) == True 
+                assert test_game.board.board[7][4].in_check(test_game.board.board, 7, 4) == True
+
+        def test_king_in_check_from_bishop(self, run_before_tests):
+                test_game = run_before_tests
+                test_game.execute_turn(6,3,4,3)
+                test_game.execute_turn(1,4,3,4)
+                test_game.execute_turn(6,7,4,7)
+                test_game.execute_turn(0,5,4,1)
+                assert test_game.board.board[7][4].in_check(test_game.board.board, 7, 4) == True
+
+        def test_king_in_check_from_knight(self, run_before_tests):
+                test_game = run_before_tests
+                test_game.execute_turn(7,6,5,5)
+                test_game.execute_turn(1,0,3,0)
+                test_game.execute_turn(5,5,4,7)
+                test_game.execute_turn(3,0,4,0)
+                test_game.execute_turn(4,7,3,5)
+                test_game.execute_turn(4,0,5,0)
+                test_game.execute_turn(3,5,1,6)
+                assert test_game.board.board[0][4].in_check(test_game.board.board, 0, 4) == True

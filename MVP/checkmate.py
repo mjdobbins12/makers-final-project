@@ -7,9 +7,11 @@ class Checkmate:
         def is_checkmate(self):
                 king_coords = self.__find_current_colour_king()
                 king_in_question = self.game.board.board[king_coords[0]][king_coords[1]]
+                print([king_in_question, king_in_question.colour])
                 checkmate_evaluations = []
                 if king_in_question.in_check(self.game.board.board, king_coords[0], king_coords[1]) == True:
                     possible_king_moves_array = king_in_question.available_moves(self.game.board.board, king_coords[0], king_coords[1])
+                    print(possible_king_moves_array)
                     for coords in possible_king_moves_array:
                         if king_in_question.in_check(self.game.board.board, coords[0], coords[1]):
                             checkmate_evaluations.append(True)
