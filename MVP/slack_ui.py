@@ -7,7 +7,7 @@ from io import StringIO
 import sys
 
 
-class SlackOutput:
+class Slack:
 
     def __init__(self):
         self.client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'])
@@ -157,5 +157,5 @@ class SlackOutput:
                 return True
         return False
 
-slack_instance = SlackOutput()
+slack_instance = Slack()
 slack_instance.start_listen()
