@@ -12,6 +12,13 @@ class Minimax:
         def execute_turn(self):
                 return []
 
+        
+        def move_value(self):
+                return self.available_moves()
+
+
+
+
         def available_moves(self):
                 array = []
                 for i in range(0,8):
@@ -21,7 +28,5 @@ class Minimax:
                                                 array.append(self.board[i][j].available_moves(self.board, i, j))
                 return array
 
-        def move_value(self):
-                return []
 
         
