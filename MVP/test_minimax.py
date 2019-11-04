@@ -1,5 +1,5 @@
-import chessboard
 import game
+import minimax
 import pytest
 
 @pytest.fixture(autouse=True)
@@ -11,4 +11,3 @@ class TestInputOutput:
         def test_accepts_two_args(self, run_before_tests):
                 test_game = run_before_tests
                 new_minimax = minimax.Minimax(test_game.board.board, test_game.p1_turn)
-                
