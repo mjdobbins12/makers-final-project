@@ -55,7 +55,7 @@ class UI:
         print("| a | b | c | d | e | f | g | h |")
         print("_" * 33)
         ind = 8
-        for row in self.game.board.board:
+        for row in self.game.board:
             x = "|"
             for el in row:
                 if isinstance(el, piece.Piece):
