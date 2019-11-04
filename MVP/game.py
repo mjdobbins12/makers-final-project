@@ -10,7 +10,7 @@ import many_queens
 class Game:
 
     def __init__(self, p1_name, p2_name):
-        self.ruleset = standard_rules.StandardRules()
+        self.ruleset = many_queens.ManyQueens()
         self.board = self.ruleset.starting_board
         self.player_1 = player.Player(p1_name, "White")
         self.player_2 = player.Player(p2_name, "Black")
