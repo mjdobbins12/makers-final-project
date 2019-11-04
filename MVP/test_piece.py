@@ -3,6 +3,7 @@ import pytest
 import chessboard
 import game
 import king
+from game import Game
 from piece import Piece
 
 @pytest.fixture(autouse=True)
@@ -30,3 +31,4 @@ class TestAvailableMoves:
                 test_game.execute_turn(6, 4, 4, 4)
                 test_game.execute_turn(1, 5, 3, 5)
                 assert test_game.board.board[7][3].available_moves(test_game.board.board, 7, 3) == [[3,7],[4,6],[5,5],[6,4]]
+
