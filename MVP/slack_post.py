@@ -6,7 +6,9 @@ import game
 from io import StringIO
 import sys
 
+
 class SlackOutput:
+
     def __init__(self):
         self.client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'])
         self.bot_id = None
@@ -28,32 +30,16 @@ class SlackOutput:
             data = payload['data']
             web_client = payload['web_client']
             rtm_client = payload['rtm_client']
-            if data.get('text', []) == 'start' and data.get('bot_id') == None and self.game == None:
-                self.names_of_players = [data['user']]
-                self.post(web_client, f" <@{data['user']}> wants to play! Enter join to join him!")
-
-            if data.get('text', []) == 'join' and data.get('bot_id') == None and len(self.names_of_players) == 1:
-                self.names_of_players.append(data['user'])
-                self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
-
-
-            if self.game != None and data.get('bot_id') == None and data.get('text', [])!= 'start' and data.get('text', [])!= 'stop' and data.get('text', [])!= 'join' and data['user'] in self.names_of_players:
-                print(data)
-                if self.__correct_players_turn(data):
-                    try:
-                        self.__parse_and_execute_move(data.get('text', []))
-                    except:
-                        self.post(web_client, 'Invalid move - try again')
-                    self.__check_for_checkmate()
-                    self.post(web_client, self.__output_board())
-
-            if self.game != None and data.get('bot_id') == None and data.get('text', [])== 'stop' and data['user'] in self.names_of_players:
-                self.post(web_client, 'Ok, stopped the game. Enter start to start a new game!')
-                self.game = None
-                self.names_of_players = []
+            self.__check_for_start(web_client, data)
+            self.__check_for_join(web_client, data)
+            self.__check_for_moves(web_client, data)
+            self.__check_for_stop(web_client, data)
 
                 #checking if the player is allowed to give the instruction
                 #can run only one game concurrently
+                #clean up webclient references - necessary to pass along?
+                #simplify/clean up if statements for __check methods
+                #think about how to run in another channel vs. #chess only
 
         slack_token = os.environ["SLACK_API_TOKEN"]
         rtm_client = slack.RTMClient(token=slack_token)
@@ -62,6 +48,33 @@ class SlackOutput:
 
 
     # private methods
+
+    def __check_for_start(self, web_client, data):
+        if data.get('text', []) == 'start' and data.get('bot_id') == None and self.game == None:
+            self.names_of_players = [data['user']]
+            self.post(web_client, f" <@{data['user']}> wants to play! Enter join to join him!")
+
+    def __check_for_join(self, web_client, data):
+        if data.get('text', []) == 'join' and data.get('bot_id') == None and len(self.names_of_players) == 1:
+            self.names_of_players.append(data['user'])
+            self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
+
+    def __check_for_moves(self, web_client, data):
+        if self.game != None and data.get('bot_id') == None and data.get('text', [])!= 'start' and data.get('text', [])!= 'stop' and data.get('text', [])!= 'join' and data['user'] in self.names_of_players:
+            print(data)
+            if self.__correct_players_turn(data):
+                try:
+                    self.__parse_and_execute_move(data.get('text', []))
+                except:
+                    self.post(web_client, 'Invalid move - try again')
+                self.__check_for_checkmate()
+                self.post(web_client, self.__output_board())
+
+    def __check_for_stop(self, web_client, data):
+        if self.game != None and data.get('bot_id') == None and data.get('text', [])== 'stop' and data['user'] in self.names_of_players:
+            self.post(web_client, 'Ok, stopped the game. Enter start to start a new game!')
+            self.game = None
+            self.names_of_players = []
 
     def __output_board(self):
         old_stdout = sys.stdout
@@ -143,6 +156,6 @@ class SlackOutput:
             if data['user'] == self.game.player_2.name:
                 return True
         return False
-        
-test = SlackOutput()
-test.start_listen()
+
+slack_instance = SlackOutput()
+slack_instance.start_listen()
