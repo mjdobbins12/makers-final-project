@@ -4,12 +4,14 @@ import player
 from king import King
 from piece import Piece
 from checkmate import Checkmate
+import standard_rules
 
 
 class Game:
 
     def __init__(self, p1_name, p2_name):
-        self.board = chessboard.ChessBoard()
+        self.ruleset = standard_rules.StandardRules()
+        self.board = self.ruleset.starting_board
         self.player_1 = player.Player(p1_name, "White")
         self.player_2 = player.Player(p2_name, "Black")
         self.p1_turn = True
@@ -37,6 +39,6 @@ class Game:
 
     def check_player_owns_piece(self, x, y):
         colour = 'White' if self.p1_turn else 'Black'
-        if self.board.board[x][y].colour != colour:
+        if self.board[x][y].colour != colour:
             raise ValueError("PlayerDoesNotOwnPiece")
 

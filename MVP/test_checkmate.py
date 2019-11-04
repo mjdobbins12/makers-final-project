@@ -42,7 +42,7 @@ class TestCheckmate:
                 test_checkmate.game.execute_turn(3,7,4,7)
                 test_checkmate.game.execute_turn(2,5,1,5)
                 test_checkmate.game.execute_turn(0,4,1,5)
-                print(test_checkmate.game.board.board)
+                print(test_checkmate.game.board)
                 assert test_checkmate.is_checkmate() == False
 
         # fool's mate
