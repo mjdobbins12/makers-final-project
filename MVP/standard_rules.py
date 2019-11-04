@@ -25,6 +25,8 @@ class StandardRules:
                          king.King("White"),bishop.Bishop("White"),knight.Knight("White"),rook.Rook("White")]
                         ]
 
+
+# check methods
         def check_if_move_into_check(self, board, start_row, start_col, end_row, end_col):
                 piece_to_move = board[start_row][start_col]
                 colour = piece_to_move.colour
@@ -40,3 +42,17 @@ class StandardRules:
                                 if isinstance(changed_board[i][j], king.King):
                                         if changed_board[i][j].colour == colour:
                                                 return changed_board[i][j].in_check(changed_board, i, j)
+                                        
+        
+                                        
+#invalid move methods                             
+        def check_for_invalid_move(self, board, start_row, start_col, end_row, end_col):
+                piece_to_move = board[start_row][start_col]
+                return any(
+                        [self.__check_within_board_boundary(board, end_row, end_col),
+                        (piece_to_move.illegal_directions(board, start_row, start_col, end_row, end_col))
+                        ]
+                        )
+                
+        def __check_within_board_boundary(self, board, end_row, end_col):
+                return (end_row > (len(board) - 1) or end_col > (len(board[0]) - 1) or end_row < 0 or end_col < 0)

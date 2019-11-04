@@ -17,7 +17,7 @@ class Turn:
 
     def move(self, start_row, start_col, end_row, end_col):
         piece_to_move = self.board[start_row][start_col]
-        if self.__check_for_invalid_move(start_row, start_col, end_row, end_col):
+        if self.ruleset.check_for_invalid_move(self.board, start_row, start_col, end_row, end_col):
             raise ValueError("Invalid Move")
         if self.__try_castling(piece_to_move, end_row, start_col, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
@@ -47,22 +47,22 @@ class Turn:
     #                 if changed_board[i][j].colour == colour:
     #                     return changed_board[i][j].in_check(changed_board, i, j)
 
-    def __check_for_invalid_move(self, start_row, start_col, end_row, end_col):
-        current_board = self.board
-        piece_to_move = self.board[start_row][start_col]
-        return any(
-            [self.__check_within_board_boundary(end_row, end_col),
-            (piece_to_move.illegal_directions(current_board, start_row, start_col, end_row, end_col))
-            ]
-            )
+    # def __check_for_invalid_move(self, start_row, start_col, end_row, end_col):
+    #     current_board = self.board
+    #     piece_to_move = self.board[start_row][start_col]
+    #     return any(
+    #         [self.__check_within_board_boundary(end_row, end_col),
+    #         (piece_to_move.illegal_directions(current_board, start_row, start_col, end_row, end_col))
+    #         ]
+    #         )
 
     def __check_pawn_promotion(self, piece, row, col):
         current_board = self.board
         if piece.name == "Pawn" and (row == 0 or row == 7):
             current_board[row][col] = queen.Queen(piece.colour)
 
-    def __check_within_board_boundary(self, end_row, end_col):
-        return (end_row > (len(self.board) - 1) or end_col > (len(self.board[0]) - 1) or end_row < 0 or end_col < 0)
+    # def __check_within_board_boundary(self, end_row, end_col):
+    #     return (end_row > (len(self.board) - 1) or end_col > (len(self.board[0]) - 1) or end_row < 0 or end_col < 0)
 
     def __store_piece_if_struck(self, end_row, end_col):
         if self.board[end_row][end_col] != '-' and self.board[end_row][end_col].colour == 'White':
