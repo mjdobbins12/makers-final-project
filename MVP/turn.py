@@ -20,7 +20,6 @@ class Turn:
             raise ValueError("Invalid Move")
         if self.__try_castling(piece_to_move, end_row, start_col, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
-        # self.update_board(start_row, start_col, end_row, end_col)
         if self.__king_in_check(start_row, start_col, end_row, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
         # self.board[start_row][start_col] = "-"
@@ -38,29 +37,20 @@ class Turn:
 
     def update_board(self, start_row, start_col, end_row, end_col):
         piece_to_move = self.board[start_row][start_col]
-        colour = self.board[start_row][start_col].colour
+        colour = piece_to_move.colour
+        changed_board = self.board
+        changed_board[start_row][start_col] = "-"
+        changed_board[end_row][end_col] = piece_to_move
+        if self.__check_current_player_king(changed_board, colour) == True:
+            raise ValueError("Invalid Move")
         self.board[start_row][start_col] = "-"
         self.__store_piece_if_struck(end_row, end_col)
         self.board[end_row][end_col] = piece_to_move
-        changed_board = self.board
-        # if self.__check_current_player_king(changed_board, start_row, start_col, end_row, end_col) == True:
-        #     raise ValueError("Invalid Move")
-        if self.__check_current_player_king(changed_board, colour) == True:
-            raise ValueError("Invalid Move")
 
-    # def __check_current_player_king(self, changed_board, start_row, start_col, end_row, end_col):
-    #     for i in range(0,8):
-    #         for j in range(0,8):
-    #             if changed_board[start_row][start_col] == "White":
-    #                 if isinstance(changed_board[i][j], King):
-    #                     return changed_board[i][j].in_check(changed_board, i, j)
-    #             elif changed_board[start_row][start_col] == "Black":
-    #                 if isinstance(changed_board[i][j], King):
-    #                     return changed_board[i][j].in_check(changed_board, i, j)
     def __check_current_player_king(self, changed_board, colour):
         for i in range(0,8):
             for j in range(0,8):
-                if isinstance(changed_board[i][j], King):
+                if isinstance(changed_board[i][j], king.King):
                     if changed_board[i][j].colour == colour:
                         return changed_board[i][j].in_check(changed_board, i, j)
 
