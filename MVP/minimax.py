@@ -1,10 +1,11 @@
 from piece import Piece
 import copy
+from random import random
 
 class Minimax:
         def __init__(self, game):
                 self.game = game
-                self.original_board = copy.deepcopy(self.game.board.board)
+                
         
         def execute_turn(self):
                 return []
@@ -19,19 +20,27 @@ class Minimax:
                                         self.game.execute_turn(moveset[0][0], moveset[0][1], j[0], j[1])
                                         score = self.evaluate_position(self.game.board.board)     
                                         evaluation_array.append([score, moveset[0], [j[0],j[1]]])
-                                # self.game.board.board = self.original_board
-                print(evaluation_array)
+                                self.game.board.board = original_board
+                # print(evaluation_array)
                 return evaluation_array
 
-        # def minimax(self, depth):
-        #         all_evals = []
-        #         i = 0
-        #         while i < depth:
-        #                 next_move_evaluation_array = move_value()
-        #                 for i in next_move_evaluation_array:
-        #                         self.game.execute_turn(i[1][0], i[1][1], i[2][0], i[2][1])
-
-        #                 i+= 1
+        def minimax(self, depth):
+                # 1) get avail moves
+                # 2) get move values
+                # 3) get MORE move_values from move_values
+                all_evals = []
+                a = 0
+                while a < depth:
+                        last_known_board = copy.deepcopy(self.game.board.board)
+                        next_move_evaluation_array = self.move_value()
+                        for i in next_move_evaluation_array:
+                                self.game.execute_turn(i[1][0], i[1][1], i[2][0], i[2][1])
+                                all_evals.append(self.move_value())
+                                # self.game.board.board = last_known_board
+                        a += 1
+                all_evals = sorted()
+                print(all_evals)
+                return all_evals
 
 
 
@@ -54,7 +63,7 @@ class Minimax:
                 return array
 
         def evaluate_position(self, board):
-                return 1
+                return round(random() * 100)
 
 
         

@@ -23,7 +23,7 @@ class TestInputOutput:
 class TestValueOfMoves:
         def test_value_of_available_moves_for_next_move(self, run_before_tests):
                 test_minimax = run_before_tests
-                assert isinstance(test_minimax.move_value(), str)
+                assert isinstance(test_minimax.move_value(), list)
 
 
 class TestAllAvailableMoves:
@@ -71,5 +71,10 @@ class TestAllAvailableMoves:
                         [[1, 6], [[2, 6], [3, 6]]], 
                         [[1, 7], [[2, 7], [3, 7]]]
                         ]
+
+class TestMiniMax:
+        def test_return_value_from_minimax(self, run_before_tests):
+                test_minimax = run_before_tests
+                assert len(test_minimax.minimax(5)) == 120
 
 
