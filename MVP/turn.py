@@ -23,7 +23,7 @@ class Turn:
             raise ValueError("Invalid Move")
         # if self.__king_in_check(start_row, start_col, end_row, end_col):
         #     raise ValueError("Invalid Move")
-        if self.check_if_move_into_check(start_row, start_col, end_row, end_col) == 'invalid move':
+        if self.ruleset.check_if_move_into_check(self.board, start_row, start_col, end_row, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
         self.board[start_row][start_col] = "-"
         self.__store_piece_if_struck(end_row, end_col)
@@ -31,21 +31,21 @@ class Turn:
         piece_to_move.increment_counter()
         self.__check_pawn_promotion(piece_to_move, end_row, end_col)
 
-    def check_if_move_into_check(self, start_row, start_col, end_row, end_col):
-        piece_to_move = self.board[start_row][start_col]
-        colour = piece_to_move.colour
-        changed_board = copy.deepcopy(self.board)
-        changed_board[start_row][start_col] = "-"
-        changed_board[end_row][end_col] = piece_to_move
-        if self.__check_current_player_king(changed_board, colour) == True:
-            return 'invalid move'
+    # def check_if_move_into_check(self, start_row, start_col, end_row, end_col):
+    #     piece_to_move = self.board[start_row][start_col]
+    #     colour = piece_to_move.colour
+    #     changed_board = copy.deepcopy(self.board)
+    #     changed_board[start_row][start_col] = "-"
+    #     changed_board[end_row][end_col] = piece_to_move
+    #     if self.__check_current_player_king(changed_board, colour) == True:
+    #         return 'invalid move'
 
-    def __check_current_player_king(self, changed_board, colour):
-        for i in range(0,8):
-            for j in range(0,8):
-                if isinstance(changed_board[i][j], king.King):
-                    if changed_board[i][j].colour == colour:
-                        return changed_board[i][j].in_check(changed_board, i, j)
+    # def __check_current_player_king(self, changed_board, colour):
+    #     for i in range(0,8):
+    #         for j in range(0,8):
+    #             if isinstance(changed_board[i][j], king.King):
+    #                 if changed_board[i][j].colour == colour:
+    #                     return changed_board[i][j].in_check(changed_board, i, j)
 
     def __check_for_invalid_move(self, start_row, start_col, end_row, end_col):
         current_board = self.board
