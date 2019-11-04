@@ -46,7 +46,7 @@ class SlackOutput:
                 user = data['user']
                 web_client.chat_postMessage(
                     channel=channel_id,
-                    text=f" <@{user}> launched the game!"
+                    text=f" <@{user}> launched the game! Enter moves in this format: a2-a4"
                     )
                 web_client.chat_postMessage(
                     channel=channel_id,
@@ -86,6 +86,8 @@ class SlackOutput:
                     )
                 #checkmate condition
                 #stop the game
+                #checking if the player is allowed to give the instruction
+                #can run only one game concurrently
 
         slack_token = os.environ["SLACK_API_TOKEN"]
         rtm_client = slack.RTMClient(token=slack_token)
