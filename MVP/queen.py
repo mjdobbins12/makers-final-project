@@ -4,6 +4,7 @@ class Queen(Piece):
         def __init__(self, colour):
                 self.colour = colour
                 self.name = "Queen"
+                self.value = 9
                 if self.colour == "Black":
                         self.symbol = '♛'
                 elif self.colour == "White":
@@ -37,7 +38,7 @@ class Queen(Piece):
                         # print([board[start_row][start_col], blocker_to_check, [start_row, start_col, end_row, end_col], end_square_taken])
                 elif start_row == end_row or start_col == end_col:
                         blocker_to_check = self.check_if_row_or_column_blocked(board, start_row, start_col, end_row, end_col)
-                else: 
+                else:
                         return True
                 return any([
                         (blocker_to_check),
