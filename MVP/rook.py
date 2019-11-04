@@ -1,3 +1,4 @@
+import king
 from piece import Piece
 
 class Rook(Piece):
@@ -13,8 +14,7 @@ class Rook(Piece):
         def illegal_directions(self, board, start_row, start_col, end_row, end_col):
                 return any([
                         (self.invalid_move_types(start_row, start_col, end_row, end_col)),  # cant move diagonally
-                        (self.__rook_specific_board_constraints(board, start_row, start_col, end_row, end_col)),
-                        (self.move_leaves_king_in_check(board, end_row, end_col))                        
+                        (self.__rook_specific_board_constraints(board, start_row, start_col, end_row, end_col)),                    
                         ])
 
         def invalid_move_types(self, start_row, start_col, end_row, end_col):
@@ -29,4 +29,5 @@ class Rook(Piece):
                                 (isinstance(board[end_row][end_col], Piece)
                                 and board[end_row][end_col].colour == piece_to_move.colour),
                                 ])
+                
                                 

@@ -33,7 +33,8 @@ class Turn:
         piece_to_move = self.board[start_row][start_col]
         return any(
             [self.__check_within_board_boundary(end_row, end_col),
-            (piece_to_move.illegal_directions(current_board, start_row, start_col, end_row, end_col))
+            (piece_to_move.illegal_directions(current_board, start_row, start_col, end_row, end_col)),
+            (piece_to_move.move_leaves_king_in_check(current_board, end_row, end_col))
             ]
             )
 
