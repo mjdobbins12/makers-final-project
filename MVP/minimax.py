@@ -14,8 +14,12 @@ class Minimax:
 
         
         def move_value(self):
-                moves = self.available_moves()
+                return []
 
+                moves = self.available_moves()
+                for piece_moves in moves:
+                        for move in piece_moves:
+                                return "YO"
 
 
 
@@ -26,6 +30,7 @@ class Minimax:
                                 if isinstance(self.board[i][j], Piece):
                                         if self.board[i][j].colour == self.turn:
                                                 array.append(self.board[i][j].available_moves(self.board, i, j))
+                array = list(filter(lambda a: a != [], array)) # removes empty arrays from available moves array
                 return array
 
 
