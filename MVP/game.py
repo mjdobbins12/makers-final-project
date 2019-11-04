@@ -30,9 +30,9 @@ class Game:
             self.board.board[turn_to_x][turn_to_y] = target_object
             self.p1_turn = not self.p1_turn
 
-    def get_original_pieces(self, turn_from_x, turn_from_y, turn_to_x, turn_to_y):
-            original_square = self.board.board[turn_from_x][turn_from_y]
-            moved_to = self.board.board[turn_to_x][turn_to_y]
+    def get_original_pieces(self, board, turn_from_x, turn_from_y, turn_to_x, turn_to_y):
+            original_square = board[turn_from_x][turn_from_y]
+            moved_to = board[turn_to_x][turn_to_y]
             return [original_square, moved_to]
 
     def is_checkmate(self):
@@ -50,3 +50,26 @@ class Game:
         if self.board.board[x][y].colour != colour:
             raise ValueError("PlayerDoesNotOwnPiece")
 
+
+
+
+
+    def show_board(self, p1_name, p2_name):
+        print('')
+        print(p2_name)
+        print("| a | b | c | d | e | f | g | h |")
+        print("_" * 33)
+        ind = 8
+        for row in self.board.board:
+            x = "|"
+            for el in row:
+                if isinstance(el, Piece):
+                    x += f" {el.symbol} |"
+                else:
+                    x += f" {el} |"
+            x += f" {ind}"
+            ind -= 1
+            print(x)
+            print("-" * 33)
+        print(p1_name)
+        print('')
