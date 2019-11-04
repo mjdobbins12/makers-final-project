@@ -10,7 +10,7 @@ class Minimax:
         def execute_turn(self):
                 return []
 
-        def move_value(self):
+        def all_possible_move_values(self):
                 evaluation_array = []
                 all_available_moves = self.available_moves()
                 original_board = copy.deepcopy(self.game.board.board)
@@ -27,18 +27,19 @@ class Minimax:
         def minimax(self, depth):
                 # 1) get avail moves
                 # 2) get move values
-                # 3) get MORE move_values from move_values
+                # 3) get MORE all_possible_move_valuess from all_possible_move_valuess
                 all_evals = []
                 a = 0
                 while a < depth:
                         last_known_board = copy.deepcopy(self.game.board.board)
-                        next_move_evaluation_array = self.move_value()
+                        next_move_evaluation_array = self.all_possible_move_values()
+                        # print(next_move_evaluation_array)
                         for i in next_move_evaluation_array:
+                                pieces = self.game.get_original_pieces(i[1][0], i[1][1], i[2][0], i[2][1])
                                 self.game.execute_turn(i[1][0], i[1][1], i[2][0], i[2][1])
-                                all_evals.append(self.move_value())
-                                # self.game.board.board = last_known_board
+                                all_evals.append(self.all_possible_move_values())
+                                self.game.revert_turn(i[1][0], i[1][1], i[2][0], i[2][1], pieces[0], pieces[1])
                         a += 1
-                all_evals = sorted()
                 print(all_evals)
                 return all_evals
 

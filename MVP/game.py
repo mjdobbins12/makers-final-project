@@ -25,6 +25,16 @@ class Game:
         except:
             return 'invalid move'
 
+    def revert_turn(self, turn_from_x, turn_from_y, turn_to_x, turn_to_y, original_object, target_object):
+            self.board.board[turn_from_x][turn_from_y] = original_object
+            self.board.board[turn_to_x][turn_to_y] = target_object
+            self.p1_turn = not self.p1_turn
+
+    def get_original_pieces(self, turn_from_x, turn_from_y, turn_to_x, turn_to_y):
+            original_square = self.board.board[turn_from_x][turn_from_y]
+            moved_to = self.board.board[turn_to_x][turn_to_y]
+            return [original_square, moved_to]
+
     def is_checkmate(self):
         if Checkmate(self).is_checkmate():
             return True
