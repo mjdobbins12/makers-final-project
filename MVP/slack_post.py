@@ -11,6 +11,7 @@ class SlackOutput:
         self.client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'])
         self.bot_id = None
         self.game = None
+        self.names_of_players = []
 
     def post(self, client, text, channel = '#chess'):
         output = client.chat_postMessage(
@@ -27,13 +28,22 @@ class SlackOutput:
             data = payload['data']
             web_client = payload['web_client']
             rtm_client = payload['rtm_client']
-            if 'start' in data.get('text', []) and data.get('bot_id') == None:
-                members = web_client.conversations_members(channel='CQ5DE12DV')['members']
-                user = data['user']
-                self.__launch_game(web_client, user, members)
+            if data.get('text', []) == 'start' and data.get('bot_id') == None and self.game == None:
+                self.names_of_players = [data['user']]
+                self.post(web_client, f" <@{data['user']}> wants to play! Enter join to join him!")
 
-                self.post(web_client, self.__output_board())
-            if self.game != None and data.get('bot_id') == None and data.get('text', [])!= 'start' and data.get('text', [])!= 'stop':
+                # members = web_client.conversations_members(channel='CQ5DE12DV')['members']
+                # user = data['user']
+                # self.__launch_game(web_client, user, members)
+
+            if data.get('text', []) == 'join' and data.get('bot_id') == None and len(self.names_of_players) == 1:
+                self.names_of_players.append(data['user'])
+                self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
+                # members = web_client.conversations_members(channel='CQ5DE12DV')['members']
+                # user = data['user']
+                # self.__launch_game(web_client, user, members)
+
+            if self.game != None and data.get('bot_id') == None and data.get('text', [])!= 'start' and data.get('text', [])!= 'stop' and data.get('text', [])!= 'join':
                 print(data)
 
                 try:
@@ -45,6 +55,7 @@ class SlackOutput:
 
             if self.game != None and data.get('bot_id') == None and data.get('text', [])== 'stop':
                 self.post(web_client, 'Ok, stopped the game. Enter start to start a new game!')
+                self.game = None
 
                 #checking if the player is allowed to give the instruction
                 #can run only one game concurrently
@@ -109,9 +120,10 @@ class SlackOutput:
     def __launch_game(self, web_client, user, members):
         self.post(web_client, f" <@{user}> launched the game! Enter moves in this format: a2-a4")
         self.post(web_client, 'Enter stop to stop the game')
-
         self.post(web_client, f" <@{members[0]}> vs <@{members[1]}>")
         self.game = game.Game(members[0], members[1])
+        self.post(web_client, self.__output_board())
+
 
     def __parse_and_execute_move(self, text):
         turn_from = text.split('-')[0]
@@ -126,6 +138,7 @@ class SlackOutput:
               self.post(web_client, f"Checkmate, <@{self.game.player_2.name}> wins!")
             elif self.game.p1_turn == False:
               self.post(web_client, f"Checkmate, <@{self.game.player_2.name}> wins!")
+            self.game = None
 
 test = SlackOutput()
 test.start_listen()
