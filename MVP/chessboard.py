@@ -20,6 +20,3 @@ class ChessBoard:
                 piece_to_move = self.board[start_row][start_col]
                 self.board[start_row][start_col] = "-"
                 self.board[end_row][end_col] = piece_to_move
-
-
-
