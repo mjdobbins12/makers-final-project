@@ -19,6 +19,20 @@ class TestInputOutput:
                 test_minimax.game.execute_turn(6, 4, 4, 4)
                 assert isinstance(test_minimax.execute_turn(), list)
 
+class TestValueOfMoves:
+        def test_value_of_available_moves(self, run_before_tests):
+                test_minimax = run_before_tests
+                assert isinstance(test_minimax.move_value(), list)
+
+
+
+
+
+
+
+
+
+
 class TestAllAvailableMoves:
         def test_returns_available_moves_white(self, run_before_tests):
                 test_minimax = run_before_tests

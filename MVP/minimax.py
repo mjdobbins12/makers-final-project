@@ -20,3 +20,8 @@ class Minimax:
                                         if self.board[i][j].colour == self.turn:
                                                 array.append(self.board[i][j].available_moves(self.board, i, j))
                 return array
+
+        def move_value(self):
+                return []
+
+        
