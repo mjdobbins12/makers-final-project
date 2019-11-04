@@ -6,3 +6,6 @@ class Minimax:
                         self.turn = "White"
                 else:
                         self.turn = "Black"
+        
+        def execute_turn(self):
+                return []
