@@ -12,22 +12,6 @@ class SlackOutput:
         self.bot_id = None
         self.game = None
 
-    def test(self):
-        response = self.client.chat_postMessage(
-        channel='#chess',
-        text="Hello world!",
-        as_user = True)
-        assert response["ok"]
-        assert response["message"]["text"] == "Hello world!"
-
-    # def print(self, text):
-    #     output = self.client.chat_postMessage(
-    #     channel='#chess',
-    #     text=text,
-    #     as_user = True)
-    #     if self.bot_id == None:
-    #         self.bot_id = output['message']['bot_id']
-
     def post(self, client, text, channel = '#chess'):
         output = client.chat_postMessage(
         channel='#chess',
@@ -46,33 +30,23 @@ class SlackOutput:
             if 'start' in data.get('text', []) and data.get('bot_id') == None:
                 members = web_client.conversations_members(channel='CQ5DE12DV')['members']
                 user = data['user']
-
-                print(data)
-                print(self.bot_id)
-                print(members)
-
-                self.post(web_client, f" <@{user}> launched the game! Enter moves in this format: a2-a4")
-                self.post(web_client, f" <@{members[0]}> vs <@{members[1]}>")
-
-                self.game = game.Game(f"<@{members[0]}>",f"<@{members[1]}>")
+                self.__launch_game(web_client, user, members)
 
                 self.post(web_client, self.__output_board())
-            elif self.game != None and data.get('bot_id') == None:
-                text = data.get('text', [])
-                print (text)
+            if self.game != None and data.get('bot_id') == None and data.get('text', [])!= 'start' and data.get('text', [])!= 'stop':
+                print(data)
+
                 try:
-                    turn_from = text.split('-')[0]
-                    turn_to = text.split('-')[1]
-                    move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
-                    if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
-                        self.post(web_client, 'Invalid move - try again')
+                    self.__parse_and_execute_move(text)
                 except:
                     self.post(web_client, 'Invalid move - try again')
 
                 self.post(web_client, self.__output_board())
 
+            if self.game != None and data.get('bot_id') == None and data.get('text', [])== 'stop':
+                self.post(web_client, 'Ok, stopped the game. Enter start to start a new game!')
+
                 #checkmate condition
-                #stop the game
                 #checking if the player is allowed to give the instruction
                 #can run only one game concurrently
 
@@ -82,7 +56,7 @@ class SlackOutput:
 
     def show_board(self, board, p1_name, p2_name):
         print('')
-        print(p2_name)
+        print(f"<@{p1_name}>")
         print("| a | b | c | d | e | f | g | h |")
         print("_" * 33)
         ind = 8
@@ -97,15 +71,15 @@ class SlackOutput:
             ind -= 1
             print(x)
             print("-" * 33)
-        print(p1_name)
+        print(f"<@{p1_name}>")
         print('')
         self.__print_taken_pieces_ifany()
 
     def announce_whose_turn(self):
         if self.game.p1_turn == True:
-            print(self.game.player_1.name + "'s turn!")
+            print(f"<@{self.game.player_1.name}>" + "'s turn!")
         else:
-            print(self.game.player_2.name + "'s turn!")
+            print(f"<@{self.game.player_2.name}>" + "'s turn!")
 
     # private methods
 
@@ -130,6 +104,20 @@ class SlackOutput:
         result_string = result.getvalue()
         sys.stdout = old_stdout
         return result_string
+
+    def __launch_game(self, web_client, user, members):
+        self.post(web_client, f" <@{user}> launched the game! Enter moves in this format: a2-a4")
+        self.post(web_client, 'Enter stop to stop the game')
+
+        self.post(web_client, f" <@{members[0]}> vs <@{members[1]}>")
+        self.game = game.Game(members[0], members[1])
+
+    def __parse_and_execute_move(self, text):
+        turn_from = text.split('-')[0]
+        turn_to = text.split('-')[1]
+        move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
+        if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
+            self.post(web_client, 'Invalid move - try again')
 
 test = SlackOutput()
 test.start_listen()
