@@ -4,6 +4,7 @@ import player
 from king import King
 from piece import Piece
 from checkmate import Checkmate
+from draw import Draw
 
 
 class Game:
@@ -31,6 +32,12 @@ class Game:
         else:
             return False
 
+    def is_draw(self):
+        if Draw(self).is_draw():
+            return True
+        else:
+            return False
+
     def log_turn(self, turn_from_x, turn_from_y, turn_to_x, turn_to_y):
         colour = 'White' if self.p1_turn else 'Black'
         self.log.append([colour, turn_from_x, turn_from_y, turn_to_x, turn_to_y])
@@ -39,4 +46,3 @@ class Game:
         colour = 'White' if self.p1_turn else 'Black'
         if self.board.board[x][y].colour != colour:
             raise ValueError("PlayerDoesNotOwnPiece")
-

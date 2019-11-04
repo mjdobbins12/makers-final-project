@@ -21,7 +21,7 @@ class Turn:
             raise ValueError("Invalid Move")
         if self.__try_castling(piece_to_move, end_row, start_col, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
-        if self.update_board(start_row, start_col, end_row, end_col) == 'invalid move':
+        if self.check_if_self_in_check(start_row, start_col, end_row, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
         self.board[start_row][start_col] = "-"
         self.__store_piece_if_struck(end_row, end_col)
@@ -31,7 +31,7 @@ class Turn:
 
     # private methods
 
-    def update_board(self, start_row, start_col, end_row, end_col):
+    def check_if_self_in_check(self, start_row, start_col, end_row, end_col):
         piece_to_move = self.board[start_row][start_col]
         colour = piece_to_move.colour
         changed_board = copy.deepcopy(self.board)
