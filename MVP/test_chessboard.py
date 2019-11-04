@@ -1,4 +1,5 @@
 import chessboard
+import standard_rules
 import pawn
 import bishop
 import game
@@ -14,47 +15,47 @@ def run_before_tests():
 class TestStartingBoard:
         def test_board_displayed(self, run_before_tests):
                 test_game = run_before_tests
-                assert test_game.board.board == test_game.board.board
+                assert test_game.board == test_game.board
 
 class TestPawnAllowedMoves:
         def test_black_pawn_can_move_1_space_forward(self, run_before_tests):
                 test_game = run_before_tests
                 test_game.execute_turn(6,1,5,1)
-                assert isinstance(test_game.board.board[5][1], pawn.Pawn)
-                assert test_game.board.board[5][1].colour == "White"
-                assert test_game.board.board[6][1] == ("-")
+                assert isinstance(test_game.board[5][1], pawn.Pawn)
+                assert test_game.board[5][1].colour == "White"
+                assert test_game.board[6][1] == ("-")
 
         def test_white_pawn_can_move_1_space_forward(self, run_before_tests):
                 test_game = run_before_tests
                 test_game.execute_turn(6,7,5,7)
                 test_game.execute_turn(1,2,2,2)
-                assert isinstance(test_game.board.board[2][2], pawn.Pawn)
-                assert test_game.board.board[2][2].colour == "Black"
-                assert test_game.board.board[1][2] == ('-')
+                assert isinstance(test_game.board[2][2], pawn.Pawn)
+                assert test_game.board[2][2].colour == "Black"
+                assert test_game.board[1][2] == ('-')
 
         def test_black_pawn_can_move_2_spaces_forward(self, run_before_tests):
                 test_game = run_before_tests
                 test_game.execute_turn(6,1,4,1)
-                assert isinstance(test_game.board.board[4][1], pawn.Pawn)
-                assert test_game.board.board[4][1].colour == "White"
-                assert test_game.board.board[6][1] == ("-")
+                assert isinstance(test_game.board[4][1], pawn.Pawn)
+                assert test_game.board[4][1].colour == "White"
+                assert test_game.board[6][1] == ("-")
 
         def test_white_pawn_can_move_2_spaces_forward(self, run_before_tests):
                 test_game = run_before_tests
                 test_game.execute_turn(6,7,5,7)
                 test_game.execute_turn(1,2,3,2)
-                assert isinstance(test_game.board.board[3][2], pawn.Pawn)
-                assert test_game.board.board[3][2].colour == "Black"
-                assert test_game.board.board[1][2] == ('-')
+                assert isinstance(test_game.board[3][2], pawn.Pawn)
+                assert test_game.board[3][2].colour == "Black"
+                assert test_game.board[1][2] == ('-')
 
         def test_black_pawn_can_move_1_further_space_forward(self, run_before_tests):
                 test_game = run_before_tests
                 test_game.execute_turn(6,1,4,1)
                 test_game.execute_turn(1,0,2,0)
                 test_game.execute_turn(4,1,3,1)
-                assert isinstance(test_game.board.board[3][1], pawn.Pawn)
-                assert test_game.board.board[3][1].colour == "White"
-                assert test_game.board.board[4][1] == ("-")
+                assert isinstance(test_game.board[3][1], pawn.Pawn)
+                assert test_game.board[3][1].colour == "White"
+                assert test_game.board[4][1] == ("-")
 
         def test_white_pawn_can_move_1_further_space_forward(self, run_before_tests):
                 test_game = run_before_tests
@@ -62,15 +63,15 @@ class TestPawnAllowedMoves:
                 test_game.execute_turn(1,2,3,2)
                 test_game.execute_turn(5,7,4,7)
                 test_game.execute_turn(3,2,4,2)
-                assert isinstance(test_game.board.board[4][2], pawn.Pawn)
-                assert test_game.board.board[4][2].colour == "Black"
-                assert test_game.board.board[3][2] == ("-")
+                assert isinstance(test_game.board[4][2], pawn.Pawn)
+                assert test_game.board[4][2].colour == "Black"
+                assert test_game.board[3][2] == ("-")
 
         def test_pawn_object_can_move_1_space_forward(self, run_before_tests):
                 test_game = run_before_tests
                 test_game.execute_turn(6,6,5,6)
-                assert isinstance(test_game.board.board[5][6], pawn.Pawn)
-                assert test_game.board.board[6][6] == ("-")
+                assert isinstance(test_game.board[5][6], pawn.Pawn)
+                assert test_game.board[6][6] == ("-")
 
 class TestPawnStriking:
         def test_black_pawn_can_move_forward_left(self, run_before_tests):
@@ -78,11 +79,11 @@ class TestPawnStriking:
                 test_game.execute_turn(6,4,4,4)
                 test_game.execute_turn(1,5,3,5)
                 test_game.execute_turn(4,4,3,5)
-                assert test_game.board.board[1][5] == ("-")
-                assert test_game.board.board[6][4] == ("-")
-                assert test_game.board.board[4][4] == ("-")
-                assert isinstance(test_game.board.board[3][5], pawn.Pawn)
-                assert test_game.board.board[3][5].colour == "White"
+                assert test_game.board[1][5] == ("-")
+                assert test_game.board[6][4] == ("-")
+                assert test_game.board[4][4] == ("-")
+                assert isinstance(test_game.board[3][5], pawn.Pawn)
+                assert test_game.board[3][5].colour == "White"
 
         def test_white_pawn_can_move_forward_left(self, run_before_tests):
                 test_game = run_before_tests
@@ -90,11 +91,11 @@ class TestPawnStriking:
                 test_game.execute_turn(1,5,3,5)
                 test_game.execute_turn(6,3,4,3)
                 test_game.execute_turn(3,5,4,4)
-                assert test_game.board.board[1][5] == ("-")
-                assert test_game.board.board[6][4] == ("-")
-                assert test_game.board.board[3][5] == ("-")
-                assert isinstance(test_game.board.board[4][4], pawn.Pawn)
-                assert test_game.board.board[4][4].colour == "Black"
+                assert test_game.board[1][5] == ("-")
+                assert test_game.board[6][4] == ("-")
+                assert test_game.board[3][5] == ("-")
+                assert isinstance(test_game.board[4][4], pawn.Pawn)
+                assert test_game.board[4][4].colour == "Black"
 
         def test_pawn_can_only_move_diagonally_to_strike(self, run_before_tests):
                 test_game = run_before_tests
@@ -111,15 +112,15 @@ class TestPawnStriking:
 class TestPieceObjects:
         def test_pawn_objects_are_stored_in_board(self, run_before_tests):
                 test_game = run_before_tests
-                assert isinstance(test_game.board.board[6][6], pawn.Pawn)
+                assert isinstance(test_game.board[6][6], pawn.Pawn)
 
         def test_pawn_objects_can_have_colour_property(self, run_before_tests):
                 test_game = run_before_tests
-                assert test_game.board.board[6][6].colour == ("White")
+                assert test_game.board[6][6].colour == ("White")
 
         def test_pawn_objects__can_have_colour_property_white(self, run_before_tests):
                 test_game = run_before_tests
-                assert test_game.board.board[1][7].colour == ("Black")
+                assert test_game.board[1][7].colour == ("Black")
 
 class TestPawnDirection:
         def test_black_pawn_cannot_move_backwards(self, run_before_tests):
@@ -164,8 +165,8 @@ class TestBoardBoundaries:
         def test_pawn_can_move_2_spaces_forward(self, run_before_tests):
                 test_game = run_before_tests
                 test_game.execute_turn(6,1,4,1)
-                assert isinstance(test_game.board.board[4][1], pawn.Pawn)
-                assert test_game.board.board[6][1] == ("-")
+                assert isinstance(test_game.board[4][1], pawn.Pawn)
+                assert test_game.board[6][1] == ("-")
 
 
 class TestPawnMoveLength:
@@ -207,18 +208,18 @@ class TestBishopAllowedMoves:
                 test_game.execute_turn(6,1,5,1)
                 test_game.execute_turn(1,4,3,4)
                 test_game.execute_turn(7,2,6,1)
-                assert isinstance(test_game.board.board[6][1], bishop.Bishop)
-                assert test_game.board.board[6][1].colour == "White"
-                assert test_game.board.board[7][2] == ("-")
+                assert isinstance(test_game.board[6][1], bishop.Bishop)
+                assert test_game.board[6][1].colour == "White"
+                assert test_game.board[7][2] == ("-")
 
         def test_bishop_can_move_two_spaces_diagonally(self, run_before_tests):
                 test_game = run_before_tests
                 test_game.execute_turn(6,3,4,3)
                 test_game.execute_turn(1,4,3,4)
                 test_game.execute_turn(7,2,5,4)
-                assert isinstance(test_game.board.board[5][4], bishop.Bishop)
-                assert test_game.board.board[5][4].colour == "White"
-                assert test_game.board.board[7][2] == ("-")
+                assert isinstance(test_game.board[5][4], bishop.Bishop)
+                assert test_game.board[5][4].colour == "White"
+                assert test_game.board[7][2] == ("-")
 
         def test_bishop_can_move_in_different_diagonal_directions(self, run_before_tests):
                 test_game = run_before_tests
@@ -227,9 +228,9 @@ class TestBishopAllowedMoves:
                 test_game.execute_turn(7,2,5,4)
                 test_game.execute_turn(1,5,3,5)
                 test_game.execute_turn(5,4,3,2)
-                assert isinstance(test_game.board.board[3][2], bishop.Bishop)
-                assert test_game.board.board[3][2].colour == "White"
-                assert test_game.board.board[5][4] == ("-")
+                assert isinstance(test_game.board[3][2], bishop.Bishop)
+                assert test_game.board[3][2].colour == "White"
+                assert test_game.board[5][4] == ("-")
 
         def test_bishop_can_move_diagonally_backwards(self, run_before_tests):
                 test_game = run_before_tests
@@ -238,9 +239,9 @@ class TestBishopAllowedMoves:
                 test_game.execute_turn(7,2,5,4)
                 test_game.execute_turn(1,5,3,5)
                 test_game.execute_turn(5,4,7,2)
-                assert isinstance(test_game.board.board[7][2], bishop.Bishop)
-                assert test_game.board.board[7][2].colour == "White"
-                assert test_game.board.board[5][4] == ("-")
+                assert isinstance(test_game.board[7][2], bishop.Bishop)
+                assert test_game.board[7][2].colour == "White"
+                assert test_game.board[5][4] == ("-")
 
         def test_bishop_cannot_move_if_blocked(self, run_before_tests):
                 test_game = run_before_tests
@@ -335,8 +336,8 @@ class TestPawnPromotion:
                 test_game.execute_turn(2,1,1,1)
                 test_game.execute_turn(2,5,3,5)
                 test_game.execute_turn(1,1,0,1)
-                assert isinstance(test_game.board.board[0][1], queen.Queen)
-                assert test_game.board.board[0][1].colour == "White"
+                assert isinstance(test_game.board[0][1], queen.Queen)
+                assert test_game.board[0][1].colour == "White"
 
         def test_black_pawn_becomes_queen_at_first_rank(self, run_before_tests):
                 test_game = run_before_tests
@@ -350,8 +351,8 @@ class TestPawnPromotion:
                 test_game.execute_turn(5,6,6,6)
                 test_game.execute_turn(5,1,4,1)
                 test_game.execute_turn(6,6,7,6)
-                assert isinstance(test_game.board.board[7][6], queen.Queen)
-                assert test_game.board.board[7][6].colour == "Black"
+                assert isinstance(test_game.board[7][6], queen.Queen)
+                assert test_game.board[7][6].colour == "Black"
 
 class TestTakenPieces:
         def test_taken_pieces_white(self, run_before_tests):

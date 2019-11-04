@@ -1,11 +1,13 @@
 import piece
 import coordinate_conversion
 import game
+import standard_rules
 
 
 class UI:
     def __init__(self):
         self.game = ''
+        self.ruleset = standard_rules.StandardRules()
 
     def start(self):
         names = self.get_names()
@@ -53,7 +55,7 @@ class UI:
         print("| a | b | c | d | e | f | g | h |")
         print("_" * 33)
         ind = 8
-        for row in board.board:
+        for row in self.game.board:
             x = "|"
             for el in row:
                 if isinstance(el, piece.Piece):

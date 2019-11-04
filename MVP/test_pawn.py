@@ -50,5 +50,5 @@ class TestAvailableMoves:
     
     def test_available_moves_is_array_of_allowed_moves(self, run_before_tests):
       test_game = run_before_tests
-      assert test_game.board.board[6][6].available_moves(test_game.board.board,6,6) == [[4,6],[5,6]]
-      assert test_game.board.board[6][1].available_moves(test_game.board.board,6,1) == [[4,1],[5,1]]
+      assert test_game.board[6][6].available_moves(test_game.board,6,6) == [[4,6],[5,6]]
+      assert test_game.board[6][1].available_moves(test_game.board,6,1) == [[4,1],[5,1]]

@@ -12,11 +12,12 @@ class TestPieceCannotMoveIntoCheck:
         test_game.execute_turn(6,4,5,4)
         test_game.execute_turn(1,5,3,5)
         test_game.execute_turn(7,3,3,7)
-        assert test_game.board.board[0][4].in_check(test_game.board.board, 0, 4)
+
+        assert test_game.board[0][4].in_check(test_game.board, 0, 4)
         assert test_game.execute_turn(0,4,1,5) == 'invalid move'
         assert test_game.execute_turn(1,0,3,0) == 'invalid move'
         test_game.execute_turn(1,6,2,6)
-        assert test_game.board.board[0][4].in_check(test_game.board.board, 0, 4) == False
+        assert test_game.board[0][4].in_check(test_game.board, 0, 4) == False
 
     def test_piece_cannot_expose_king_to_check(self, run_before_tests):
         test_game = run_before_tests
@@ -28,3 +29,5 @@ class TestPieceCannotMoveIntoCheck:
         test_game.execute_turn(1,2,2,2)
         test_game.execute_turn(6,3,4,3)
         assert test_game.execute_turn(3,4,4,3) == 'invalid move'
+
+

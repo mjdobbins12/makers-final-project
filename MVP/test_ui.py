@@ -17,8 +17,8 @@ class TestUI:
             ui.input = lambda x: input.pop(0)
             test_ui = ui.UI()
             test_ui.start()
-            assert test_ui.game.board.board[3][1].colour == 'White'
-            assert isinstance(test_ui.game.board.board[3][1], pawn.Pawn)
+            assert test_ui.game.board[3][1].colour == 'White'
+            assert isinstance(test_ui.game.board[3][1], pawn.Pawn)
 
 
         def teardown_method(self, method):
