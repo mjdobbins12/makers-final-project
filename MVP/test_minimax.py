@@ -10,4 +10,4 @@ def run_before_tests():
 class TestInputOutput:
         def test_accepts_two_args(self, run_before_tests):
                 test_game = run_before_tests
-                new_minimax = minimax.Minimax(test_game.board.board, test_game.p1_turn)
+                new_minimax = minimax.Minimax(test_game, test_game.p1_turn)

@@ -1,6 +1,7 @@
 class Minimax:
-        def __init__(self, board, p1_turn):
-                self.board = board
+        def __init__(self, game, p1_turn):
+                self.board = game.board.board
+                self.game = game
                 if p1_turn == True:
                         self.turn = "White"
                 else:
