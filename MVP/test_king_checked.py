@@ -18,7 +18,7 @@ class TestKingInCheck:
                 test_game = run_before_tests
                 test_game.execute_turn(6,4,4,4)
                 test_game.execute_turn(1,4,3,4)
-                test_game.execute_turn(7,4,6,4)
+                test_game.execute_turn(7,4,6,4) 
                 test_game.execute_turn(0,4,1,4)
                 test_game.execute_turn(6,4,5,4)
                 assert test_game.board[5][4].in_check(test_game.board, 5, 4) == False
