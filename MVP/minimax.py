@@ -14,7 +14,7 @@ class Minimax:
 
         
         def move_value(self):
-                return self.available_moves()
+                moves = self.available_moves()
 
 
 

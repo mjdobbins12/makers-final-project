@@ -7,4 +7,4 @@ class Player:
 
         def store_piece(self, piece):
                 self.taken_pieces.append(piece)
-                self.current_score += abs(piece.value)
+                self.current_score += piece.value

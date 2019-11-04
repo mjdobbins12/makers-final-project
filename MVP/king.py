@@ -5,9 +5,11 @@ class King(Piece):
         self.colour = colour
         self.name = "King"
         if self.colour == "Black":
+            self.value = -90
             self.symbol = '♚'
         elif self.colour == "White":
             self.symbol = '♔'
+            self.value = 90
 
     def in_check(self, board, start_row, start_col):
         check_evaluations = []

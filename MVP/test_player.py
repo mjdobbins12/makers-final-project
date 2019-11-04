@@ -30,7 +30,7 @@ class TestPlayerActions:
         def test_update_score(self):
                 test_player_1 = player.Player("test_name_1", "White")
                 test_player_1.store_piece(test_pawn)
-                assert test_player_1.current_score == 1
+                assert test_player_1.current_score == -1
                 
                 
                 
