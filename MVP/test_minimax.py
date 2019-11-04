@@ -23,14 +23,13 @@ class TestInputOutput:
 class TestValueOfMoves:
         def test_value_of_available_moves_for_next_move(self, run_before_tests):
                 test_minimax = run_before_tests
-                assert isinstance(test_minimax.all_possible_moves(), list)
+                assert isinstance(test_minimax.all_possible_moves(test_minimax.game.board.board), list)
 
 
 class TestAllAvailableMoves:
         def test_returns_available_moves_white(self, run_before_tests):
                 test_minimax = run_before_tests
-                print(test_minimax.available_moves())
-                assert test_minimax.available_moves() == [
+                assert test_minimax.available_moves(test_minimax.game.board.board) == [
                         [[6, 0], [[4, 0], [5, 0]]], 
                         [[6, 1], [[4, 1], [5, 1]]], 
                         [[6, 2], [[4, 2], [5, 2]]], 
@@ -53,7 +52,7 @@ class TestAllAvailableMoves:
         def test_returns_available_moves_black(self, run_before_tests):
                 test_minimax = run_before_tests
                 test_minimax.game.execute_turn(6,4,4,4)
-                assert test_minimax.available_moves() == [
+                assert test_minimax.available_moves(test_minimax.game.board.board) == [
                         [[0, 0], []],
                         [[0, 1], [[2, 0], [2, 2]]],
                         [[0, 2], []], 
@@ -75,7 +74,8 @@ class TestAllAvailableMoves:
 class TestMiniMax:
         def test_return_value_from_minimax(self, run_before_tests):
                 test_minimax = run_before_tests
-                assert len(test_minimax.minimax(20)) == 143
+                assert len(test_minimax.minimax(2)) == 143
+                
 
 class TestMiniMaxEvaluation:
         def test_move_chosen(self, run_before_tests):
