@@ -4,12 +4,13 @@ class Pawn(Piece):
         def __init__(self, colour):
                 self.colour = colour
                 self.name = "Pawn"
-                self.value = 1
 
                 if self.colour == "Black":
                         self.symbol = '♟'
+                        self.value = -1
                 elif self.colour == "White":
                         self.symbol = "♙"
+                        self.value = 1
 
         def illegal_directions(self, board, start_row, start_col, end_row, end_col):
                 return any([
