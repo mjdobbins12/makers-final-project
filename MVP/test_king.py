@@ -1,14 +1,8 @@
 import pytest
 from piece import Piece
-import chessboard
 import king
 import rook
 import game
-
-@pytest.fixture(autouse=True)
-def board_before_tests():
-        test_board = chessboard.ChessBoard()
-        return test_board
 
 @pytest.fixture(autouse=True)   
 def game_before_tests():

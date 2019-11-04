@@ -1,6 +1,4 @@
 import pytest
-
-import chessboard
 import game
 import king
 from game import Game

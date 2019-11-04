@@ -1,4 +1,3 @@
-import chessboard
 import pawn
 import knight
 import game

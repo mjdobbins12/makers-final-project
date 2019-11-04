@@ -1,6 +1,5 @@
 import pytest
 from piece import Piece
-import chessboard
 from king import King
 from game import Game
 from checkmate import Checkmate
