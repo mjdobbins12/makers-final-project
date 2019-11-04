@@ -7,8 +7,15 @@ class Minimax:
         def execute_turn(self):
                 return []
 
-        def move_value(self):
+        def move_value(self, depth):
+                # 1) save original board
+                # 2) depth times do make move, check available moves
+                # 3) evaluate best move at BOTTOM OF DECISION TREE
+                # 4) move_value = player_score + board position
+                
+
                 return []
+                
 
                 moves = self.available_moves()
                 for piece_moves in moves:
@@ -24,13 +31,12 @@ class Minimax:
                                 if isinstance(self.game.board.board[i][j], Piece):
                                         if self.game.p1_turn == True:
                                                 if self.game.board.board[i][j].colour == "White":
-                                                        print([self.game.board.board[i][j].colour, self.game.board.board[i][j].name, i,j])
-                                                        array.append(self.game.board.board[i][j].available_moves(self.game.board.board, i, j))
+                                                        # print([self.game.board.board[i][j].colour, self.game.board.board[i][j].name, i,j])
+                                                        array.append([[i,j], self.game.board.board[i][j].available_moves(self.game.board.board, i, j)])
                                         elif self.game.p1_turn == False:
                                                 if self.game.board.board[i][j].colour == "Black":
-                                                        print([self.game.board.board[i][j].colour, self.game.board.board[i][j].name, i,j])
-                                                        array.append(self.game.board.board[i][j].available_moves(self.game.board.board, i, j))
-                array = list(filter(lambda a: a != [], array)) # removes empty arrays from available moves array
+                                                        array.append([[i,j], self.game.board.board[i][j].available_moves(self.game.board.board, i, j)])
+                # array = list(filter(lambda a: a != [], array)) # removes empty arrays from available moves array
                 return array
 
 
