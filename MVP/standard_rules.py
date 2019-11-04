@@ -45,7 +45,7 @@ class StandardRules:
                                         
         
                                         
-#invalid move methods                             
+# invalid move methods                             
         def check_for_invalid_move(self, board, start_row, start_col, end_row, end_col):
                 piece_to_move = board[start_row][start_col]
                 return any(
@@ -56,3 +56,9 @@ class StandardRules:
                 
         def __check_within_board_boundary(self, board, end_row, end_col):
                 return (end_row > (len(board) - 1) or end_col > (len(board[0]) - 1) or end_row < 0 or end_col < 0)
+        
+        
+# pawn promotion method
+        def check_pawn_promotion(self, board, piece, row, col):
+                if piece.name == "Pawn" and (row == 0 or row == 7):
+                        board[row][col] = queen.Queen(piece.colour)

@@ -29,7 +29,7 @@ class Turn:
         self.__store_piece_if_struck(end_row, end_col)
         self.board[end_row][end_col] = piece_to_move
         piece_to_move.increment_counter()
-        self.__check_pawn_promotion(piece_to_move, end_row, end_col)
+        self.ruleset.check_pawn_promotion(self.board, piece_to_move, end_row, end_col)
 
     # def check_if_move_into_check(self, start_row, start_col, end_row, end_col):
     #     piece_to_move = self.board[start_row][start_col]
@@ -56,10 +56,10 @@ class Turn:
     #         ]
     #         )
 
-    def __check_pawn_promotion(self, piece, row, col):
-        current_board = self.board
-        if piece.name == "Pawn" and (row == 0 or row == 7):
-            current_board[row][col] = queen.Queen(piece.colour)
+    # def __check_pawn_promotion(self, piece, row, col):
+    #     current_board = self.board
+    #     if piece.name == "Pawn" and (row == 0 or row == 7):
+    #         current_board[row][col] = queen.Queen(piece.colour)
 
     # def __check_within_board_boundary(self, end_row, end_col):
     #     return (end_row > (len(self.board) - 1) or end_col > (len(self.board[0]) - 1) or end_row < 0 or end_col < 0)
