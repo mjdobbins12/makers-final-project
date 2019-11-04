@@ -20,8 +20,6 @@ class Turn:
             raise ValueError("Invalid Move")
         if self.ruleset.try_castling(self.board, piece_to_move, end_row, start_col, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
-        # if self.__king_in_check(start_row, start_col, end_row, end_col):
-        #     raise ValueError("Invalid Move")
         if self.ruleset.check_if_move_into_check(self.board, start_row, start_col, end_row, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
         self.board[start_row][start_col] = "-"

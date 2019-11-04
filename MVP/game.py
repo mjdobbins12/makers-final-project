@@ -5,6 +5,7 @@ from king import King
 from piece import Piece
 from checkmate import Checkmate
 import standard_rules
+import many_queens
 
 
 class Game:
