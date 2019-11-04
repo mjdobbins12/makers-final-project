@@ -1,10 +1,6 @@
 import piece
 import coordinate_conversion
 import game
-# import slack_post
-# from io import StringIO
-# import sys
-# import os
 
 
 class UI:
@@ -25,7 +21,6 @@ class UI:
 
     def loop_turns(self):
           while True:
-              # self.__output_slack() # outputs to slack if ENV variable with token is found
               self.show_board(self.game.board, self.game.player_1.name, self.game.player_2.name)
               if self.game.is_checkmate():
                   if self.game.p1_turn:
@@ -87,15 +82,3 @@ class UI:
             for el in self.game.player_1.taken_pieces:
                 x += f" {el.symbol}"
             print(x)
-
-    # def __output_slack(self):
-    #     if 'SLACK_API_TOKEN' in os.environ:
-    #         old_stdout = sys.stdout
-    #         result = StringIO()
-    #         sys.stdout = result
-    #         self.announce_whose_turn()
-    #         self.show_board(self.game.board, self.game.player_1.name, self.game.player_2.name)
-    #         result_string = result.getvalue()
-    #         slack = slack_post.SlackOutput()
-    #         slack.print(result_string)
-    #         sys.stdout = old_stdout

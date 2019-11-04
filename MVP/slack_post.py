@@ -25,7 +25,6 @@ class SlackOutput:
         channel='#chess',
         text=text,
         as_user = True)
-        # might not be needed
         if self.bot_id == None:
             self.bot_id = output['message']['bot_id']
 
