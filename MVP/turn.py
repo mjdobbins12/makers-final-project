@@ -1,3 +1,4 @@
+import copy
 import pawn
 import bishop
 import rook
@@ -20,32 +21,31 @@ class Turn:
             raise ValueError("Invalid Move")
         if self.__try_castling(piece_to_move, end_row, start_col, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
-        if self.__king_in_check(start_row, start_col, end_row, end_col) == 'invalid move':
-            raise ValueError("Invalid Move")
-        # self.board[start_row][start_col] = "-"
-        # self.__store_piece_if_struck(end_row, end_col)
-        # self.board[end_row][end_col] = piece_to_move
-        piece_to_move.increment_counter()
-        self.__check_pawn_promotion(piece_to_move, end_row, end_col)
-
-    # private methods
-    def __king_in_check(self, start_row, start_col, end_row, end_col):
-      try:
-          self.update_board(start_row, start_col, end_row, end_col)
-      except:
-          return 'invalid move'
-
-    def update_board(self, start_row, start_col, end_row, end_col):
-        piece_to_move = self.board[start_row][start_col]
-        colour = piece_to_move.colour
-        changed_board = self.board
-        changed_board[start_row][start_col] = "-"
-        changed_board[end_row][end_col] = piece_to_move
-        if self.__check_current_player_king(changed_board, colour) == True:
+        # if self.__king_in_check(start_row, start_col, end_row, end_col):
+        #     raise ValueError("Invalid Move")
+        if self.update_board(start_row, start_col, end_row, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
         self.board[start_row][start_col] = "-"
         self.__store_piece_if_struck(end_row, end_col)
         self.board[end_row][end_col] = piece_to_move
+        piece_to_move.increment_counter()
+        self.__check_pawn_promotion(piece_to_move, end_row, end_col)
+
+    # private methods
+    # def __king_in_check(self, start_row, start_col, end_row, end_col):
+    #     if self.update_board(start_row, start_col, end_row, end_col) == 'invalid move':
+    #         return True
+    #     else:
+    #         return False
+
+    def update_board(self, start_row, start_col, end_row, end_col):
+        piece_to_move = self.board[start_row][start_col]
+        colour = piece_to_move.colour
+        changed_board = copy.deepcopy(self.board)
+        changed_board[start_row][start_col] = "-"
+        changed_board[end_row][end_col] = piece_to_move
+        if self.__check_current_player_king(changed_board, colour) == True:
+            return 'invalid move'
 
     def __check_current_player_king(self, changed_board, colour):
         for i in range(0,8):
