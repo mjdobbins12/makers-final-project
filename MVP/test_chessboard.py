@@ -1,4 +1,3 @@
-import chessboard
 import standard_rules
 import pawn
 import bishop

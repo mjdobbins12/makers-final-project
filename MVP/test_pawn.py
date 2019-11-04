@@ -1,7 +1,6 @@
 import pytest
 import pawn
 from piece import Piece
-import chessboard
 import game
 
 test_pawn_b = pawn.Pawn("Black")

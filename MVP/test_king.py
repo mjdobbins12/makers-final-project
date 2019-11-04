@@ -1,6 +1,5 @@
 import pytest
 from piece import Piece
-import chessboard
 import king
 import rook
 import game

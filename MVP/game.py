@@ -1,4 +1,3 @@
-import chessboard
 import turn
 import player
 from king import King
