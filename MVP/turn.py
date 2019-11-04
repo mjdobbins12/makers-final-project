@@ -8,12 +8,11 @@ import king
 import queen
 
 class Turn:
-    def __init__(self, chessboard, player_1, player_2):
-        self.chessboard = chessboard
-        self.board = chessboard.board
+    def __init__(self, board, player_1, player_2):
+        # self.chessboard = chessboard
+        self.board = board
         self.player_1 = player_1
         self.player_2 = player_2
-
 
     def move(self, start_row, start_col, end_row, end_col):
         piece_to_move = self.board[start_row][start_col]
@@ -21,9 +20,7 @@ class Turn:
             raise ValueError("Invalid Move")
         if self.__try_castling(piece_to_move, end_row, start_col, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
-        # if self.__king_in_check(start_row, start_col, end_row, end_col):
-        #     raise ValueError("Invalid Move")
-        if self.update_board(start_row, start_col, end_row, end_col) == 'invalid move':
+        if self.check_moving_into_check(start_row, start_col, end_row, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
         self.board[start_row][start_col] = "-"
         self.__store_piece_if_struck(end_row, end_col)
@@ -31,14 +28,7 @@ class Turn:
         piece_to_move.increment_counter()
         self.__check_pawn_promotion(piece_to_move, end_row, end_col)
 
-    # private methods
-    # def __king_in_check(self, start_row, start_col, end_row, end_col):
-    #     if self.update_board(start_row, start_col, end_row, end_col) == 'invalid move':
-    #         return True
-    #     else:
-    #         return False
-
-    def update_board(self, start_row, start_col, end_row, end_col):
+    def check_moving_into_check(self, start_row, start_col, end_row, end_col):
         piece_to_move = self.board[start_row][start_col]
         colour = piece_to_move.colour
         changed_board = copy.deepcopy(self.board)

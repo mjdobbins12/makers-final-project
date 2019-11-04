@@ -8,8 +8,9 @@ from checkmate import Checkmate
 
 class Game:
 
-    def __init__(self, p1_name, p2_name):
-        self.board = chessboard.ChessBoard()
+    def __init__(self, ruleset, p1_name, p2_name):
+        self.ruleset = ruleset
+        self.board = self.ruleset.starting_board
         self.player_1 = player.Player(p1_name, "White")
         self.player_2 = player.Player(p2_name, "Black")
         self.p1_turn = True

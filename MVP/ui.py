@@ -1,15 +1,16 @@
 import piece
 import coordinate_conversion
 import game
-
+import standard_rules 
 
 class UI:
     def __init__(self):
         self.game = ''
+        self.ruleset = standard_rules.StandardRules()
 
-    def start(self):
+    def start(self, ruleset):
         names = self.get_names()
-        self.game = game.Game(names[0], names[1])
+        self.game = game.Game(ruleset, names[0], names[1])
         self.loop_turns()
 
     def get_names(self):
