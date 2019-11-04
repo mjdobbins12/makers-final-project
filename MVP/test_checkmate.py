@@ -3,10 +3,11 @@ from piece import Piece
 from king import King
 from game import Game
 from checkmate import Checkmate
+from standard_rules import StandardRules
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
-        test_game = Game("p1", "p2")
+        test_game = Game("p1", "p2", ruleset=StandardRules())
         test_checkmate = Checkmate(test_game)
         return test_checkmate
 
@@ -47,6 +48,8 @@ class TestCheckmate:
         # fool's mate
         def test_fools_mate_is_checkmate(self, run_before_tests):
                 test_checkmate = run_before_tests
+                print(test_checkmate.game.ruleset)
+                print(test_checkmate.game.board)
                 test_checkmate.game.execute_turn(6,5,5,5)
                 assert test_checkmate.is_checkmate() == False
                 test_checkmate.game.execute_turn(1,4,3,4)
