@@ -21,16 +21,10 @@ class TestInputOutput:
                 assert isinstance(test_minimax.execute_turn(), list)
 
 class TestValueOfMoves:
-        def test_value_of_available_moves(self, run_before_tests):
+        def test_value_of_available_moves_for_next_move(self, run_before_tests):
                 test_minimax = run_before_tests
-                assert isinstance(test_minimax.move_value(5), list)
+                assert isinstance(test_minimax.move_value(), list)
                 # assert test_minimax.move_value()[1][0] == [-1]
-
-
-
-
-
-
 
 
 
