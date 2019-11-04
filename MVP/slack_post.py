@@ -32,30 +32,25 @@ class SlackOutput:
                 self.names_of_players = [data['user']]
                 self.post(web_client, f" <@{data['user']}> wants to play! Enter join to join him!")
 
-                # members = web_client.conversations_members(channel='CQ5DE12DV')['members']
-                # user = data['user']
-                # self.__launch_game(web_client, user, members)
-
             if data.get('text', []) == 'join' and data.get('bot_id') == None and len(self.names_of_players) == 1:
                 self.names_of_players.append(data['user'])
                 self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
-                # members = web_client.conversations_members(channel='CQ5DE12DV')['members']
-                # user = data['user']
-                # self.__launch_game(web_client, user, members)
 
-            if self.game != None and data.get('bot_id') == None and data.get('text', [])!= 'start' and data.get('text', [])!= 'stop' and data.get('text', [])!= 'join':
+
+            if self.game != None and data.get('bot_id') == None and data.get('text', [])!= 'start' and data.get('text', [])!= 'stop' and data.get('text', [])!= 'join' and data['user'] in self.names_of_players:
                 print(data)
+                if self.__correct_players_turn(data):
+                    try:
+                        self.__parse_and_execute_move(data.get('text', []))
+                    except:
+                        self.post(web_client, 'Invalid move - try again')
+                    self.__check_for_checkmate()
+                    self.post(web_client, self.__output_board())
 
-                try:
-                    self.__parse_and_execute_move(data.get('text', []))
-                except:
-                    self.post(web_client, 'Invalid move - try again')
-                self.__check_for_checkmate()
-                self.post(web_client, self.__output_board())
-
-            if self.game != None and data.get('bot_id') == None and data.get('text', [])== 'stop':
+            if self.game != None and data.get('bot_id') == None and data.get('text', [])== 'stop' and data['user'] in self.names_of_players:
                 self.post(web_client, 'Ok, stopped the game. Enter start to start a new game!')
                 self.game = None
+                self.names_of_players = []
 
                 #checking if the player is allowed to give the instruction
                 #can run only one game concurrently
@@ -140,5 +135,14 @@ class SlackOutput:
               self.post(web_client, f"Checkmate, <@{self.game.player_2.name}> wins!")
             self.game = None
 
+    def __correct_players_turn(self, data):
+        if self.game.p1_turn:
+            if data['user'] == self.game.player_1.name:
+                return True
+        else:
+            if data['user'] == self.game.player_2.name:
+                return True
+        return False
+        
 test = SlackOutput()
 test.start_listen()
