@@ -12,6 +12,7 @@ class TestPieceCannotMoveIntoCheck:
         test_game.execute_turn(6,4,5,4)
         test_game.execute_turn(1,5,3,5)
         test_game.execute_turn(7,3,3,7)
+
         assert test_game.board[0][4].in_check(test_game.board, 0, 4)
         assert test_game.execute_turn(0,4,1,5) == 'invalid move'
         assert test_game.execute_turn(1,0,3,0) == 'invalid move'
@@ -28,3 +29,5 @@ class TestPieceCannotMoveIntoCheck:
         test_game.execute_turn(1,2,2,2)
         test_game.execute_turn(6,3,4,3)
         assert test_game.execute_turn(3,4,4,3) == 'invalid move'
+
+

@@ -13,7 +13,7 @@ class Turn:
         self.board = board
         self.player_1 = player_1
         self.player_2 = player_2
-
+    
     def move(self, start_row, start_col, end_row, end_col):
         piece_to_move = self.board[start_row][start_col]
         if self.ruleset.check_for_invalid_move(self.board, start_row, start_col, end_row, end_col):
