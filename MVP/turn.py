@@ -1,11 +1,11 @@
-import copy
-import pawn
 import bishop
-import rook
-import piece
-import knight
+import copy
 import king
+import knight
+import pawn
+import piece
 import queen
+import rook
 
 class Turn:
     def __init__(self, chessboard, player_1, player_2):
@@ -13,7 +13,6 @@ class Turn:
         self.board = chessboard.board
         self.player_1 = player_1
         self.player_2 = player_2
-
 
     def move(self, start_row, start_col, end_row, end_col):
         piece_to_move = self.board[start_row][start_col]
@@ -102,10 +101,10 @@ class Turn:
             ])
 
     def __check_castle_king_side(self, end_row, end_col):
-            return all([
-                    (end_col == 6),
-                    (self.board[end_row][4].counter == 0),
-                    (self.board[end_row][7].counter == 0),
-                    (not isinstance(self.board[end_row][5], piece.Piece)),
-                    (not isinstance(self.board[end_row][6], piece.Piece)),
-                ])
+        return all([
+                (end_col == 6),
+                (self.board[end_row][4].counter == 0),
+                (self.board[end_row][7].counter == 0),
+                (not isinstance(self.board[end_row][5], piece.Piece)),
+                (not isinstance(self.board[end_row][6], piece.Piece)),
+            ])

@@ -1,8 +1,10 @@
 from piece import Piece
+from turn import Turn
 
 class Draw:
     def __init__(self, game):
         self.game = game
+        self.board = self.game.board.board
         if game.p1_turn == True:
             self.current_player = game.player_1.colour
         else:
@@ -14,14 +16,22 @@ class Draw:
             ])
 
     def __is_stalemate(self):
-        legal_moves = []
+        stale = []
         for i in range(0,8):
             for j in range(0,8):
-                if isinstance(self.game.board.board[i][j], Piece) and self.game.board.board[i][j].colour == self.current_player:
-                    legal_moves.append(self.game.board.board[i][j].available_moves(self.game.board.board, i, j))
-        print(legal_moves)
-        print(self.current_player)
-        if len(legal_moves) == 0:
-            return True
-        else:
-            return False
+                if isinstance(self.board[i][j], Piece) and self.board[i][j].colour == self.current_player:
+                    for sq in self.board[i][j].available_moves(self.board, i, j):
+                        stale.append(Turn(self.game.board, self.game.player_1, self.game.player_2).check_if_self_in_check(i, j, sq[0], sq[1]) == 'invalid move')
+        print(stale)
+        return all(stale)
+        # legal_moves = []
+        # for i in range(0,8):
+        #     for j in range(0,8):
+        #         if isinstance(self.board[i][j], Piece) and self.board[i][j].colour == self.current_player:
+        #             legal_moves.append(self.board[i][j].available_moves(self.board, i, j))
+        # print(legal_moves)
+        # print(self.current_player)
+        # if len(legal_moves) == 0:
+        #     return True
+        # else:
+        #     return False

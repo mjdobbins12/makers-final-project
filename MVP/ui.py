@@ -20,25 +20,27 @@ class UI:
         return names
 
     def loop_turns(self):
-          while True:
-              self.show_board(self.game.board, self.game.player_1.name, self.game.player_2.name)
-              if self.game.is_checkmate():
-                  if self.game.p1_turn:
+      while True:
+            self.show_board(self.game.board, self.game.player_1.name, self.game.player_2.name)
+            if self.game.is_checkmate():
+                if self.game.p1_turn:
                     print(f'Checkmate, {self.game.player_2.name} wins! ')
                     break
-                  elif self.game.p1_turn == False:
+                elif self.game.p1_turn == False:
                     print(f'Checkmate, {self.game.player_1.name} wins!')
                     break
-              self.announce_whose_turn()
-              print('Enter quit to stop the game')
-              turn_from = input('Please enter square to move FROM: ')
-              if turn_from == 'quit': break
-              turn_to = input('Please enter square to move TO: ')
-              if turn_to == 'quit': break
-              move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
-              if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
-                  print('Invalid move - try again')
-
+            if self.game.is_draw():
+                print('Game drawn')
+                break
+            self.announce_whose_turn()
+            print('Enter quit to stop the game')
+            turn_from = input('Please enter square to move FROM: ')
+            if turn_from == 'quit': break
+            turn_to = input('Please enter square to move TO: ')
+            if turn_to == 'quit': break
+            move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
+            if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
+                print('Invalid move - try again')
 
     def announce_whose_turn(self):
         if self.game.p1_turn == True:
