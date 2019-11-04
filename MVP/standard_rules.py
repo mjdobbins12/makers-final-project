@@ -26,7 +26,8 @@ class StandardRules:
                         ]
 
 
-# check methods
+# Check 
+
         def check_if_move_into_check(self, board, start_row, start_col, end_row, end_col):
                 piece_to_move = board[start_row][start_col]
                 colour = piece_to_move.colour
@@ -43,9 +44,9 @@ class StandardRules:
                                         if changed_board[i][j].colour == colour:
                                                 return changed_board[i][j].in_check(changed_board, i, j)
                                         
-        
-                                        
-# invalid move methods                             
+                                            
+# Invalid moves    
+       
         def check_for_invalid_move(self, board, start_row, start_col, end_row, end_col):
                 piece_to_move = board[start_row][start_col]
                 return any(
@@ -58,7 +59,49 @@ class StandardRules:
                 return (end_row > (len(board) - 1) or end_col > (len(board[0]) - 1) or end_row < 0 or end_col < 0)
         
         
-# pawn promotion method
+# Pawn promotion
+
         def check_pawn_promotion(self, board, piece, row, col):
                 if piece.name == "Pawn" and (row == 0 or row == 7):
                         board[row][col] = queen.Queen(piece.colour)
+                        
+                        
+
+
+# Castling                 
+                                        
+        def try_castling(self, board, piece_to_move, end_row, start_col, end_col):
+                if isinstance(piece_to_move, king.King) and (abs(start_col - end_col) == 2):
+                        try:
+                                self.__iscastling(board, end_row, end_col)
+                        except:
+                                return 'invalid move'
+
+        def __iscastling(self, board, end_row, end_col):
+                if self.__check_castle_king_side(board, end_row, end_col):
+                        board[end_row][5] = board[end_row][7]
+                        board[end_row][7] = '-'
+                elif self.__check_castle_queen_side(board, end_row, end_col):
+                        board[end_row][3] = board[end_row][0]
+                        board[end_row][0] = '-'
+                else:
+                        raise ValueError("Invalid Move")
+
+        def __check_castle_queen_side(self, board, end_row, end_col):
+                return all([
+                        (end_col == 2),
+                        (board[end_row][4].counter == 0),
+                        (board[end_row][0].counter == 0),
+                        (not isinstance(board[end_row][1], piece.Piece)),
+                        (not isinstance(board[end_row][2], piece.Piece)),
+                        (not isinstance(board[end_row][3], piece.Piece))
+                        ])
+
+        def __check_castle_king_side(self, board, end_row, end_col):
+                return all([
+                        (end_col == 6),
+                        (board[end_row][4].counter == 0),
+                        (board[end_row][7].counter == 0),
+                        (not isinstance(board[end_row][5], piece.Piece)),
+                        (not isinstance(board[end_row][6], piece.Piece)),
+                        ])
