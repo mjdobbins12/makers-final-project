@@ -20,7 +20,7 @@ class TestInputOutput:
                 assert isinstance(test_minimax.execute_turn(), list)
 
 class TestAllAvailableMoves:
-        def test_returns_available_moves(self, run_before_tests):
+        def test_returns_available_moves_white(self, run_before_tests):
                 test_minimax = run_before_tests
                 assert test_minimax.available_moves() == [
                         [],
@@ -41,5 +41,26 @@ class TestAllAvailableMoves:
                         [[2, 7], [3, 7]]
                         ]
 
+        def test_returns_available_moves_black(self, run_before_tests):
+                test_minimax = run_before_tests
+                test_minimax.game.execute_turn(6,4,4,4)
+                assert test_minimax.available_moves() == [
+                        [], 
+                        [[2, 0], [2, 2]], 
+                        [], 
+                        [], 
+                        [[0, 2], [0, 6]], 
+                        [], 
+                        [[2, 5], [2, 7]], 
+                        [], 
+                        [[2, 0], [3, 0]], 
+                        [[2, 1], [3, 1]], 
+                        [[2, 2], [3, 2]], 
+                        [[2, 3], [3, 3]], 
+                        [[2, 4], [3, 4]], 
+                        [[2, 5], [3, 5]], 
+                        [[2, 6], [3, 6]], 
+                        [[2, 7], [3, 7]]
+                        ]
 
 
