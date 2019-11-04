@@ -20,8 +20,16 @@ class SlackOutput:
         assert response["ok"]
         assert response["message"]["text"] == "Hello world!"
 
-    def print(self, text):
-        output = self.client.chat_postMessage(
+    # def print(self, text):
+    #     output = self.client.chat_postMessage(
+    #     channel='#chess',
+    #     text=text,
+    #     as_user = True)
+    #     if self.bot_id == None:
+    #         self.bot_id = output['message']['bot_id']
+
+    def post(self, client, text, channel = '#chess'):
+        output = client.chat_postMessage(
         channel='#chess',
         text=text,
         as_user = True)
@@ -29,38 +37,27 @@ class SlackOutput:
             self.bot_id = output['message']['bot_id']
 
     def start_listen(self):
-        self.print('Hi I am Chessy! Enter start to start the game')
+        self.post(self.client, 'Hi I am Chessy! Enter start to start the game')
         @slack.RTMClient.run_on(event='message')
-        def say_hello(**payload):
+        def run_game(**payload):
             data = payload['data']
             web_client = payload['web_client']
             rtm_client = payload['rtm_client']
             if 'start' in data.get('text', []) and data.get('bot_id') == None:
+                members = web_client.conversations_members(channel='CQ5DE12DV')['members']
+                user = data['user']
+
                 print(data)
                 print(self.bot_id)
-                members = web_client.conversations_members(channel='CQ5DE12DV')['members']
                 print(members)
-                channel_id = data['channel']
-                thread_ts = data['ts']
-                user = data['user']
-                web_client.chat_postMessage(
-                    channel=channel_id,
-                    text=f" <@{user}> launched the game! Enter moves in this format: a2-a4"
-                    )
-                web_client.chat_postMessage(
-                    channel=channel_id,
-                    text=f" <@{members[0]}> vs <@{members[1]}>"
-                    )
+
+                self.post(web_client, f" <@{user}> launched the game! Enter moves in this format: a2-a4")
+                self.post(web_client, f" <@{members[0]}> vs <@{members[1]}>")
+
                 self.game = game.Game(f"<@{members[0]}>",f"<@{members[1]}>")
-                output = self.__output_board()
-                web_client.chat_postMessage(
-                    channel=channel_id,
-                    text=output
-                    )
+
+                self.post(web_client, self.__output_board())
             elif self.game != None and data.get('bot_id') == None:
-                channel_id = data['channel']
-                thread_ts = data['ts']
-                user = data['user']
                 text = data.get('text', [])
                 print (text)
                 try:
@@ -68,21 +65,12 @@ class SlackOutput:
                     turn_to = text.split('-')[1]
                     move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
                     if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
-                        web_client.chat_postMessage(
-                            channel=channel_id,
-                            text='Invalid move - try again'
-                            )
+                        self.post(web_client, 'Invalid move - try again')
                 except:
-                    web_client.chat_postMessage(
-                        channel=channel_id,
-                        text='Invalid move - try again'
-                        )
-                output = self.__output_board()
-                web_client.chat_postMessage(
-                    channel=channel_id,
-                    text=output
-                    #thread_ts=thread_ts
-                    )
+                    self.post(web_client, 'Invalid move - try again')
+
+                self.post(web_client, self.__output_board())
+
                 #checkmate condition
                 #stop the game
                 #checking if the player is allowed to give the instruction
