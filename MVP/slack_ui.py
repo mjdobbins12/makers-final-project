@@ -59,7 +59,7 @@ class Slack:
             print(data)
             self.names_of_players.append(data['user'])
             if self.game_mode not in [None, 'in_choosing']:
-                self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
+                self.__launch_game(web_client, self.names_of_players[0], self.names_of_players, ruleset = self.game_mode)
             else:
                 self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
 
@@ -67,7 +67,7 @@ class Slack:
         if data.get('text', []) == 'AI please!' and data.get('bot_id') == None and len(self.names_of_players) == 1:
             print(data)
             self.names_of_players.append('AI')
-            self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
+            self.__launch_game(web_client, self.names_of_players[0], self.names_of_players, ruleset = self.game_mode)
 
     def __check_for_mode(self, web_client, data):
         if data.get('text', []) == "let's make this more interesting!" and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
@@ -79,8 +79,11 @@ class Slack:
 
     def __check_for_mode_set(self, web_client, data):
         if data.get('text', []) == "Can I play daddy?" and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
-            self.game_mode = ManyQueens()
+            self.game_mode = 'many_queens'
             self.post(web_client, 'Yes you can!')
+        if data.get('text', []) == "Piece of cake" and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
+            self.game_mode = 'random_pieces'
+            self.post(web_client, 'Pieces will be random, but not the cake (0)!')
 
     def __check_for_moves(self, web_client, data):
         if self.game != None and data.get('text', []) not in ['start', 'stop', 'join'] and data['user'] in self.names_of_players:
@@ -108,6 +111,8 @@ class Slack:
             self.post(web_client, 'Ok, stopped the game. Enter start to start a new game!')
             self.game = None
             self.names_of_players = []
+            self.game_mode = None
+
 
     def __output_board(self):
         output = self.__announce_whose_turn()
@@ -152,8 +157,8 @@ class Slack:
             output += '\n'
         return output
 
-    def __launch_game(self, web_client, user_launched_game, names):
-        self.game = game.Game(names[0], names[1])
+    def __launch_game(self, web_client, user_launched_game, names, ruleset = 'standard'):
+        self.game = game.Game(names[0], names[1], ruleset)
         self.post(web_client, f" <@{user_launched_game}> launched the game! Enter moves in this format: a2-a4")
         self.post(web_client, 'Enter stop to stop the game')
         self.post(web_client, f" <@{names[0]}> vs <@{names[1]}>")
