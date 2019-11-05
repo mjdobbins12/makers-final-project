@@ -12,7 +12,7 @@ class ManyQueens(StandardRules):
         def __init__(self):
                 self.starting_board = [
                         [rook.Rook("Black"),knight.Knight("Black"),bishop.Bishop("Black"),queen.Queen("Black"),
-                        queen.Queen("Black"),bishop.Bishop("Black"),knight.Knight("Black"),rook.Rook("Black")],
+                        king.King("Black"),bishop.Bishop("Black"),knight.Knight("Black"),rook.Rook("Black")],
                         [queen.Queen("Black"),queen.Queen("Black"),queen.Queen("Black"),queen.Queen("Black"),
                         queen.Queen("Black"),queen.Queen("Black"),queen.Queen("Black"),queen.Queen("Black")],
                         ["-","-","-","-","-","-","-","-"],
@@ -22,6 +22,6 @@ class ManyQueens(StandardRules):
                         [queen.Queen("White"),queen.Queen("White"),queen.Queen("White"),queen.Queen("White"),
                         queen.Queen("White"),queen.Queen("White"),queen.Queen("White"),queen.Queen("White")],
                         [rook.Rook("White"),knight.Knight("White"),bishop.Bishop("White"),queen.Queen("White"),
-                        queen.Queen("White"),bishop.Bishop("White"),knight.Knight("White"),rook.Rook("White")]
+                        king.King("White"),bishop.Bishop("White"),knight.Knight("White"),rook.Rook("White")]
                         ]
         

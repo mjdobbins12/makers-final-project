@@ -3,10 +3,11 @@ from piece import Piece
 import king
 import rook
 import game
+from standard_rules import StandardRules
 
 @pytest.fixture(autouse=True)   
 def game_before_tests():
-        test_game = game.Game("p1", "p2")
+        test_game = game.Game("p1", "p2", ruleset = StandardRules())
         return test_game
 
 test_king_b = king.King("Black")
