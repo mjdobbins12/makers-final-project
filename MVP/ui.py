@@ -34,6 +34,7 @@ class UI:
                   elif self.game.p1_turn == False:
                     print(f'Checkmate, {self.game.player_1.name} wins!')
                     break
+              print(minimax.Minimax(self.game).minimax())
               self.announce_whose_turn()
               print('Enter quit to stop the game')              
               turn_from = input('Please enter square to move FROM: ')

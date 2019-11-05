@@ -51,7 +51,7 @@ class Minimax:
                                 all_evals.append(next_move_evaluation_array)
                                 self.game.revert_turn(for_revert_turn2[1][0], for_revert_turn2[1][1], for_revert_turn2[2][0], for_revert_turn2[2][1], pieces2[0], pieces2[1])
                                 self.game.revert_turn(for_revert_turn1[1][0], for_revert_turn1[1][1], for_revert_turn1[2][0], for_revert_turn1[2][1], pieces1[0], pieces1[1])
-                                return [next_move_evaluation_array[1], next_move_evaluation_array[2]]
+                                return [all_evals[0][1], all_evals[0][2]]
 
 
 
