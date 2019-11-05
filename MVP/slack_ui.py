@@ -6,7 +6,6 @@ import game
 from io import StringIO
 import sys
 
-
 class Slack:
 
     def __init__(self):
@@ -121,13 +120,12 @@ class Slack:
             output += '\n'
         return output
 
-    def __launch_game(self, web_client, user, members):
-        self.post(web_client, f" <@{user}> launched the game! Enter moves in this format: a2-a4")
+    def __launch_game(self, web_client, user_launched_game, names):
+        self.game = game.Game(names[0], names[1])
+        self.post(web_client, f" <@{user_launched_game}> launched the game! Enter moves in this format: a2-a4")
         self.post(web_client, 'Enter stop to stop the game')
-        self.post(web_client, f" <@{members[0]}> vs <@{members[1]}>")
-        self.game = game.Game(members[0], members[1])
+        self.post(web_client, f" <@{names[0]}> vs <@{names[1]}>")
         self.post(web_client, self.__output_board())
-
 
     def __parse_and_execute_move(self, text):
         turn_from = text.split('-')[0]
