@@ -6,6 +6,7 @@ import game
 from io import StringIO
 import sys
 import minimax
+from many_queens import ManyQueens
 
 
 #can run only one game concurrently
@@ -17,12 +18,13 @@ class Slack:
         self.client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'])
         self.game = None
         self.names_of_players = []
-        self.game_mode = '####difficult_level####'
+        self.game_mode = None
 
     def post(self, client, text, channel = '#chess'):
         output = client.chat_postMessage(
             channel = channel,
             text = text,
+            # icon_emoji=':dart:',
             as_user = True)
 
     def start_listen(self):
@@ -33,11 +35,13 @@ class Slack:
             web_client = payload['web_client']
             rtm_client = payload['rtm_client']
             self.__check_for_start(web_client, data)
-            self.__check_for_join(web_client, data)
             self.__check_for_moves(web_client, data)
             self.__check_for_stop(web_client, data)
+            self.__check_for_mode(web_client, data)
+            self.__check_for_mode_set(web_client, data)
+            self.__check_for_join(web_client, data)
             self.__check_for_AI(web_client, data)
-            # self.__check_for_mode(webclient, data)
+
         slack_token = os.environ["SLACK_API_TOKEN"]
         rtm_client = slack.RTMClient(token=slack_token)
         rtm_client.start()
@@ -54,7 +58,10 @@ class Slack:
         if data.get('text', []) == 'join' and data.get('bot_id') == None and len(self.names_of_players) == 1:
             print(data)
             self.names_of_players.append(data['user'])
-            self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
+            if self.game_mode not in [None, 'in_choosing']:
+                self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
+            else:
+                self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
 
     def __check_for_AI(self, web_client, data):
         if data.get('text', []) == 'AI please!' and data.get('bot_id') == None and len(self.names_of_players) == 1:
@@ -63,10 +70,17 @@ class Slack:
             self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
 
     def __check_for_mode(self, web_client, data):
-        if data.get('text', []) == '####difficult_level####' and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
-            print(data)
-            self.game_mode = 'test'
-            self.post(web_client, f" <@{data['user']}> set mode ####difficult_level####")
+        if data.get('text', []) == "let's make this more interesting!" and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
+            self.game_mode = 'in_choosing'
+            self.post(web_client, f" Ok <@{data['user']}>! Make your choice:")
+            self.post(web_client, ' - Can I play daddy?')
+            self.post(web_client, ' - Piece of cake')
+            self.post(web_client, " - Damn I'm good")
+
+    def __check_for_mode_set(self, web_client, data):
+        if data.get('text', []) == "Can I play daddy?" and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
+            self.game_mode = ManyQueens()
+            self.post(web_client, 'Yes you can!')
 
     def __check_for_moves(self, web_client, data):
         if self.game != None and data.get('text', []) not in ['start', 'stop', 'join'] and data['user'] in self.names_of_players:
@@ -85,6 +99,7 @@ class Slack:
 
     def __AI_move(self):
         AI_move = minimax.Minimax(self.game).minimax()
+        print(AI_move)
         self.game.execute_turn(AI_move[0][0],AI_move[0][1],AI_move[1][0],AI_move[1][1])
 
     def __check_for_stop(self, web_client, data):
