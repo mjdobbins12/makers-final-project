@@ -4,6 +4,7 @@ class Bishop(Piece):
     def __init__(self, colour):
         self.colour = colour
         self.name = "Bishop"
+        self.value = 3
         if self.colour == "Black":
             self.symbol = '♝'
             self.value = -3

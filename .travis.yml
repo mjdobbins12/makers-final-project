@@ -1,7 +1,7 @@
 language: python
 
-env: 
-    global: 
+env:
+    global:
       - CC_TEST_REPORTER_ID=514102ba948d6b71efaeb23f0931f6be0fee4fd02a78006b483a5934753d836e
 
 before_script:
@@ -16,6 +16,7 @@ install:
 - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 - python get-pip.py
 - pip install pytest
+- pip install slackclient
 
 script:
 - pytest

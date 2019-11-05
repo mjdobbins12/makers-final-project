@@ -1,10 +1,11 @@
 from piece import Piece
 
 class Rook(Piece):
-        
+
         def __init__(self, colour):
                 self.colour = colour
                 self.name = "Rook"
+                self.value = 5
                 if self.colour == "Black":
                         self.symbol = '♜'
                         self.value = -5

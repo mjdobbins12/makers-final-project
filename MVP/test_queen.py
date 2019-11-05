@@ -1,6 +1,4 @@
 import pytest
-
-from chessboard import ChessBoard
 import game
 from piece import Piece
 import queen
