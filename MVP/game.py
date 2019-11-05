@@ -5,6 +5,7 @@ from piece import Piece
 from checkmate import Checkmate
 import standard_rules 
 import many_queens
+import random_pieces
 
 
 class Game:
@@ -12,6 +13,8 @@ class Game:
     def __init__(self, p1_name, p2_name, ruleset = "none"):
         if ruleset == "many_queens":
             self.ruleset = many_queens.ManyQueens()
+        elif ruleset == "random_pieces":
+            self.ruleset = random_pieces.RandomPieces()
         else:
             self.ruleset = standard_rules.StandardRules()
         self.board = self.ruleset.starting_board
