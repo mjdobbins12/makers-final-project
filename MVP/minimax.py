@@ -60,8 +60,6 @@ class Minimax:
 
 
 
-
-
         def available_moves(self, board):
                 array = []
                 for i in range(0,8):
