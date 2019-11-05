@@ -17,8 +17,8 @@ class Slack:
 
     def post(self, client, text, channel = '#chess'):
         output = client.chat_postMessage(
-            channel='#chess',
-            text=text,
+            channel = channel,
+            text = text,
             as_user = True)
 
     def start_listen(self):
@@ -37,8 +37,6 @@ class Slack:
             # self.__check_for_mode(webclient, data)
 
                 #can run only one game concurrently
-                #clean up webclient references - necessary to pass along?
-                #simplify/clean up if statements for __check methods
                 #think about how to run in another channel vs. #chess only
 
         slack_token = os.environ["SLACK_API_TOKEN"]
@@ -58,12 +56,13 @@ class Slack:
             self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
 
     def __check_for_mode(self, web_client, data):
-        if data.get('text', []) == '####difficult_level####' and data.get('bot_id') == None and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
+        if data.get('text', []) == '####difficult_level####' and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
             self.game_mode = 'test'
             self.post(web_client, f" <@{data['user']}> set mode ####difficult_level####")
 
     def __check_for_moves(self, web_client, data):
-        if self.game != None and data.get('bot_id') == None and data.get('text', [])!= 'start' and data.get('text', [])!= 'stop' and data.get('text', [])!= 'join' and data['user'] in self.names_of_players:
+        if self.game != None and data.get('text', []) not in ['start', 'stop', 'join'] and data['user'] in self.names_of_players:
+        # if self.game != None and data.get('bot_id') == None and data.get('text', [])!= 'start' and data.get('text', [])!= 'stop' and data.get('text', [])!= 'join' and data['user'] in self.names_of_players:
             print(data)
             if self.__correct_players_turn(data):
                 try:
@@ -74,7 +73,7 @@ class Slack:
                 self.post(web_client, self.__output_board())
 
     def __check_for_stop(self, web_client, data):
-        if self.game != None and data.get('bot_id') == None and data.get('text', [])== 'stop' and data['user'] in self.names_of_players:
+        if self.game != None and data.get('text', [])== 'stop' and data['user'] in self.names_of_players:
             self.post(web_client, 'Ok, stopped the game. Enter start to start a new game!')
             self.game = None
             self.names_of_players = []
@@ -135,8 +134,6 @@ class Slack:
         turn_to = text.split('-')[1]
         move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
         self.game.execute_turn(move[0],move[1],move[2],move[3])
-        # if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
-        #     self.post(web_client, 'Invalid move - try again')
 
     def __check_for_checkmate(self):
         if self.game.is_checkmate():
