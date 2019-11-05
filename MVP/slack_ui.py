@@ -90,7 +90,7 @@ class Slack:
             print(data)
             if self.__correct_players_turn(data):
                 try:
-                    self.__parse_and_execute_move(data.get('text', []))
+                    self.__parse_and_execute_move(web_client, data.get('text', []))
                 except:
                     self.post(web_client, 'Invalid move - try again')
                 self.__check_for_checkmate()
@@ -164,11 +164,13 @@ class Slack:
         self.post(web_client, f" <@{names[0]}> vs <@{names[1]}>")
         self.post(web_client, self.__output_board())
 
-    def __parse_and_execute_move(self, text):
+    def __parse_and_execute_move(self, web_client, text):
         turn_from = text.split('-')[0].lower()
         turn_to = text.split('-')[1].lower()
         move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
-        self.game.execute_turn(move[0],move[1],move[2],move[3])
+        if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
+            self.post(web_client, 'Invalid move - try again')
+
 
     def __check_for_checkmate(self):
         if self.game.is_checkmate():
