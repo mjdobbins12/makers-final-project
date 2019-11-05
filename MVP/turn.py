@@ -8,19 +8,19 @@ import queen
 import rook
 
 class Turn:
-    def __init__(self, chessboard, player_1, player_2):
-        self.chessboard = chessboard
-        self.board = chessboard.board
+    def __init__(self, ruleset, board, player_1, player_2):
+        self.ruleset = ruleset
+        self.board = board
         self.player_1 = player_1
         self.player_2 = player_2
 
     def move(self, start_row, start_col, end_row, end_col):
         piece_to_move = self.board[start_row][start_col]
-        if self.__check_for_invalid_move(start_row, start_col, end_row, end_col):
+        if self.ruleset.check_for_invalid_move(self.board, start_row, start_col, end_row, end_col):
             raise ValueError("Invalid Move")
-        if self.__try_castling(piece_to_move, end_row, start_col, end_col) == 'invalid move':
+        if self.ruleset.try_castling(self.board, piece_to_move, end_row, start_col, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
-        if self.check_if_self_in_check(start_row, start_col, end_row, end_col) == 'invalid move':
+        if self.ruleset.check_if_move_into_check(self.board, start_row, start_col, end_row, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
         self.board[start_row][start_col] = "-"
         self.__store_piece_if_struck(end_row, end_col)
@@ -69,7 +69,6 @@ class Turn:
             return self.board[end_row][end_col]
         if self.board[end_row][end_col] != '-' and self.board[end_row][end_col].colour == 'Black':
             self.player_1.store_piece(self.board[end_row][end_col])
-
 
     # all castling checks:
 

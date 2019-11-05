@@ -1,15 +1,15 @@
 import pytest
 import pawn
 from piece import Piece
-import chessboard
 import game
+from standard_rules import StandardRules
 
 test_pawn_b = pawn.Pawn("Black")
 test_pawn_w = pawn.Pawn("White")
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
-        test_game = game.Game('p1', 'p2')
+        test_game = game.Game('p1', 'p2', ruleset = StandardRules())
         return test_game
 
 class TestpawnProperties:
@@ -50,5 +50,5 @@ class TestAvailableMoves:
     
     def test_available_moves_is_array_of_allowed_moves(self, run_before_tests):
       test_game = run_before_tests
-      assert test_game.board.board[6][6].available_moves(test_game.board.board,6,6) == [[4,6],[5,6]]
-      assert test_game.board.board[6][1].available_moves(test_game.board.board,6,1) == [[4,1],[5,1]]
+      assert test_game.board[6][6].available_moves(test_game.board,6,6) == [[4,6],[5,6]]
+      assert test_game.board[6][1].available_moves(test_game.board,6,1) == [[4,1],[5,1]]

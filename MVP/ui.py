@@ -1,11 +1,13 @@
 import piece
 import coordinate_conversion
 import game
-
+import minimax
+import standard_rules
 
 class UI:
     def __init__(self):
         self.game = ''
+        self.ruleset = standard_rules.StandardRules()
 
     def start(self):
         names = self.get_names()
@@ -15,12 +17,12 @@ class UI:
     def get_names(self):
         names = []
         names.append(input("Enter player 1 name: "))
-        names.append(input("Enter player 2 name: "))
+        names.append(input("Enter player 2 name. Use AI to play against the computer: "))
         print(names[0] + ' vs. ' + names[1])
         return names
 
     def loop_turns(self):
-      while True:
+        while True:
             self.show_board(self.game.board, self.game.player_1.name, self.game.player_2.name)
             if self.game.is_checkmate():
                 if self.game.p1_turn:
@@ -41,6 +43,20 @@ class UI:
             move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
             if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
                 print('Invalid move - try again')
+            if self.game.player_2.name == 'AI' and self.game.p1_turn == False:
+                AI_move = minimax.Minimax(self.game).minimax()
+                self.game.execute_turn(AI_move[0][0],AI_move[0][1],AI_move[1][0],AI_move[1][1])
+            else:
+                self.announce_whose_turn()
+                print('Enter quit to stop the game')
+                turn_from = input('Please enter square to move FROM: ')
+                if turn_from == 'quit': break
+                turn_to = input('Please enter square to move TO: ')
+                if turn_to == 'quit': break
+                move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
+                if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
+                    print('Invalid move - try again')
+
 
     def announce_whose_turn(self):
         if self.game.p1_turn == True:
@@ -55,7 +71,7 @@ class UI:
         print("| a | b | c | d | e | f | g | h |")
         print("_" * 33)
         ind = 8
-        for row in board.board:
+        for row in self.game.board:
             x = "|"
             for el in row:
                 if isinstance(el, piece.Piece):
