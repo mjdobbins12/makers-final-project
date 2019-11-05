@@ -2,13 +2,14 @@ import pytest
 import pawn
 from piece import Piece
 import game
+from standard_rules import StandardRules
 
 test_pawn_b = pawn.Pawn("Black")
 test_pawn_w = pawn.Pawn("White")
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
-        test_game = game.Game('p1', 'p2')
+        test_game = game.Game('p1', 'p2', ruleset = StandardRules())
         return test_game
 
 class TestpawnProperties:

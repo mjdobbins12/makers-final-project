@@ -7,7 +7,7 @@ from standard_rules import StandardRules
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
-        test_game = Game("p1", "p2", ruleset=StandardRules())
+        test_game = Game("p1", "p2", ruleset = StandardRules())
         test_checkmate = Checkmate(test_game)
         return test_checkmate
 

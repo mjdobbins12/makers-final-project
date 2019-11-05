@@ -1,14 +1,14 @@
-import standard_rules
 import pawn
 import bishop
 import game
 import pytest
 import queen
 from piece import Piece
+from standard_rules import StandardRules
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
-        test_game = game.Game('Player_1', 'Player_2')
+        test_game = game.Game('Player_1', 'Player_2', ruleset = StandardRules())
         return test_game
 
 class TestStartingBoard:

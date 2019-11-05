@@ -1,9 +1,10 @@
 from piece import Piece
+from standard_rules import StandardRules
 import pytest
 import game
 import pawn
 
-test_game = game.Game('test1', 'test2')
+test_game = game.Game('test1', 'test2', ruleset = StandardRules())
 
 class TestGame:
 
