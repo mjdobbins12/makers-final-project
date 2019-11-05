@@ -53,6 +53,7 @@ class Slack:
             print(data)
             self.names_of_players = [data['user']]
             self.post(web_client, f" <@{data['user']}> wants to play! Enter join to start the game!")
+            # needs game, names of players
 
     def __check_for_join(self, web_client, data):
         if data.get('text', []) == 'join' and data.get('bot_id') == None and len(self.names_of_players) == 1:
@@ -62,12 +63,14 @@ class Slack:
                 self.__launch_game(web_client, self.names_of_players[0], self.names_of_players, ruleset = self.game_mode)
             else:
                 self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
+            # needs game, names of players, game_mode
 
     def __check_for_AI(self, web_client, data):
         if data.get('text', []) == 'AI please!' and data.get('bot_id') == None and len(self.names_of_players) == 1:
             print(data)
             self.names_of_players.append('AI')
             self.__launch_game(web_client, self.names_of_players[0], self.names_of_players, ruleset = self.game_mode)
+            # needs game, names of players, game_mode
 
     def __check_for_mode(self, web_client, data):
         if data.get('text', []) == "let's make this more interesting!" and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
@@ -76,6 +79,7 @@ class Slack:
             self.post(web_client, ' - Can I play daddy?')
             self.post(web_client, ' - Piece of cake')
             self.post(web_client, " - Damn I'm good")
+        # needs game, names of players
 
     def __check_for_mode_set(self, web_client, data):
         if data.get('text', []) == "Can I play daddy?" and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
@@ -84,6 +88,8 @@ class Slack:
         if data.get('text', []) == "Piece of cake" and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
             self.game_mode = 'random_pieces'
             self.post(web_client, 'Pieces will be random, but not the cake (0)!')
+        # needs game, names of players
+
 
     def __check_for_moves(self, web_client, data):
         if self.game != None and data.get('text', []) not in ['start', 'stop', 'join'] and data['user'] in self.names_of_players:
@@ -99,11 +105,13 @@ class Slack:
                 self.__AI_move()
                 self.__check_for_checkmate()
                 self.post(web_client, self.slack_board_display.output_board(self.game))
+            # needs game, slack_board_display (can be instantiated), names of players
 
     def __AI_move(self):
         AI_move = minimax.Minimax(self.game).minimax()
         print(AI_move)
         self.game.execute_turn(AI_move[0][0],AI_move[0][1],AI_move[1][0],AI_move[1][1])
+        # private method to check for moves
 
     def __check_for_stop(self, web_client, data):
         if self.game != None and data.get('text', [])== 'stop' and data['user'] in self.names_of_players:
@@ -112,6 +120,9 @@ class Slack:
             self.game = None
             self.names_of_players = []
             self.game_mode = None
+
+            # needs game, slack_board_display (can be instantiated), names of players
+
 
     def __launch_game(self, web_client, user_launched_game, names, ruleset = 'standard'):
         self.game = game.Game(names[0], names[1], ruleset)
@@ -134,6 +145,7 @@ class Slack:
             elif self.game.p1_turn == False:
               self.post(web_client, f"Checkmate, <@{self.game.player_1.name}> wins!")
             self.game = None
+        # belongs to move, needs game
 
     def __correct_players_turn(self, data):
         if self.game.p1_turn:
@@ -143,6 +155,8 @@ class Slack:
             if data['user'] == self.game.player_2.name:
                 return True
         return False
+        # belongs to move, needs game
+
 
     def __intro_chessy(self):
         output = 'Hi I am Chessy!\n'
