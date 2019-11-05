@@ -1,6 +1,7 @@
 from piece import Piece
 import copy
 from random import random
+from heuristics import Heuristics
 
 class Minimax:
         def __init__(self, game):
@@ -18,7 +19,7 @@ class Minimax:
                                 for j in moveset[1]:
                                         pieces = self.game.get_original_pieces(board, moveset[0][0], moveset[0][1], j[0], j[1])
                                         self.game.execute_turn(moveset[0][0], moveset[0][1], j[0], j[1])
-                                        score = self.evaluate_position(board)     
+                                        score = Heuristics(self.game).evaluate(self.game)     
                                         evaluation_array.append([score, moveset[0], [j[0],j[1]]])
                                         self.game.revert_turn(moveset[0][0], moveset[0][1], j[0], j[1], pieces[0], pieces[1])
                 # print(evaluation_array)
@@ -32,30 +33,35 @@ class Minimax:
                 all_evals = []
                 a = 0
                 next_move_evaluation_array = self.all_possible_moves(self.game.board.board)
+                next_move_evaluation_array = max(next_move_evaluation_array)
+                all_evals.append(next_move_evaluation_array)
                 # print(next_move_evaluation_array)
-                        # print(last_known_board)
+                #         # print(last_known_board)
                 for i in next_move_evaluation_array:
-                        pieces = self.game.get_original_pieces(self.game.board.board, i[1][0], i[1][1], i[2][0], i[2][1])
-                        # print([pieces, i])
-                        self.game.execute_turn(i[1][0], i[1][1], i[2][0], i[2][1])
-                        all_moves = self.all_possible_moves(self.game.board.board)
-                        all_evals.append([all_moves]) # returns best move option
+                        pieces = self.game.get_original_pieces(self.game.board.board, next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
+                        self.game.execute_turn(next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
+                        # print(self.game.board.board)
+                        for_revert_turn1 = next_move_evaluation_array
+                        # all_moves = self.all_possible_moves(self.game.board.board)
+                        # all_evals.append([all_moves]) # returns best move option
                         next_move_evaluation_array = self.all_possible_moves(self.game.board.board)
-                        self.game.revert_turn(i[1][0], i[1][1], i[2][0], i[2][1], pieces[0], pieces[1])
+                        # print(next_move_evaluation_array)
+                        next_move_evaluation_array = max(next_move_evaluation_array)
+                        all_evals.append(next_move_evaluation_array)
+                        # print([pieces, i, self.game.p1_turn])
                         for i in next_move_evaluation_array:
-                                pieces = self.game.get_original_pieces(self.game.board.board, i[1][0], i[1][1], i[2][0], i[2][1])
+                                pieces = self.game.get_original_pieces(self.game.board.board, next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
                                 # print([pieces, i])
-                                self.game.execute_turn(i[1][0], i[1][1], i[2][0], i[2][1])
-                                all_moves = self.all_possible_moves(self.game.board.board)
-                                all_evals.append([all_moves]) # returns best move option
+                                self.game.execute_turn(next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
+                                for_revert_turn2 = next_move_evaluation_array
+                                # all_moves = self.all_possible_moves(self.game.board.board)
+                                # all_evals.append([all_moves]) # returns best move option
                                 next_move_evaluation_array = self.all_possible_moves(self.game.board.board)
-                                self.game.revert_turn(i[1][0], i[1][1], i[2][0], i[2][1], pieces[0], pieces[1])
-                print(len(all_evals))
-                print(len(all_evals[0]))
-                print(len(all_evals[0][0]))
-                print(len(all_evals[0][0][0]))
-                # print(all_evals)
-                return all_evals
+                                next_move_evaluation_array = max(next_move_evaluation_array)
+                                all_evals.append(next_move_evaluation_array)
+                                self.game.revert_turn(for_revert_turn2[1][0], for_revert_turn2[1][1], for_revert_turn2[2][0], for_revert_turn2[2][1], pieces[0], pieces[1])
+                                self.game.revert_turn(for_revert_turn1[1][0], for_revert_turn1[1][1], for_revert_turn1[2][0], for_revert_turn1[2][1], pieces[0], pieces[1])
+                                return [next_move_evaluation_array[1], next_move_evaluation_array[2]]
 
 
 

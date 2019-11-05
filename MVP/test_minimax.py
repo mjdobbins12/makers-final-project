@@ -74,12 +74,13 @@ class TestAllAvailableMoves:
 class TestMiniMax:
         def test_return_value_from_minimax(self, run_before_tests):
                 test_minimax = run_before_tests
-                assert len(test_minimax.minimax()) == 143
+                assert len(test_minimax.minimax()) == 2
                 
 
 class TestMiniMaxEvaluation:
         def test_move_chosen(self, run_before_tests):
                 test_minimax = run_before_tests
+                test_minimax.minimax() == [[7, 6], [5, 5]]
 
 
 
