@@ -19,7 +19,7 @@ class UI:
     def get_names(self):
         names = []
         names.append(input("Enter player 1 name: "))
-        names.append(input("Enter player 2 name: "))
+        names.append(input("Enter player 2 name. Use AI to play against the computer: "))
         print(names[0] + ' vs. ' + names[1])
         return names
 
@@ -34,16 +34,19 @@ class UI:
                   elif self.game.p1_turn == False:
                     print(f'Checkmate, {self.game.player_1.name} wins!')
                     break
-              print(minimax.Minimax(self.game).minimax())
-              self.announce_whose_turn()
-              print('Enter quit to stop the game')              
-              turn_from = input('Please enter square to move FROM: ')
-              if turn_from == 'quit': break
-              turn_to = input('Please enter square to move TO: ')
-              if turn_to == 'quit': break
-              move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
-              if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
-                  print('Invalid move - try again')
+              if self.game.player_2.name == 'AI' and self.game.p1_turn == False:
+                  AI_move = minimax.Minimax(self.game).minimax()
+                  self.game.execute_turn(AI_move[0][0],AI_move[0][1],AI_move[1][0],AI_move[1][1])
+              else:
+                  self.announce_whose_turn()
+                  print('Enter quit to stop the game')
+                  turn_from = input('Please enter square to move FROM: ')
+                  if turn_from == 'quit': break
+                  turn_to = input('Please enter square to move TO: ')
+                  if turn_to == 'quit': break
+                  move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
+                  if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
+                      print('Invalid move - try again')
 
 
     def announce_whose_turn(self):
