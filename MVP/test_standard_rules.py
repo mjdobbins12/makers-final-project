@@ -1,6 +1,6 @@
+import game
 import pawn
 import bishop
-import game
 import pytest
 import queen
 from piece import Piece
