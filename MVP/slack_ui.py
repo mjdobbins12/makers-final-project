@@ -1,12 +1,11 @@
 import os
 import slack
-import piece
 import coordinate_conversion
 import game
 from io import StringIO
 import sys
 import minimax
-from many_queens import ManyQueens
+from slack_board_display import SlackBoardDisplay
 
 
 #can run only one game concurrently
@@ -19,6 +18,7 @@ class Slack:
         self.game = None
         self.names_of_players = []
         self.game_mode = None
+        self.slack_board_display = SlackBoardDisplay()
 
     def post(self, client, text, channel = '#chess'):
         output = client.chat_postMessage(
@@ -94,11 +94,11 @@ class Slack:
                 except:
                     self.post(web_client, 'Invalid move - try again')
                 self.__check_for_checkmate()
-                self.post(web_client, self.__output_board())
+                self.post(web_client, self.slack_board_display.output_board(self.game))
             if self.game.player_2.name == 'AI' and self.game.p1_turn == False:
                 self.__AI_move()
                 self.__check_for_checkmate()
-                self.post(web_client, self.__output_board())
+                self.post(web_client, self.slack_board_display.output_board(self.game))
 
     def __AI_move(self):
         AI_move = minimax.Minimax(self.game).minimax()
@@ -113,56 +113,12 @@ class Slack:
             self.names_of_players = []
             self.game_mode = None
 
-
-    def __output_board(self):
-        output = self.__announce_whose_turn()
-        output +='\n\n\n'
-        output += f"<@{self.game.player_2.name}>\n"
-        output += "| A | B | C | D | E | F | G | H |\n"
-        output += '________________________\n'
-        ind = 8
-        for row in self.game.board:
-            x = "|"
-            for el in row:
-                if isinstance(el, piece.Piece):
-                    x += f" {el.symbol} |"
-                else:
-                    x += f" {el}  |"
-            x += f" {ind}"
-            ind -= 1
-            output += f"{x}\n"
-            output += '------------------------------\n'
-        output += f"<@{self.game.player_1.name}>\n"
-        output += '\n'
-        output += self.__list_taken_pieces_ifany()
-        return output
-
-    def __announce_whose_turn(self):
-        if self.game.p1_turn == True:
-            return f"<@{self.game.player_1.name}>" + "'s turn!"
-        else:
-            return f"<@{self.game.player_2.name}>" + "'s turn!"
-
-    def __list_taken_pieces_ifany(self):
-        output = '\n'
-        if len(self.game.player_2.taken_pieces) > 0:
-            output += 'Taken:'
-            for el in self.game.player_2.taken_pieces:
-                output += f" {el.symbol}"
-            output += '\n'
-        if len(self.game.player_1.taken_pieces) > 0:
-            output += 'Taken:'
-            for el in self.game.player_1.taken_pieces:
-                output += f" {el.symbol}"
-            output += '\n'
-        return output
-
     def __launch_game(self, web_client, user_launched_game, names, ruleset = 'standard'):
         self.game = game.Game(names[0], names[1], ruleset)
         self.post(web_client, f" <@{user_launched_game}> launched the game! Enter moves in this format: a2-a4")
         self.post(web_client, 'Enter stop to stop the game')
         self.post(web_client, f" <@{names[0]}> vs <@{names[1]}>")
-        self.post(web_client, self.__output_board())
+        self.post(web_client, self.slack_board_display.output_board(self.game))
 
     def __parse_and_execute_move(self, web_client, text):
         turn_from = text.split('-')[0].lower()
@@ -170,7 +126,6 @@ class Slack:
         move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
         if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
             self.post(web_client, 'Invalid move - try again')
-
 
     def __check_for_checkmate(self):
         if self.game.is_checkmate():
