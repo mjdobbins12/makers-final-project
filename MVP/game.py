@@ -8,7 +8,6 @@ import standard_rules
 import random_pieces
 import turn
 
-
 class Game:
 
     def __init__(self, p1_name, p2_name, ruleset = "none"):
