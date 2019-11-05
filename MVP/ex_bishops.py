@@ -16,3 +16,6 @@ import piece
 import bishop
 from standard_rules import StandardRules
 
+class ExBishops(StandardRules):
+        def __init__(self):
+                self.first_trigger = random.randint(4, 6)
