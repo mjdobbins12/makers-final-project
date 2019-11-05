@@ -1,12 +1,12 @@
-import turn
-import player
-from king import King
-from piece import Piece
 from checkmate import Checkmate
-import standard_rules 
+from draw import Draw
+from king import King
 import many_queens
+from piece import Piece
+import player
+import standard_rules
 import random_pieces
-
+import turn
 
 class Game:
 
@@ -34,17 +34,23 @@ class Game:
             return 'invalid move'
 
     def revert_turn(self, turn_from_x, turn_from_y, turn_to_x, turn_to_y, original_object, target_object):
-            self.board[turn_from_x][turn_from_y] = original_object
-            self.board[turn_to_x][turn_to_y] = target_object
-            self.p1_turn = not self.p1_turn
+        self.board[turn_from_x][turn_from_y] = original_object
+        self.board[turn_to_x][turn_to_y] = target_object
+        self.p1_turn = not self.p1_turn
 
     def get_original_pieces(self, board, turn_from_x, turn_from_y, turn_to_x, turn_to_y):
-            original_square = board[turn_from_x][turn_from_y]
-            moved_to = board[turn_to_x][turn_to_y]
-            return [original_square, moved_to]
+        original_square = board[turn_from_x][turn_from_y]
+        moved_to = board[turn_to_x][turn_to_y]
+        return [original_square, moved_to]
 
     def is_checkmate(self):
         if Checkmate(self).is_checkmate():
+            return True
+        else:
+            return False
+
+    def is_draw(self):
+        if Draw(self).is_draw():
             return True
         else:
             return False
@@ -57,10 +63,6 @@ class Game:
         colour = 'White' if self.p1_turn else 'Black'
         if self.board[x][y].colour != colour:
             raise ValueError("PlayerDoesNotOwnPiece")
-
-
-
-
 
     def show_board(self, p1_name, p2_name):
         print('')
