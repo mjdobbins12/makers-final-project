@@ -81,7 +81,7 @@ class Slack:
         output = self.__announce_whose_turn()
         output +='\n\n\n'
         output += f"<@{self.game.player_2.name}>\n"
-        output += "| a | b | c | d | e | f | g | h |      \n"
+        output += "| A | B | C | D | E | F | G | H |\n"
         output += '________________________\n'
         ind = 8
         for row in self.game.board:
@@ -128,8 +128,8 @@ class Slack:
         self.post(web_client, self.__output_board())
 
     def __parse_and_execute_move(self, text):
-        turn_from = text.split('-')[0]
-        turn_to = text.split('-')[1]
+        turn_from = text.split('-')[0].lower()
+        turn_to = text.split('-')[1].lower()
         move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
         self.game.execute_turn(move[0],move[1],move[2],move[3])
 
