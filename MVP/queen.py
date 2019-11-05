@@ -4,13 +4,13 @@ class Queen(Piece):
         def __init__(self, colour):
                 self.colour = colour
                 self.name = "Queen"
-                self.value = 9
+                self.value = 90
                 if self.colour == "Black":
                         self.symbol = '♛'
-                        self.value = -9
+                        self.value = -90
                 elif self.colour == "White":
                         self.symbol = '♕'
-                        self.value = 9
+                        self.value = 90
 
         def illegal_directions(self, board, start_row, start_col, end_row, end_col):
                 return any([self.invalid_move_types(start_row, start_col, end_row, end_col),
