@@ -6,6 +6,9 @@ import game
 from io import StringIO
 import sys
 
+#can run only one game concurrently
+#think about how to run in another channel vs. #chess only
+
 class Slack:
 
     def __init__(self):
@@ -21,9 +24,7 @@ class Slack:
             as_user = True)
 
     def start_listen(self):
-        self.post(self.client, 'Hi I am Chessy!')
-        self.post(self.client, 'Let others play their games, the game of kings is still the king of games!')
-        self.post(self.client, 'Enter start to start the game')
+        self.post(self.client, self.__intro_chessy())
         @slack.RTMClient.run_on(event='message')
         def run_game(**payload):
             data = payload['data']
@@ -34,10 +35,6 @@ class Slack:
             self.__check_for_moves(web_client, data)
             self.__check_for_stop(web_client, data)
             # self.__check_for_mode(webclient, data)
-
-                #can run only one game concurrently
-                #think about how to run in another channel vs. #chess only
-
         slack_token = os.environ["SLACK_API_TOKEN"]
         rtm_client = slack.RTMClient(token=slack_token)
         rtm_client.start()
@@ -81,11 +78,11 @@ class Slack:
             self.names_of_players = []
 
     def __output_board(self):
-        result_string = self.__announce_whose_turn()
-        result_string +='\n\n\n'
-        result_string += f"<@{self.game.player_2.name}>\n"
-        result_string += "| a | b | c | d | e | f | g | h |      \n"
-        result_string += '________________________\n'
+        output = self.__announce_whose_turn()
+        output +='\n\n\n'
+        output += f"<@{self.game.player_2.name}>\n"
+        output += "| a | b | c | d | e | f | g | h |      \n"
+        output += '________________________\n'
         ind = 8
         for row in self.game.board:
             x = "|"
@@ -96,12 +93,12 @@ class Slack:
                     x += f" {el}  |"
             x += f" {ind}"
             ind -= 1
-            result_string += f"{x}\n"
-            result_string += '------------------------------\n'
-        result_string += f"<@{self.game.player_1.name}>\n"
-        result_string += '\n'
-        result_string += self.__list_taken_pieces_ifany()
-        return result_string
+            output += f"{x}\n"
+            output += '------------------------------\n'
+        output += f"<@{self.game.player_1.name}>\n"
+        output += '\n'
+        output += self.__list_taken_pieces_ifany()
+        return output
 
     def __announce_whose_turn(self):
         if self.game.p1_turn == True:
@@ -152,6 +149,12 @@ class Slack:
             if data['user'] == self.game.player_2.name:
                 return True
         return False
+
+    def __intro_chessy(self):
+        output = 'Hi I am Chessy!\n'
+        output += 'Let others play their games, the game of kings is still the king of games!\n'
+        output += 'Enter start to start the game!\n'
+        return output
 
 slack_instance = Slack()
 slack_instance.start_listen()
