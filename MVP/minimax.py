@@ -26,10 +26,6 @@ class Minimax:
                 return evaluation_array
         
         def minimax(self):
-                # 1) get avail moves
-                # 2) get move values
-                # 3) get MORE all_possible_move_valuess from all_possible_move_valuess
-                # print(self.game.show_board("1", "2"))
                 all_evals = []
                 a = 0
                 next_move_evaluation_array = self.all_possible_moves(self.game.board.board)
@@ -38,29 +34,26 @@ class Minimax:
                 # print(next_move_evaluation_array)
                 #         # print(last_known_board)
                 for i in next_move_evaluation_array:
-                        pieces = self.game.get_original_pieces(self.game.board.board, next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
+                        pieces1 = self.game.get_original_pieces(self.game.board.board, next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
                         self.game.execute_turn(next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
                         # print(self.game.board.board)
                         for_revert_turn1 = next_move_evaluation_array
-                        # all_moves = self.all_possible_moves(self.game.board.board)
-                        # all_evals.append([all_moves]) # returns best move option
+
                         next_move_evaluation_array = self.all_possible_moves(self.game.board.board)
                         # print(next_move_evaluation_array)
                         next_move_evaluation_array = max(next_move_evaluation_array)
                         all_evals.append(next_move_evaluation_array)
                         # print([pieces, i, self.game.p1_turn])
                         for i in next_move_evaluation_array:
-                                pieces = self.game.get_original_pieces(self.game.board.board, next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
+                                pieces2 = self.game.get_original_pieces(self.game.board.board, next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
                                 # print([pieces, i])
                                 self.game.execute_turn(next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
                                 for_revert_turn2 = next_move_evaluation_array
-                                # all_moves = self.all_possible_moves(self.game.board.board)
-                                # all_evals.append([all_moves]) # returns best move option
                                 next_move_evaluation_array = self.all_possible_moves(self.game.board.board)
                                 next_move_evaluation_array = max(next_move_evaluation_array)
                                 all_evals.append(next_move_evaluation_array)
-                                self.game.revert_turn(for_revert_turn2[1][0], for_revert_turn2[1][1], for_revert_turn2[2][0], for_revert_turn2[2][1], pieces[0], pieces[1])
-                                self.game.revert_turn(for_revert_turn1[1][0], for_revert_turn1[1][1], for_revert_turn1[2][0], for_revert_turn1[2][1], pieces[0], pieces[1])
+                                self.game.revert_turn(for_revert_turn2[1][0], for_revert_turn2[1][1], for_revert_turn2[2][0], for_revert_turn2[2][1], pieces2[0], pieces2[1])
+                                self.game.revert_turn(for_revert_turn1[1][0], for_revert_turn1[1][1], for_revert_turn1[2][0], for_revert_turn1[2][1], pieces1[0], pieces1[1])
                                 return [next_move_evaluation_array[1], next_move_evaluation_array[2]]
 
 

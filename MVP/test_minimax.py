@@ -76,11 +76,18 @@ class TestMiniMax:
                 test_minimax = run_before_tests
                 assert len(test_minimax.minimax()) == 2
                 
+                
 
 class TestMiniMaxEvaluation:
+
         def test_move_chosen(self, run_before_tests):
                 test_minimax = run_before_tests
-                test_minimax.minimax() == [[7, 6], [5, 5]]
+                assert test_minimax.minimax() == [[7, 1], [5, 2]]
+
+        def test_move_chosen2(self, run_before_tests):
+                test_minimax = run_before_tests
+                test_minimax.game.execute_turn(6,4,4,4)
+                assert test_minimax.minimax() == [[1, 6], [3, 6]]
 
 
 
