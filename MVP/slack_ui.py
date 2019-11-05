@@ -5,6 +5,8 @@ import coordinate_conversion
 import game
 from io import StringIO
 import sys
+import minimax
+
 
 #can run only one game concurrently
 #think about how to run in another channel vs. #chess only
@@ -34,6 +36,7 @@ class Slack:
             self.__check_for_join(web_client, data)
             self.__check_for_moves(web_client, data)
             self.__check_for_stop(web_client, data)
+            self.__check_for_AI(web_client, data)
             # self.__check_for_mode(webclient, data)
         slack_token = os.environ["SLACK_API_TOKEN"]
         rtm_client = slack.RTMClient(token=slack_token)
@@ -53,6 +56,12 @@ class Slack:
             self.names_of_players.append(data['user'])
             self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
 
+    def __check_for_AI(self, web_client, data):
+        if data.get('text', []) == 'AI please!' and data.get('bot_id') == None and len(self.names_of_players) == 1:
+            print(data)
+            self.names_of_players.append('AI')
+            self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
+
     def __check_for_mode(self, web_client, data):
         if data.get('text', []) == '####difficult_level####' and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
             print(data)
@@ -69,6 +78,14 @@ class Slack:
                     self.post(web_client, 'Invalid move - try again')
                 self.__check_for_checkmate()
                 self.post(web_client, self.__output_board())
+            if self.game.player_2.name == 'AI' and self.game.p1_turn == False:
+                self.__AI_move()
+                self.__check_for_checkmate()
+                self.post(web_client, self.__output_board())
+
+    def __AI_move(self):
+        AI_move = minimax.Minimax(self.game).minimax()
+        self.game.execute_turn(AI_move[0][0],AI_move[0][1],AI_move[1][0],AI_move[1][1])
 
     def __check_for_stop(self, web_client, data):
         if self.game != None and data.get('text', [])== 'stop' and data['user'] in self.names_of_players:

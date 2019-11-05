@@ -12,6 +12,9 @@ By the end of the second day we had arrived at our MVP:
 <br>
 <img src="https://github.com/dangyi23/makers-final-project/blob/master/docs/MVP.gif" width=40%>
 
+<br>
+<img src="https://github.com/dangyi23/makers-final-project/blob/master/docs/Chessy_with_AI.gif" width=40%>
+
 MVP user stories:
 ```
 As a user,
