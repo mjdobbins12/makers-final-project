@@ -46,22 +46,24 @@ class Slack:
 
     def __check_for_start(self, web_client, data):
         if data.get('text', []) == 'start' and data.get('bot_id') == None and self.game == None:
+            print(data)
             self.names_of_players = [data['user']]
             self.post(web_client, f" <@{data['user']}> wants to play! Enter join to start the game!")
 
     def __check_for_join(self, web_client, data):
         if data.get('text', []) == 'join' and data.get('bot_id') == None and len(self.names_of_players) == 1:
+            print(data)
             self.names_of_players.append(data['user'])
             self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
 
     def __check_for_mode(self, web_client, data):
         if data.get('text', []) == '####difficult_level####' and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
+            print(data)
             self.game_mode = 'test'
             self.post(web_client, f" <@{data['user']}> set mode ####difficult_level####")
 
     def __check_for_moves(self, web_client, data):
         if self.game != None and data.get('text', []) not in ['start', 'stop', 'join'] and data['user'] in self.names_of_players:
-        # if self.game != None and data.get('bot_id') == None and data.get('text', [])!= 'start' and data.get('text', [])!= 'stop' and data.get('text', [])!= 'join' and data['user'] in self.names_of_players:
             print(data)
             if self.__correct_players_turn(data):
                 try:
@@ -73,6 +75,7 @@ class Slack:
 
     def __check_for_stop(self, web_client, data):
         if self.game != None and data.get('text', [])== 'stop' and data['user'] in self.names_of_players:
+            print(data)
             self.post(web_client, 'Ok, stopped the game. Enter start to start a new game!')
             self.game = None
             self.names_of_players = []
