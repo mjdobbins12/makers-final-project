@@ -8,8 +8,10 @@ class Rook(Piece):
                 self.value = 5
                 if self.colour == "Black":
                         self.symbol = '♜'
+                        self.value = -5
                 elif self.colour == "White":
                         self.symbol = '♖'
+                        self.value = 5
 
         def illegal_directions(self, board, start_row, start_col, end_row, end_col):
                 return any([(self.invalid_move_types(start_row, start_col, end_row, end_col)),  # cant move diagonally

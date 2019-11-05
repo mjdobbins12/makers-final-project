@@ -1,7 +1,9 @@
 import piece
 import coordinate_conversion
 import game
+import minimax
 import standard_rules
+
 
 
 class UI:
@@ -33,7 +35,7 @@ class UI:
                     print(f'Checkmate, {self.game.player_1.name} wins!')
                     break
               self.announce_whose_turn()
-              print('Enter quit to stop the game')
+              print('Enter quit to stop the game')              
               turn_from = input('Please enter square to move FROM: ')
               if turn_from == 'quit': break
               turn_to = input('Please enter square to move TO: ')
