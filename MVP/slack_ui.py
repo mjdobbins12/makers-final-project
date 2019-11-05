@@ -40,7 +40,6 @@ class Slack:
                 #clean up webclient references - necessary to pass along?
                 #simplify/clean up if statements for __check methods
                 #think about how to run in another channel vs. #chess only
-                # refactor show_board method - currently carbon copy from ui wrapped into the outputboard method in a hacky way
 
         slack_token = os.environ["SLACK_API_TOKEN"]
         rtm_client = slack.RTMClient(token=slack_token)
@@ -81,22 +80,13 @@ class Slack:
             self.names_of_players = []
 
     def __output_board(self):
-        old_stdout = sys.stdout
-        result = StringIO()
-        sys.stdout = result
-        self.__announce_whose_turn()
-        self.__show_board(self.game.board, self.game.player_1.name, self.game.player_2.name)
-        result_string = result.getvalue()
-        sys.stdout = old_stdout
-        return result_string
-
-    def __show_board(self, board, p1_name, p2_name):
-        print('')
-        print(f"<@{p2_name}>")
-        print("| a | b | c | d | e | f | g | h |      ")
-        print("_" * 27)
+        result_string = self.__announce_whose_turn()
+        result_string +='\n\n\n'
+        result_string += f"<@{self.game.player_2.name}>\n"
+        result_string += "| a | b | c | d | e | f | g | h |      \n"
+        result_string += '________________________\n'
         ind = 8
-        for row in board:
+        for row in self.game.board:
             x = "|"
             for el in row:
                 if isinstance(el, piece.Piece):
@@ -105,29 +95,32 @@ class Slack:
                     x += f" {el}  |"
             x += f" {ind}"
             ind -= 1
-            print(x)
-            print("-" * 33)
-        print(f"<@{p1_name}>")
-        print('')
-        self.__print_taken_pieces_ifany()
+            result_string += f"{x}\n"
+            result_string += '------------------------------\n'
+        result_string += f"<@{self.game.player_1.name}>\n"
+        result_string += '\n'
+        result_string += self.__list_taken_pieces_ifany()
+        return result_string
 
     def __announce_whose_turn(self):
         if self.game.p1_turn == True:
-            print(f"<@{self.game.player_1.name}>" + "'s turn!")
+            return f"<@{self.game.player_1.name}>" + "'s turn!"
         else:
-            print(f"<@{self.game.player_2.name}>" + "'s turn!")
+            return f"<@{self.game.player_2.name}>" + "'s turn!"
 
-    def __print_taken_pieces_ifany(self):
+    def __list_taken_pieces_ifany(self):
+        output = '\n'
         if len(self.game.player_2.taken_pieces) > 0:
-            x = 'Taken:'
+            output += 'Taken:'
             for el in self.game.player_2.taken_pieces:
-                x += f" {el.symbol}"
-            print(x)
+                output += f" {el.symbol}"
+            output += '\n'
         if len(self.game.player_1.taken_pieces) > 0:
-            x = 'Taken:'
+            output += 'Taken:'
             for el in self.game.player_1.taken_pieces:
-                x += f" {el.symbol}"
-            print(x)
+                output += f" {el.symbol}"
+            output += '\n'
+        return output
 
     def __launch_game(self, web_client, user, members):
         self.post(web_client, f" <@{user}> launched the game! Enter moves in this format: a2-a4")
