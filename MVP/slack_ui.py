@@ -152,7 +152,7 @@ class Slack:
 
     def __intro_chessy(self):
         output = 'Hi I am Chessy!\n'
-        output += 'Let others play their games, the game of kings is still the king of games!\n'
+        output += 'Let others play their games, the game of kings is still the ♔ of games!\n'
         output += 'Enter start to start the game!\n'
         return output
 
