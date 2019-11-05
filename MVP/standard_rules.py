@@ -25,6 +25,9 @@ class StandardRules:
                          king.King("White"),bishop.Bishop("White"),knight.Knight("White"),rook.Rook("White")]
                         ]
 
+# counter trigger container method
+        def check_logs(self, board, piece, log):
+                return 
 
 # Check 
 
