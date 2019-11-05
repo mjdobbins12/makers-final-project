@@ -24,6 +24,7 @@ class UI:
     def loop_turns(self):
           while True:
               self.show_board(self.game.board, self.game.player_1.name, self.game.player_2.name)
+              # extract if checkmate to separate method?
               if self.game.is_checkmate():
                   if self.game.p1_turn:
                     print(f'Checkmate, {self.game.player_2.name} wins! ')
