@@ -13,7 +13,7 @@ class UI:
 
     def start(self):
         names = self.get_names()
-        self.game = game.Game(names[0], names[1])
+        self.game = game.Game(names[0], names[1], ruleset = "none")
         self.loop_turns()
 
     def get_names(self):
