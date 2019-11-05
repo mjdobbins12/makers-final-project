@@ -7,7 +7,7 @@ from io import StringIO
 import sys
 
 
-class SlackOutput:
+class Slack:
 
     def __init__(self):
         self.client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'])
@@ -89,8 +89,8 @@ class SlackOutput:
     def __show_board(self, board, p1_name, p2_name):
         print('')
         print(f"<@{p1_name}>")
-        print("| a | b | c | d | e | f | g | h |")
-        print("_" * 33)
+        print("| a | b | c | d | e | f | g | h |      ")
+        print("_" * 27)
         ind = 8
         for row in board:
             x = "|"
@@ -98,7 +98,7 @@ class SlackOutput:
                 if isinstance(el, piece.Piece):
                     x += f" {el.symbol} |"
                 else:
-                    x += f" {el} |"
+                    x += f" {el}  |"
             x += f" {ind}"
             ind -= 1
             print(x)
@@ -157,5 +157,5 @@ class SlackOutput:
                 return True
         return False
 
-slack_instance = SlackOutput()
+slack_instance = Slack()
 slack_instance.start_listen()
