@@ -1,35 +1,27 @@
 import game
 import minimax
 import pytest
+from standard_rules import StandardRules
 
 
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
-        new_game = game.Game('p1', 'p2') 
+        new_game = game.Game('p1', 'p2')
         test_minimax = minimax.Minimax(new_game)
         return test_minimax
-
-class TestInputOutput:
-        def test_accepts_two_args(self, run_before_tests):
-                test_minimax = run_before_tests
-                new_minimax = minimax.Minimax(test_minimax.game)
-
-        def test_outputs_a_move(self, run_before_tests):
-                test_minimax = run_before_tests
-                test_minimax.game.execute_turn(6, 4, 4, 4)
-                assert isinstance(test_minimax.execute_turn(), list)
 
 class TestValueOfMoves:
         def test_value_of_available_moves_for_next_move(self, run_before_tests):
                 test_minimax = run_before_tests
-                assert isinstance(test_minimax.all_possible_moves(test_minimax.game.board.board), list)
+                assert isinstance(test_minimax.all_possible_moves(test_minimax.game.board), list)
 
 
 class TestAllAvailableMoves:
         def test_returns_available_moves_white(self, run_before_tests):
                 test_minimax = run_before_tests
-                assert test_minimax.available_moves(test_minimax.game.board.board) == [
+                print(test_minimax.game.board)
+                assert test_minimax.available_moves(test_minimax.game.board) == [
                         [[6, 0], [[4, 0], [5, 0]]], 
                         [[6, 1], [[4, 1], [5, 1]]], 
                         [[6, 2], [[4, 2], [5, 2]]], 
@@ -52,7 +44,8 @@ class TestAllAvailableMoves:
         def test_returns_available_moves_black(self, run_before_tests):
                 test_minimax = run_before_tests
                 test_minimax.game.execute_turn(6,4,4,4)
-                assert test_minimax.available_moves(test_minimax.game.board.board) == [
+                print(test_minimax.available_moves(test_minimax.game.board))
+                assert test_minimax.available_moves(test_minimax.game.board) == [
                         [[0, 0], []],
                         [[0, 1], [[2, 0], [2, 2]]],
                         [[0, 2], []], 
@@ -80,14 +73,21 @@ class TestMiniMax:
 
 class TestMiniMaxEvaluation:
 
-        def test_move_chosen(self, run_before_tests):
-                test_minimax = run_before_tests
+        def test_move_chosen(self):
+                new_game = game.Game('p1', 'p2')
+                test_minimax = minimax.Minimax(new_game)
                 assert test_minimax.minimax() == [[7, 1], [5, 2]]
 
-        def test_move_chosen2(self, run_before_tests):
+        def test_move_chosen2(self):
+                new_game2 = game.Game('p3', 'p4', ruleset = StandardRules())
+                test_minimax2 = minimax.Minimax(new_game2)
+                test_minimax2.game.execute_turn(6,4,4,4)
+                assert test_minimax2.minimax() == [[1, 6], [3, 6]]
+
+class TestInputOutput:
+        def test_accepts_two_args(self, run_before_tests):
                 test_minimax = run_before_tests
-                test_minimax.game.execute_turn(6,4,4,4)
-                assert test_minimax.minimax() == [[1, 6], [3, 6]]
+                new_minimax = minimax.Minimax(test_minimax.game)
 
 
 

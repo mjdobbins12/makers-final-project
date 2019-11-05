@@ -28,8 +28,8 @@ class Game:
             return 'invalid move'
 
     def revert_turn(self, turn_from_x, turn_from_y, turn_to_x, turn_to_y, original_object, target_object):
-            self.board.board[turn_from_x][turn_from_y] = original_object
-            self.board.board[turn_to_x][turn_to_y] = target_object
+            self.board[turn_from_x][turn_from_y] = original_object
+            self.board[turn_to_x][turn_to_y] = target_object
             self.p1_turn = not self.p1_turn
 
     def get_original_pieces(self, board, turn_from_x, turn_from_y, turn_to_x, turn_to_y):

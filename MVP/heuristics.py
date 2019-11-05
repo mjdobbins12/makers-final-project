@@ -61,13 +61,13 @@ class Heuristics:
                 ])
 
         def evaluate(self, board):
-                material = Heuristics.get_material_score(self.game.board.board)
+                material = Heuristics.get_material_score(self.game.board)
 
-                pawns = Heuristics.get_piece_position_score(self.game.board.board, "Pawn", Heuristics.PAWNS_GRID)
-                knights = Heuristics.get_piece_position_score(self.game.board.board, "Knight", Heuristics.KNIGHTS_GRID)
-                bishops = Heuristics.get_piece_position_score(self.game.board.board, "Bishop", Heuristics.BISHOPS_GRID)
-                rooks = Heuristics.get_piece_position_score(self.game.board.board, "Rook", Heuristics.ROOKS_GRID)
-                queens = Heuristics.get_piece_position_score(self.game.board.board, "Queen", Heuristics.QUEENS_GRID)
+                pawns = Heuristics.get_piece_position_score(self.game.board, "Pawn", Heuristics.PAWNS_GRID)
+                knights = Heuristics.get_piece_position_score(self.game.board, "Knight", Heuristics.KNIGHTS_GRID)
+                bishops = Heuristics.get_piece_position_score(self.game.board, "Bishop", Heuristics.BISHOPS_GRID)
+                rooks = Heuristics.get_piece_position_score(self.game.board, "Rook", Heuristics.ROOKS_GRID)
+                queens = Heuristics.get_piece_position_score(self.game.board, "Queen", Heuristics.QUEENS_GRID)
 
                 return material + pawns + knights + bishops + rooks + queens
 

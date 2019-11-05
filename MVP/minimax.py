@@ -7,9 +7,6 @@ class Minimax:
         def __init__(self, game):
                 self.game = game
                 
-        
-        def execute_turn(self):
-                return []
 
         def all_possible_moves(self, board):
                 evaluation_array = []
@@ -28,28 +25,28 @@ class Minimax:
         def minimax(self):
                 all_evals = []
                 a = 0
-                next_move_evaluation_array = self.all_possible_moves(self.game.board.board)
+                next_move_evaluation_array = self.all_possible_moves(self.game.board)
                 next_move_evaluation_array = max(next_move_evaluation_array)
                 all_evals.append(next_move_evaluation_array)
                 # print(next_move_evaluation_array)
                 #         # print(last_known_board)
                 for i in next_move_evaluation_array:
-                        pieces1 = self.game.get_original_pieces(self.game.board.board, next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
+                        pieces1 = self.game.get_original_pieces(self.game.board, next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
                         self.game.execute_turn(next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
-                        # print(self.game.board.board)
+                        # print(self.game.board)
                         for_revert_turn1 = next_move_evaluation_array
 
-                        next_move_evaluation_array = self.all_possible_moves(self.game.board.board)
+                        next_move_evaluation_array = self.all_possible_moves(self.game.board)
                         # print(next_move_evaluation_array)
                         next_move_evaluation_array = max(next_move_evaluation_array)
                         all_evals.append(next_move_evaluation_array)
                         # print([pieces, i, self.game.p1_turn])
                         for i in next_move_evaluation_array:
-                                pieces2 = self.game.get_original_pieces(self.game.board.board, next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
+                                pieces2 = self.game.get_original_pieces(self.game.board, next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
                                 # print([pieces, i])
                                 self.game.execute_turn(next_move_evaluation_array[1][0], next_move_evaluation_array[1][1], next_move_evaluation_array[2][0], next_move_evaluation_array[2][1])
                                 for_revert_turn2 = next_move_evaluation_array
-                                next_move_evaluation_array = self.all_possible_moves(self.game.board.board)
+                                next_move_evaluation_array = self.all_possible_moves(self.game.board)
                                 next_move_evaluation_array = max(next_move_evaluation_array)
                                 all_evals.append(next_move_evaluation_array)
                                 self.game.revert_turn(for_revert_turn2[1][0], for_revert_turn2[1][1], for_revert_turn2[2][0], for_revert_turn2[2][1], pieces2[0], pieces2[1])
@@ -66,7 +63,7 @@ class Minimax:
                                 if isinstance(board[i][j], Piece):
                                         if self.game.p1_turn == True:
                                                 if board[i][j].colour == "White":
-                                                        # print([self.game.board.board[i][j].colour, self.game.board.board[i][j].name, i,j])
+                                                        # print([self.game.board[i][j].colour, self.game.board[i][j].name, i,j])
                                                         array.append([[i,j], board[i][j].available_moves(board, i, j)])
                                         elif self.game.p1_turn == False:
                                                 if board[i][j].colour == "Black":
