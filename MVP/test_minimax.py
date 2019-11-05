@@ -12,6 +12,21 @@ def run_before_tests():
         test_minimax = minimax.Minimax(new_game)
         return test_minimax
 
+class TestMiniMaxEvaluation:
+
+        def test_move_chosen(self):
+                ruleset1 = StandardRules()
+                really_new_game = game.Game('p1', 'p2')
+                test_minimax = minimax.Minimax(really_new_game)
+                
+                assert test_minimax.minimax() == [[7, 6], [5, 5]]
+
+        # def test_move_chosen2(self):
+        #         new_game2 = game.Game('p3', 'p4', ruleset = StandardRules())
+        #         test_minimax2 = minimax.Minimax(new_game2)
+        #         test_minimax2.game.execute_turn(6,4,4,4)
+        #         assert test_minimax2.minimax() == [[1, 7], [3, 7]]
+        
 class TestValueOfMoves:
         def test_value_of_available_moves_for_next_move(self, run_before_tests):
                 test_minimax = run_before_tests
@@ -72,18 +87,7 @@ class TestMiniMax:
                 
                 
 
-class TestMiniMaxEvaluation:
 
-        def test_move_chosen(self):
-                new_game = game.Game('p1', 'p2')
-                test_minimax = minimax.Minimax(new_game)
-                assert test_minimax.minimax() == [[7, 6], [5, 5]]
-
-        # def test_move_chosen2(self):
-        #         new_game2 = game.Game('p3', 'p4', ruleset = StandardRules())
-        #         test_minimax2 = minimax.Minimax(new_game2)
-        #         test_minimax2.game.execute_turn(6,4,4,4)
-        #         assert test_minimax2.minimax() == [[1, 7], [3, 7]]
 
 class TestInputOutput:
         def test_accepts_two_args(self, run_before_tests):
