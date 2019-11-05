@@ -11,20 +11,25 @@ class Slack:
 
     def __init__(self):
         self.client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'])
-        self.bot_id = None
+        # self.bot_id = None
+        # can likely be removed
         self.game = None
         self.names_of_players = []
+        self.game_mode = '####difficult_level####'
 
     def post(self, client, text, channel = '#chess'):
         output = client.chat_postMessage(
-        channel='#chess',
-        text=text,
-        as_user = True)
-        if self.bot_id == None:
-            self.bot_id = output['message']['bot_id']
+            channel='#chess',
+            text=text,
+            as_user = True)
+        # if self.bot_id == None:
+        #     self.bot_id = output['message']['bot_id']
+        # can likely be removed
 
     def start_listen(self):
-        self.post(self.client, 'Hi I am Chessy! Enter start to start the game')
+        self.post(self.client, 'Hi I am Chessy!')
+        self.post(self.client, 'Let others play their games, the game of kings is still the king of games!')
+        self.post(self.client, 'Enter start to start the game')
         @slack.RTMClient.run_on(event='message')
         def run_game(**payload):
             data = payload['data']
@@ -34,6 +39,7 @@ class Slack:
             self.__check_for_join(web_client, data)
             self.__check_for_moves(web_client, data)
             self.__check_for_stop(web_client, data)
+            # self.__check_for_mode(webclient, data)
 
                 #checking if the player is allowed to give the instruction
                 #can run only one game concurrently
@@ -45,19 +51,22 @@ class Slack:
         rtm_client = slack.RTMClient(token=slack_token)
         rtm_client.start()
 
-
-
     # private methods
 
     def __check_for_start(self, web_client, data):
         if data.get('text', []) == 'start' and data.get('bot_id') == None and self.game == None:
             self.names_of_players = [data['user']]
-            self.post(web_client, f" <@{data['user']}> wants to play! Enter join to join him!")
+            self.post(web_client, f" <@{data['user']}> wants to play! Enter join to start the game!")
 
     def __check_for_join(self, web_client, data):
         if data.get('text', []) == 'join' and data.get('bot_id') == None and len(self.names_of_players) == 1:
             self.names_of_players.append(data['user'])
             self.__launch_game(web_client, self.names_of_players[0], self.names_of_players)
+
+    def __check_for_mode(self, web_client, data):
+        if data.get('text', []) == '####difficult_level####' and data.get('bot_id') == None and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
+            self.game_mode = 'test'
+            self.post(web_client, f" <@{data['user']}> set mode ####difficult_level####")
 
     def __check_for_moves(self, web_client, data):
         if self.game != None and data.get('bot_id') == None and data.get('text', [])!= 'start' and data.get('text', [])!= 'stop' and data.get('text', [])!= 'join' and data['user'] in self.names_of_players:
@@ -137,15 +146,16 @@ class Slack:
         turn_from = text.split('-')[0]
         turn_to = text.split('-')[1]
         move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
-        if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
-            self.post(web_client, 'Invalid move - try again')
+        self.game.execute_turn(move[0],move[1],move[2],move[3])
+        # if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
+        #     self.post(web_client, 'Invalid move - try again')
 
     def __check_for_checkmate(self):
         if self.game.is_checkmate():
             if self.game.p1_turn:
               self.post(web_client, f"Checkmate, <@{self.game.player_2.name}> wins!")
             elif self.game.p1_turn == False:
-              self.post(web_client, f"Checkmate, <@{self.game.player_2.name}> wins!")
+              self.post(web_client, f"Checkmate, <@{self.game.player_1.name}> wins!")
             self.game = None
 
     def __correct_players_turn(self, data):
