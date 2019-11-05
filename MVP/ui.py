@@ -4,8 +4,6 @@ import game
 import minimax
 import standard_rules
 
-
-
 class UI:
     def __init__(self):
         self.game = ''

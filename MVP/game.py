@@ -3,14 +3,17 @@ import player
 from king import King
 from piece import Piece
 from checkmate import Checkmate
-from standard_rules import StandardRules
+import standard_rules 
 import many_queens
 
 
 class Game:
 
-    def __init__(self, p1_name, p2_name, ruleset = StandardRules()):
-        self.ruleset = ruleset
+    def __init__(self, p1_name, p2_name, ruleset = "none"):
+        if ruleset == "many_queens":
+            self.ruleset = many_queens.ManyQueens()
+        else:
+            self.ruleset = standard_rules.StandardRules()
         self.board = self.ruleset.starting_board
         self.player_1 = player.Player(p1_name, "White")
         self.player_2 = player.Player(p2_name, "Black")
