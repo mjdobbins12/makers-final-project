@@ -11,8 +11,6 @@ class Slack:
 
     def __init__(self):
         self.client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'])
-        # self.bot_id = None
-        # can likely be removed
         self.game = None
         self.names_of_players = []
         self.game_mode = '####difficult_level####'
@@ -22,9 +20,6 @@ class Slack:
             channel='#chess',
             text=text,
             as_user = True)
-        # if self.bot_id == None:
-        #     self.bot_id = output['message']['bot_id']
-        # can likely be removed
 
     def start_listen(self):
         self.post(self.client, 'Hi I am Chessy!')
@@ -41,11 +36,11 @@ class Slack:
             self.__check_for_stop(web_client, data)
             # self.__check_for_mode(webclient, data)
 
-                #checking if the player is allowed to give the instruction
                 #can run only one game concurrently
                 #clean up webclient references - necessary to pass along?
                 #simplify/clean up if statements for __check methods
                 #think about how to run in another channel vs. #chess only
+                # refactor show_board method - currently carbon copy from ui wrapped into the outputboard method in a hacky way
 
         slack_token = os.environ["SLACK_API_TOKEN"]
         rtm_client = slack.RTMClient(token=slack_token)
@@ -97,7 +92,7 @@ class Slack:
 
     def __show_board(self, board, p1_name, p2_name):
         print('')
-        print(f"<@{p1_name}>")
+        print(f"<@{p2_name}>")
         print("| a | b | c | d | e | f | g | h |      ")
         print("_" * 27)
         ind = 8
