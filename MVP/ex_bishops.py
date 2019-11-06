@@ -13,13 +13,15 @@ class ExBishops(StandardRules):
         def check_logs(self, board, piece, log):
                 self.turn_number = len(log) # use to take a snapshot for timing rook transactions
                 
-                # timing for excommunication of bishops
+                # timing for excommunication of bishops 
+                # make one odd, the other even to alternate pieces 
                 if self.turn_number >= self.first_trigger: 
                         if piece.colour == "White":
                                 self.excommunicate_bishops(board, "Black")
                         elif piece.colour == "Black":
                                 self.excommunicate_bishops(board, "White")
-                        self.first_trigger = 100
+                        self.first_trigger = 100 # not needed if make condition just = instead of >=
+                        
                         
                 # timing for sale of rooks 
                 if self.turn_number >= self.second_trigger:
