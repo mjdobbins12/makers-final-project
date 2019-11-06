@@ -26,7 +26,7 @@ class StandardRules:
                         ]
 
 # counter trigger container method
-        def check_logs(self, board, piece, log):
+        def check_special_events(self, board, piece, log):
                 return 
 
 # Check 

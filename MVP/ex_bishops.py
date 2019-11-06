@@ -81,7 +81,7 @@ class ExBishops(StandardRules):
                                 if isinstance(board[i][j], knight.Knight):
                                         colour = board[i][j].colour
                                         board[i][j] = sp_knight.SpKnight(colour)
-                                        print("Knights receive the hightest honour! They can move in any direction for 3 turns.")
+                                        print("Knights receive the hightest honour! They can move in any direction for 1 turn.")
                                         
         def return_knights_to_normal(self, board):
                 for i in range(8):
