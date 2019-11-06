@@ -93,7 +93,7 @@ class SlackControl:
             self.post(web_client, 'Invalid move - try again')
 
     def __AI_move(self):
-        AI_move = minimax.Minimax(self.game).minimax()
+        AI_move = minimax.Minimax(self.game).minimaxRoot(2, self.game.board, True)
         print(AI_move)
         self.game.execute_turn(AI_move[0][0],AI_move[0][1],AI_move[1][0],AI_move[1][1])
 
