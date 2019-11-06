@@ -5,6 +5,7 @@ import pawn
 import bishop 
 import ex_bishops_mock
 import standard_rules
+import un_rook
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
@@ -24,9 +25,23 @@ class TestExBishop:
                 test_game = run_before_tests
                 test_game.execute_turn(6,0,5,0)
                 assert isinstance(test_game.board[7][2], bishop.Bishop)
-                print(test_game.board)
                 test_game.execute_turn(1,0,2,0)
                 test_game.execute_turn(6,1,5,1)
                 test_game.execute_turn(1,1,2,1)
                 assert test_game.board[7][2] == '-'
+                
+        def test_initial_sale_of_rooks(self, run_before_tests):
+                test_game = run_before_tests
+                test_game.execute_turn(6,0,5,0)
+                assert isinstance(test_game.board[7][2], bishop.Bishop)
+                test_game.execute_turn(1,0,2,0)
+                test_game.execute_turn(6,1,5,1)
+                test_game.execute_turn(1,1,2,1)
+                assert test_game.board[7][2] == '-'
+                test_game.execute_turn(6,2,5,2)
+                test_game.execute_turn(1,2,2,2) 
+                test_game.execute_turn(6,3,5,3)
+                assert isinstance(test_game.board[7][0], un_rook.UnRook)
+
+      
          

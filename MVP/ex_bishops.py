@@ -64,4 +64,7 @@ class ExBishops(StandardRules):
                                         colour = board[i][j].colour
                                         board[i][j] = rook.Rook(colour)
                                         print("Sale complete! All Rooks can move again.")
+                                        
+                                        
+        
                                                 
