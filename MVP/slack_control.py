@@ -90,9 +90,9 @@ class SlackControl:
         turn_to = text.split('-')[1].lower()
         move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
         response = self.game.execute_turn(move[0],move[1],move[2],move[3])
-        if reponse == 'invalid move':
+        if response == 'invalid move':
             self.post(web_client, 'Invalid move - try again')
-        if reponse == 'xxxxx####':
+        if response == 'xxxxx####':
             self.post(web_client, 'xxxxx####')
         # canb add more resonses here
 
