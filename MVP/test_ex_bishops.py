@@ -66,11 +66,15 @@ class TestExBishop:
                 test_game.execute_turn(6,1,5,1)
                 test_game.execute_turn(1,1,2,1)
                 test_game.execute_turn(6,2,5,2)
-                test_game.execute_turn(1,2,2,2) 
+                test_game.execute_turn(1,2,2,2)
                 test_game.execute_turn(6,3,5,3)
                 test_game.execute_turn(1,3,2,3) 
                 test_game.execute_turn(6,4,5,4)
+                print(test_game.ruleset.turn_number)
                 test_game.execute_turn(1,4,2,4) 
+                print(test_game.ruleset.turn_number)
+                print(test_game.board[7][1])
+                print(test_game.board)
                 assert isinstance(test_game.board[7][1], sp_knight.SpKnight)
                 
         def test_knights_back_to_normal(self, run_before_tests):
@@ -90,5 +94,4 @@ class TestExBishop:
                 test_game.execute_turn(1,5,2,5)
                 assert isinstance(test_game.board[7][1], knight.Knight)
 
-      
-
+     
