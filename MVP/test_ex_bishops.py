@@ -6,6 +6,7 @@ import bishop
 import ex_bishops_mock
 import standard_rules
 import un_rook
+import rook
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
@@ -42,6 +43,7 @@ class TestExBishop:
                 test_game.execute_turn(1,2,2,2) 
                 test_game.execute_turn(6,3,5,3)
                 assert isinstance(test_game.board[7][0], un_rook.UnRook)
-
+                test_game.execute_turn(1,3,2,3) 
+                assert isinstance(test_game.board[7][0], rook.Rook)
       
          
