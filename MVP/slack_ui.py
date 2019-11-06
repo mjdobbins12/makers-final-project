@@ -5,7 +5,6 @@ from slack_control import SlackControl
 class Slack:
 
     def __init__(self):
-        self.client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'])
         self.slack_control = {}
 
     def post(self, client, text, channel):
