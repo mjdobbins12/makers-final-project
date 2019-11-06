@@ -16,14 +16,12 @@ class SlackControl:
 
     def check_for_start(self, web_client, data):
         if data.get('text', []) == 'start' and data.get('bot_id') == None and self.game == None:
-            print(data)
             self.names_of_players = [data['user']]
             print(self.channel)
             self.post(web_client, f" <@{data['user']}> wants to play! Enter join to start the game!")
 
     def check_for_join(self, web_client, data):
         if data.get('text', []) == 'join' and data.get('bot_id') == None and len(self.names_of_players) == 1:
-            print(data)
             self.names_of_players.append(data['user'])
             if self.game_mode not in [None, 'in_choosing']:
                 self.__launch_game(web_client, self.names_of_players[0], self.names_of_players, ruleset = self.game_mode)
@@ -48,10 +46,10 @@ class SlackControl:
         if data.get('text', []) == "Piece of cake" and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
             self.game_mode = 'random_pieces'
             self.post(web_client, 'Pieces will be random, but not the cake (0)!')
+        # could refactor into method that takes the mode name and what to pass on to game_mode and a response
 
     def check_for_moves(self, web_client, data):
         if self.game != None and data.get('text', []) not in ['start', 'stop', 'join'] and data['user'] in self.names_of_players:
-            print(data)
             if self.__correct_players_turn(data):
                 try:
                     self.__parse_and_execute_move(web_client, data.get('text', []))
@@ -63,20 +61,22 @@ class SlackControl:
                 self.__AI_move()
                 self.__check_for_checkmate()
                 self.post(web_client, self.slack_board_display.output_board(self.game))
+        # this could use some refactor - but needs to retain the AI move trigger after processing the player move
 
     def check_for_stop(self, web_client, data):
         if self.game != None and data.get('text', [])== 'stop' and data['user'] in self.names_of_players:
-            print(data)
             self.post(web_client, 'Ok, stopped the game. Enter start to start a new game!')
             self.game = None
             self.names_of_players = []
             self.game_mode = None
+            # maybe these 3 can all be set to None?
 
     def post(self, client, text):
         output = client.chat_postMessage(
             channel = self.channel,
             text = text,
-            as_user = True)
+            username = 'Chessy')
+            # as_user = True)
 
     # private methods
 
