@@ -5,7 +5,6 @@ import game
 import minimax
 from slack_board_display import SlackBoardDisplay
 
-
 class SlackControl:
 
     def __init__(self):
@@ -70,7 +69,6 @@ class SlackControl:
             self.game = None
             self.names_of_players = []
             self.game_mode = None
-
 
     def post(self, client, text, channel = '#chess'):
         output = client.chat_postMessage(
