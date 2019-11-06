@@ -14,5 +14,6 @@ class UnRook(Rook):
                         self.value = 50
 
         def invalid_move_types(self, start_row, start_col, end_row, end_col):
-                        return True
+                return True
+        
 
