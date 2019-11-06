@@ -28,14 +28,10 @@ class UI:
             if self.checkmate_or_draw(): break
             self.announce_whose_turn()
             if self.game.player_2.name == 'AI' and self.game.p1_turn == False:
-                AI_move = minimax.Minimax(self.game).minimax()
-                self.game.execute_turn(AI_move[0][0],AI_move[0][1],AI_move[1][0],AI_move[1][1])
+                self.AImove()
             else:
-                try: turn = self.get_move_from_player()
+                try: self.playermove()
                 except: break
-                move = coordinate_conversion.Convert().coordinates(turn[0], turn[1])
-                if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
-                    print('Invalid move - try again')
 
     def announce_whose_turn(self):
         if self.game.p1_turn == True:
@@ -62,3 +58,13 @@ class UI:
         turn.append(input('Please enter square to move TO: '))
         if turn[1] == 'quit': raise ValueError
         return turn
+
+    def playermove(self):
+        turn = self.get_move_from_player()
+        move = coordinate_conversion.Convert().coordinates(turn[0], turn[1])
+        if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
+            print('Invalid move - try again')
+
+    def AImove(self):
+        AI_move = minimax.Minimax(self.game).minimax()
+        self.game.execute_turn(AI_move[0][0],AI_move[0][1],AI_move[1][0],AI_move[1][1])
