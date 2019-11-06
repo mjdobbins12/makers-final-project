@@ -25,6 +25,8 @@ class SlackBoardDisplay:
         output += self.__list_taken_pieces_ifany(game)
         return output
 
+    # private
+
     def __announce_whose_turn(self, game):
         if game.p1_turn == True:
             return f"<@{game.player_1.name}>" + "'s turn!"

@@ -1,13 +1,6 @@
 import os
 import slack
-import coordinate_conversion
-import game
-from io import StringIO
-import sys
-import minimax
-from slack_board_display import SlackBoardDisplay
 from slack_control import SlackControl
-
 
 #can run only one game concurrently
 #think about how to run in another channel vs. #chess only
@@ -50,7 +43,6 @@ class Slack:
         output += 'Let others play their games, the game of kings is still the ♔ of games!\n'
         output += 'Enter start to start the game!\n'
         return output
-
 
 slack_instance = Slack()
 slack_instance.start_listen()
