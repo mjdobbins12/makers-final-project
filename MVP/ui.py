@@ -50,10 +50,9 @@ class UI:
         if self.game.is_checkmate():
             if self.game.p1_turn:
                 print(f'Checkmate, {self.game.player_2.name} wins! ')
-                return True
             elif self.game.p1_turn == False:
                 print(f'Checkmate, {self.game.player_1.name} wins!')
-                return True
+            return True
         if self.game.is_draw():
             print('Game drawn')
             return True
