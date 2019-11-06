@@ -19,6 +19,7 @@ class ExBishops(StandardRules):
                 self.second_trigger = 5
                 self.third_trigger = 7
                 self.fourth_trigger = 9
+                self.fifth_trigger = 11
                 
         def check_special_events(self, board, piece, log):
                 self.turn_number = len(log) 
@@ -30,15 +31,13 @@ class ExBishops(StandardRules):
                                 self.excommunicate_bishops(board, "White")
                         self.first_trigger = 100 
                         
-
                 if self.turn_number >= self.second_trigger:
                         if piece.colour == "White":
                                 self.start_sale_of_rooks(board, "Black", "White")
                         elif piece.colour == "Black": 
                                 self.start_sale_of_rooks(board, "White", "Black")
                         self.second_trigger = 100
-                        
-                                      
+                          
                 if self.turn_number >= self.third_trigger:   
                         self.complete_sale_of_rooks(board)
                         self.third_trigger = 100
@@ -46,6 +45,10 @@ class ExBishops(StandardRules):
                 if self.turn_number >= self.fourth_trigger:   
                         self.honour_knights(board)
                         self.fourth_trigger = 100
+                
+                if self.turn_number >= self.fifth_trigger:
+                        self.return_knights_to_normal(board)
+                        self.fifth_trigger = 100
                 
                    
         def excommunicate_bishops(self, board, colour):
@@ -79,6 +82,14 @@ class ExBishops(StandardRules):
                                         colour = board[i][j].colour
                                         board[i][j] = sp_knight.SpKnight(colour)
                                         print("Knights receive the hightest honour! They can move in any direction for 3 turns.")
+                                        
+        def return_knights_to_normal(self, board):
+                for i in range(8):
+                        for j in range(8):
+                                if isinstance(board[i][j], sp_knight.SpKnight):
+                                        colour = board[i][j].colour
+                                        board[i][j] = knight.Knight(colour)
+                                        print("Ah, the fun has worn off - knights back to normal")
                                         
                                         
         
