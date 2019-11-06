@@ -27,6 +27,7 @@ class UI:
             self.board_display.show_board(self.game, self.game.board, self.game.player_1.name, self.game.player_2.name)
             if self.checkmate_or_draw(): break
             self.announce_whose_turn()
+            # print(self.AImove())
             if self.game.player_2.name == 'AI' and self.game.p1_turn == False:
                 self.AImove()
             else:
@@ -66,5 +67,6 @@ class UI:
             print('Invalid move - try again')
 
     def AImove(self):
-        AI_move = minimax.Minimax(self.game).minimaxRoot(5, self.game.board, True)
+        AI_move = minimax.Minimax(self.game).minimaxRoot(2, self.game.board, True)
+        # print(AI_move)
         self.game.execute_turn(AI_move[0][0],AI_move[0][1],AI_move[1][0],AI_move[1][1])

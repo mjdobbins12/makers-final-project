@@ -56,12 +56,35 @@ class TestAllAvailableMoves:
                 test_minimax = run_before_tests
                 test_minimax.game.execute_turn(6,4,4,4)
                 print(test_minimax.available_moves(test_minimax.game.board))
-                assert test_minimax.available_moves(test_minimax.game.board) == [[[0, 1], [2, 0]], [[0, 1], [2, 2]], [[0, 4], [0, 2]], [[0, 4], [0, 6]], [[0, 6], [2, 5]], [[0, 6], [2, 7]], [[1, 0], [2, 0]], [[1, 0], [3, 0]], [[1, 1], [2, 1]], [[1, 1], [3, 1]], [[1, 2], [2, 2]], [[1, 2], [3, 2]], [[1, 3], [2, 3]], [[1, 3], [3, 3]], [[1, 4], [2, 4]], [[1, 4], [3, 4]], [[1, 5], [2, 5]], [[1, 5], [3, 5]], [[1, 6], [2, 6]], [[1, 6], [3, 6]], [[1, 7], [2, 7]], [[1, 7], [3, 7]]]
+                assert test_minimax.available_moves(test_minimax.game.board) == [
+                        [[0, 1], [2, 0]], 
+                        [[0, 1], [2, 2]], 
+                        [[0, 4], [0, 2]], 
+                        [[0, 4], [0, 6]], 
+                        [[0, 6], [2, 5]], 
+                        [[0, 6], [2, 7]], 
+                        [[1, 0], [2, 0]], 
+                        [[1, 0], [3, 0]], 
+                        [[1, 1], [2, 1]], 
+                        [[1, 1], [3, 1]], 
+                        [[1, 2], [2, 2]], 
+                        [[1, 2], [3, 2]], 
+                        [[1, 3], [2, 3]], 
+                        [[1, 3], [3, 3]], 
+                        [[1, 4], [2, 4]], 
+                        [[1, 4], [3, 4]], 
+                        [[1, 5], [2, 5]], 
+                        [[1, 5], [3, 5]], 
+                        [[1, 6], [2, 6]], 
+                        [[1, 6], [3, 6]], 
+                        [[1, 7], [2, 7]], 
+                        [[1, 7], [3, 7]]]
 
 class TestMiniMax:
         def test_return_value_from_minimax(self, run_before_tests):
                 test_minimax = run_before_tests
                 assert (test_minimax.minimaxRoot(1, test_minimax.game.board, True)) == [[7, 1], [5, 2]]
+                assert (test_minimax.minimaxRoot(2, test_minimax.game.board, True)) == [[7, 1], [5, 2]]
                 # assert len(test_minimax.minimax(1, test_minimax.game.board, True)) == 2
                 
                 
