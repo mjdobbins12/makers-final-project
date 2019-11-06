@@ -72,9 +72,9 @@ class SlackControl:
             self.names_of_players = []
             self.game_mode = None
 
-    def post(self, client, text, channel = self.channel):
+    def post(self, client, text):
         output = client.chat_postMessage(
-            channel = channel,
+            channel = self.channel,
             text = text,
             as_user = True)
 

@@ -30,14 +30,17 @@ class Slack:
             print (data['channel'])
             web_client = payload['web_client']
             rtm_client = payload['rtm_client']
-            self.slack_control[data['channel']].check_for_start(web_client, data)
-            self.slack_control[data['channel']].check_for_start(web_client, data)
-            self.slack_control[data['channel']].check_for_moves(web_client, data)
-            self.slack_control[data['channel']].check_for_stop(web_client, data)
-            self.slack_control[data['channel']].check_for_mode(web_client, data)
-            self.slack_control[data['channel']].check_for_mode_set(web_client, data)
-            self.slack_control[data['channel']].check_for_join(web_client, data)
-            self.slack_control[data['channel']].check_for_AI(web_client, data)
+            try:
+                self.slack_control[data['channel']].check_for_start(web_client, data)
+                self.slack_control[data['channel']].check_for_moves(web_client, data)
+                self.slack_control[data['channel']].check_for_stop(web_client, data)
+                self.slack_control[data['channel']].check_for_mode(web_client, data)
+                self.slack_control[data['channel']].check_for_mode_set(web_client, data)
+                self.slack_control[data['channel']].check_for_join(web_client, data)
+                self.slack_control[data['channel']].check_for_AI(web_client, data)
+            except:
+                print('Exception!')
+                print(data)
 
         slack_token = os.environ["SLACK_API_TOKEN"]
         rtm_client = slack.RTMClient(token=slack_token)
