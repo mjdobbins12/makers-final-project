@@ -46,6 +46,7 @@ class SlackControl:
         if data.get('text', []) == "Piece of cake" and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
             self.game_mode = 'random_pieces'
             self.post(web_client, 'Pieces will be random, but not the cake (0)!')
+        # could refactor into method that takes the mode name and what to pass on to game_mode and a response
 
     def check_for_moves(self, web_client, data):
         if self.game != None and data.get('text', []) not in ['start', 'stop', 'join'] and data['user'] in self.names_of_players:
@@ -60,6 +61,7 @@ class SlackControl:
                 self.__AI_move()
                 self.__check_for_checkmate()
                 self.post(web_client, self.slack_board_display.output_board(self.game))
+        # this could use some refactor - but needs to retain the AI move trigger after processing the player move
 
     def check_for_stop(self, web_client, data):
         if self.game != None and data.get('text', [])== 'stop' and data['user'] in self.names_of_players:
@@ -67,6 +69,7 @@ class SlackControl:
             self.game = None
             self.names_of_players = []
             self.game_mode = None
+            # maybe these 3 can all be set to None?
 
     def post(self, client, text):
         output = client.chat_postMessage(
