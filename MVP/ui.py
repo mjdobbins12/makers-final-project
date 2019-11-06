@@ -66,5 +66,5 @@ class UI:
             print('Invalid move - try again')
 
     def AImove(self):
-        AI_move = minimax.Minimax(self.game).minimax()
+        AI_move = minimax.Minimax(self.game).minimaxRoot(5, self.game.board, True)
         self.game.execute_turn(AI_move[0][0],AI_move[0][1],AI_move[1][0],AI_move[1][1])
