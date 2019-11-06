@@ -25,22 +25,12 @@ class UI:
     def loop_turns(self):
         while True:
             self.board_display.show_board(self.game, self.game.board, self.game.player_1.name, self.game.player_2.name)
-            if self.game.is_checkmate():
-                if self.game.p1_turn:
-                    print(f'Checkmate, {self.game.player_2.name} wins! ')
-                    break
-                elif self.game.p1_turn == False:
-                    print(f'Checkmate, {self.game.player_1.name} wins!')
-                    break
-            if self.game.is_draw():
-                print('Game drawn')
-                break
+            if self.checkmate_or_draw(): break
             self.announce_whose_turn()
             if self.game.player_2.name == 'AI' and self.game.p1_turn == False:
                 AI_move = minimax.Minimax(self.game).minimax()
                 self.game.execute_turn(AI_move[0][0],AI_move[0][1],AI_move[1][0],AI_move[1][1])
             else:
-                self.announce_whose_turn()
                 print('Enter quit to stop the game')
                 turn_from = input('Please enter square to move FROM: ')
                 if turn_from == 'quit': break
@@ -50,9 +40,20 @@ class UI:
                 if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
                     print('Invalid move - try again')
 
-
     def announce_whose_turn(self):
         if self.game.p1_turn == True:
             print(self.game.player_1.name + "'s turn!")
         else:
             print(self.game.player_2.name + "'s turn!")
+
+    def checkmate_or_draw(self):
+        if self.game.is_checkmate():
+            if self.game.p1_turn:
+                print(f'Checkmate, {self.game.player_2.name} wins! ')
+                return True
+            elif self.game.p1_turn == False:
+                print(f'Checkmate, {self.game.player_1.name} wins!')
+                return True
+        if self.game.is_draw():
+            print('Game drawn')
+            return True
