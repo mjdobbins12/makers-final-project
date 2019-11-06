@@ -8,7 +8,7 @@ from standard_rules import StandardRules
 class ExBishops(StandardRules):
         def __init__(self):
                 super().__init__()
-                self.turn_number = 0
+                
                 # self.first_trigger = random.randint(1, 4)
                 # self.second_trigger = random.randint(5, 8)
                 # self.third_trigger = random.randint(9, 11)

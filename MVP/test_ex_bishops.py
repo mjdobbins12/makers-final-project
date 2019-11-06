@@ -8,16 +8,16 @@ import standard_rules
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
-        test_game = game.Game('p1', 'p2', ruleset = ex_bishops_mock.ExBishops())
+        test_game = game.Game('p1', 'p2', ruleset = ex_bishops_mock.ExBishopsMock())
         return test_game
 
 class TestExBishop:
         def test_ruleset_inherits_from_standard_rules(self):
-                test_ruleset = ex_bishops_mock.ExBishops()
+                test_ruleset = ex_bishops_mock.ExBishopsMock()
                 assert isinstance(test_ruleset, standard_rules.StandardRules)
 
         def test_generates_random_trigger(self):
-                test_ruleset = ex_bishops_mock.ExBishops()
+                test_ruleset = ex_bishops_mock.ExBishopsMock()
                 assert isinstance(test_ruleset.first_trigger, int)
                 
         def test_excommunication_of_bishops(self, run_before_tests):
