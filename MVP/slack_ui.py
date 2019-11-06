@@ -11,7 +11,8 @@ class Slack:
         output = client.chat_postMessage(
             channel = channel,
             text = text,
-            as_user = True)
+            username = 'Chessy')
+            # as_user = True)
 
     def start_listen(self):
         @slack.RTMClient.run_on(event='channel_joined')

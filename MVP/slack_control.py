@@ -75,7 +75,8 @@ class SlackControl:
         output = client.chat_postMessage(
             channel = self.channel,
             text = text,
-            as_user = True)
+            username = 'Chessy')
+            # as_user = True)
 
     # private methods
 
