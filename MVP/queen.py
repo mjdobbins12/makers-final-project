@@ -6,10 +6,10 @@ class Queen(Piece):
                 self.name = "Queen"
                 if self.colour == "Black":
                         self.symbol = '♛'
-                        self.value = -900
+                        self.value = 9000
                 elif self.colour == "White":
                         self.symbol = '♕'
-                        self.value = 900
+                        self.value = -9000
 
         def illegal_directions(self, board, start_row, start_col, end_row, end_col):
                 return any([self.invalid_move_types(start_row, start_col, end_row, end_col),

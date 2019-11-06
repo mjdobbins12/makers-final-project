@@ -7,10 +7,10 @@ class Pawn(Piece):
 
                 if self.colour == "Black":
                         self.symbol = '♟'
-                        self.value = -100
+                        self.value = 1000
                 elif self.colour == "White":
                         self.symbol = "♙"
-                        self.value = 100
+                        self.value = -1000
 
         def illegal_directions(self, board, start_row, start_col, end_row, end_col):
                 return any([

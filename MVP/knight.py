@@ -6,10 +6,10 @@ class Knight(Piece):
                 self.name = "Knight"
                 if self.colour == "Black":
                         self.symbol = '♞'
-                        self.value = -300
+                        self.value = 3000
                 elif self.colour == "White":
                         self.symbol = "♘"
-                        self.value = 300
+                        self.value = -3000
         
 
         def illegal_directions(self, board, start_row, start_col, end_row, end_col):
