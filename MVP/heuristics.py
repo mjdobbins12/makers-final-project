@@ -5,7 +5,16 @@ class Heuristics:
         def __init__(self,game):
                 self.game = game
 
-
+        KINGS_GRID = ([
+                [ 0,  0,  -80,  0,  0,  0,  -80,  0],
+                [ 0,  0,    0,  0,  0,  0,    0,  0],
+                [ 0,  0,    0,  0,  0,  0,    0,  0],
+                [ 0,  0,    0,  0,  0,  0,    0,  0],
+                [ 0,  0,    0,  0,  0,  0,    0,  0],
+                [ 0,  0,    0,  0,  0,  0,    0,  0],
+                [ 0,  0,    0,  0,  0,  0,    0,  0],
+                [ 0,  0,  -80,  0,  0,  0,  -80,  0]
+                ])
         KNIGHTS_GRID = ([
                 [-50, -40, -30, -30, -30, -30, -40, -50],
                 [-40, -20,   0,   5,   5,   0, -20, -40],
@@ -106,14 +115,16 @@ class Heuristics:
                         bishops = Heuristics.get_piece_position_score(self.game.board, "Bishop", Heuristics.WHITE_BISHOPS_GRID)
                         rooks = Heuristics.get_piece_position_score(self.game.board, "Rook", Heuristics.WHITE_ROOKS_GRID)
                         queens = Heuristics.get_piece_position_score(self.game.board, "Queen", Heuristics.QUEENS_GRID)
+                        kings = Heuristics.get_piece_position_score(self.game.board, "King", Heuristics.KINGS_GRID)
                 else:
                         pawns = Heuristics.get_piece_position_score(self.game.board, "Pawn", Heuristics.BLACK_PAWNS_GRID)
                         knights = Heuristics.get_piece_position_score(self.game.board, "Knight", Heuristics.KNIGHTS_GRID)
                         bishops = Heuristics.get_piece_position_score(self.game.board, "Bishop", Heuristics.BLACK_BISHOPS_GRID)
                         rooks = Heuristics.get_piece_position_score(self.game.board, "Rook", Heuristics.BLACK_ROOKS_GRID)
                         queens = Heuristics.get_piece_position_score(self.game.board, "Queen", Heuristics.QUEENS_GRID)
-                
-                return material + pawns + knights + bishops + rooks + queens
+                        kings = Heuristics.get_piece_position_score(self.game.board, "King", Heuristics.KINGS_GRID)
+
+                return material + pawns + knights + bishops + rooks + queens + kings
 
         @staticmethod
         def get_piece_position_score(board, piece_type, table):
