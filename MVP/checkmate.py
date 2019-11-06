@@ -27,7 +27,7 @@ class Checkmate:
                         self.game.board[king_coords[0]][king_coords[1]] = king_in_question
                         self.game.board[coords[0]][coords[1]] = possible_move_target_square
                     print(possible_king_moves_array) 
-                    print(checkmate_evaluations)
+                    print(checkmate_evaluations) # remove these
                     if False not in checkmate_evaluations:
                         return True
                     else:

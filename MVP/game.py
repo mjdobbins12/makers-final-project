@@ -10,7 +10,7 @@ from ex_bishops import ExBishops
 class Game:
 
     def __init__(self, p1_name, p2_name, ruleset = "none"):
-        self.ruleset = StandardRules()
+        self.ruleset = ExBishops()
         self.board = self.ruleset.starting_board
         self.player_1 = player.Player(p1_name, "White")
         self.player_2 = player.Player(p2_name, "Black")
