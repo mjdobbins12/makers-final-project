@@ -61,16 +61,12 @@ class TestCheckmate:
 
         # scholar's mate
         def test_scholars_mate_is_checkmate(self, run_before_tests):
-                test_checkmate = run_before_tests
-                test_checkmate.game.execute_turn(6,4,4,4)
-                assert test_checkmate.is_checkmate() == False
-                test_checkmate.game.execute_turn(1,4,3,4)
-                assert test_checkmate.is_checkmate() == False
-                test_checkmate.game.execute_turn(7,5,4,2)
-                test_checkmate.game.execute_turn(1,0,2,0)
-                assert test_checkmate.is_checkmate() == False
-                test_checkmate.game.execute_turn(7,3,5,5)
-                test_checkmate.game.execute_turn(2,0,3,0)
-                assert test_checkmate.is_checkmate() == False
-                test_checkmate.game.execute_turn(5,5,1,5)
-                assert test_checkmate.is_checkmate() == True
+                test_game1 = Game("p1", "p2", ruleset = StandardRules())
+                test_game1.execute_turn(6,4,4,4)
+                test_game1.execute_turn(1,4,3,4)
+                test_game1.execute_turn(7,5,4,2)
+                test_game1.execute_turn(1,0,2,0)
+                test_game1.execute_turn(7,3,5,5)
+                test_game1.execute_turn(2,0,3,0)
+                test_game1.execute_turn(5,5,1,5)
+                assert Checkmate(test_game1).is_checkmate() == True
