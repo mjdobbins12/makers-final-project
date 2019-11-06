@@ -43,7 +43,7 @@ class UI:
     def checkmate_or_draw(self):
         if self.game.is_checkmate():
             if self.game.p1_turn:
-                print(f'Checkmate, {self.game.player_2.name} wins! ')
+                print(f'Checkmate, {self.game.player_2.name} wins!')
             elif self.game.p1_turn == False:
                 print(f'Checkmate, {self.game.player_1.name} wins!')
             return True

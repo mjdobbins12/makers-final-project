@@ -4,7 +4,6 @@ class Queen(Piece):
         def __init__(self, colour):
                 self.colour = colour
                 self.name = "Queen"
-                self.value = 900
                 if self.colour == "Black":
                         self.symbol = '♛'
                         self.value = -900

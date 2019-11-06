@@ -19,7 +19,7 @@ class TestMiniMaxEvaluation:
                 really_new_game = game.Game('p1', 'p2')
                 test_minimax = minimax.Minimax(really_new_game)
 
-                assert test_minimax.minimaxRoot(1, test_minimax.game.board, True) == [[7, 1], [5, 2]]
+                assert test_minimax.minimaxRoot(1, test_minimax.game.board, True) == [[6, 0], [4, 0]]
 
 
 class TestAllAvailableMoves:
@@ -79,15 +79,7 @@ class TestAllAvailableMoves:
 class TestMiniMax:
         def test_return_value_from_minimax(self, run_before_tests):
                 test_minimax = run_before_tests
-                assert (test_minimax.minimaxRoot(1, test_minimax.game.board, True)) == [[7, 1], [5, 2]]
-                assert (test_minimax.minimaxRoot(2, test_minimax.game.board, True)) == [[7, 1], [5, 2]]
+                # assert (test_minimax.minimaxRoot(1, test_minimax.game.board, True)) == [[7, 1], [5, 2]]
+                test_minimax.game.execute_turn(7,1,5,2)
+                assert (test_minimax.minimaxRoot(1, test_minimax.game.board, True)) == [[1, 0], [3,0]]
                 # assert len(test_minimax.minimax(1, test_minimax.game.board, True)) == 2
-
-
-
-
-
-class TestInputOutput:
-        def test_accepts_two_args(self, run_before_tests):
-                test_minimax = run_before_tests
-                new_minimax = minimax.Minimax(test_minimax.game)

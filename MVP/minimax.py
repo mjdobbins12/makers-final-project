@@ -19,6 +19,7 @@ class Minimax:
                         self.game.execute_turn(x[0][0], x[0][1], x[1][0], x[1][1])
                         value = max(bestMove, self.minimax(depth - 1, board, not isMaximizing))
                         self.game.revert_turn(x[0][0], x[0][1], x[1][0], x[1][1], original_pieces[0], original_pieces[1])
+                        # print(value)
                         if( value > bestMove):
                                 # print("Best score: " ,str(bestMove))
                                 # print("Best move: ",str(bestMoveFinal))
@@ -27,6 +28,8 @@ class Minimax:
                                 secondBest = bestMove
                                 bestMove = value
                                 bestMoveFinal = move
+                # print(bestMoveFinal)
+                # print(bestMove)
                 return bestMoveFinal
 
         def minimax(self, depth, board, is_maximizing):
