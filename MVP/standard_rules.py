@@ -9,6 +9,8 @@ import copy
 
 class StandardRules:
 
+
+
     def __init__(self):
         self.starting_board = [
                 [rook.Rook("Black"),knight.Knight("Black"),bishop.Bishop("Black"),queen.Queen("Black"),
@@ -24,6 +26,11 @@ class StandardRules:
                 [rook.Rook("White"),knight.Knight("White"),bishop.Bishop("White"),queen.Queen("White"),
                  king.King("White"),bishop.Bishop("White"),knight.Knight("White"),rook.Rook("White")]
                 ]
+
+        
+    # counter trigger container method
+    def check_special_events(self, board, piece, log):
+              return
 
 # Check
 
