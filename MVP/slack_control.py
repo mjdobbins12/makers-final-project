@@ -16,14 +16,12 @@ class SlackControl:
 
     def check_for_start(self, web_client, data):
         if data.get('text', []) == 'start' and data.get('bot_id') == None and self.game == None:
-            print(data)
             self.names_of_players = [data['user']]
             print(self.channel)
             self.post(web_client, f" <@{data['user']}> wants to play! Enter join to start the game!")
 
     def check_for_join(self, web_client, data):
         if data.get('text', []) == 'join' and data.get('bot_id') == None and len(self.names_of_players) == 1:
-            print(data)
             self.names_of_players.append(data['user'])
             if self.game_mode not in [None, 'in_choosing']:
                 self.__launch_game(web_client, self.names_of_players[0], self.names_of_players, ruleset = self.game_mode)
@@ -51,7 +49,6 @@ class SlackControl:
 
     def check_for_moves(self, web_client, data):
         if self.game != None and data.get('text', []) not in ['start', 'stop', 'join'] and data['user'] in self.names_of_players:
-            print(data)
             if self.__correct_players_turn(data):
                 try:
                     self.__parse_and_execute_move(web_client, data.get('text', []))
@@ -66,7 +63,6 @@ class SlackControl:
 
     def check_for_stop(self, web_client, data):
         if self.game != None and data.get('text', [])== 'stop' and data['user'] in self.names_of_players:
-            print(data)
             self.post(web_client, 'Ok, stopped the game. Enter start to start a new game!')
             self.game = None
             self.names_of_players = []

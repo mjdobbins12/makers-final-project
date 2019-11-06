@@ -20,7 +20,6 @@ class Slack:
         @slack.RTMClient.run_on(event='channel_joined')
         def join_channel(**payload):
             data = payload['data']
-            print(data)
             self.post(self.client, self.__intro_chessy(), data['channel']['id'])
             self.slack_control[data['channel']['id']] = SlackControl(data['channel']['id'])
         @slack.RTMClient.run_on(event='message')
