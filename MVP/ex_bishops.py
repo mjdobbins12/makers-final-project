@@ -25,29 +25,31 @@ class ExBishops(StandardRules):
                 self.turn_number = len(log) 
                   
                 if self.turn_number >= self.first_trigger: 
-                        if piece.colour == "White":
-                                self.excommunicate_bishops(board, "Black")
-                        elif piece.colour == "Black":
-                                self.excommunicate_bishops(board, "White")
                         self.first_trigger = 100 
+                        if piece.colour == "White":
+                                return self.excommunicate_bishops(board, "Black")
+                        elif piece.colour == "Black":
+                                return self.excommunicate_bishops(board, "White")
+   
                         
                 if self.turn_number >= self.second_trigger:
-                        if piece.colour == "White":
-                                self.start_sale_of_rooks(board, "Black", "White")
-                        elif piece.colour == "Black": 
-                                self.start_sale_of_rooks(board, "White", "Black")
                         self.second_trigger = 100
+                        if piece.colour == "White":
+                                return self.start_sale_of_rooks(board, "Black", "White")
+                        elif piece.colour == "Black": 
+                                return self.start_sale_of_rooks(board, "White", "Black")
+                          
                           
                 if self.turn_number >= self.third_trigger:   
-                        self.complete_sale_of_rooks(board)
                         self.third_trigger = 100
+                        return self.complete_sale_of_rooks(board)
                         
-                if self.turn_number >= self.fourth_trigger:   
-                        self.honour_knights(board)
-                        self.fourth_trigger = 100
+                if self.turn_number >= self.fourth_trigger:  
+                        self.fourth_trigger = 100 
+                        return self.honour_knights(board)
                 
                 if self.turn_number >= self.fifth_trigger:
-                        self.return_knights_to_normal(board)
+                        return self.return_knights_to_normal(board)
                         self.fifth_trigger = 100
                 
                    
