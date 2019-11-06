@@ -19,12 +19,3 @@ class Checkmate:
                         for sq in self.board[i][j].available_moves(self.board, i, j):
                             checkmate_evals.append(Turn(self.game.ruleset, self.board, self.game.log, self.game.player_1, self.game.player_2).check_if_self_in_check(i, j, sq[0], sq[1]) == 'invalid move')
             return all(checkmate_evals)
-
-        def __find__king_in_check(self):
-            for i in range(0,8):
-                for j in range(0,8):
-                    if isinstance(self.game.board[i][j], King):
-                        if self.game.board[i][j].in_check(self.board, i, j):
-                            return [i,j].colour
-                    else:
-                        return self.current_player

@@ -35,21 +35,21 @@ class SlackControl:
             self.__launch_game(web_client, self.names_of_players[0], self.names_of_players, ruleset = self.game_mode)
 
     def check_for_mode(self, web_client, data):
-        if data.get('text', []) == "let's make this more interesting!" and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
+        if data.get('text', []) == "let's make this more interesting!" and len(self.names_of_players) == 1 and data.get('user',[]) in self.names_of_players:
             self.game_mode = 'in_choosing'
             self.__announce_game_modes(web_client, data['user'])
 
     def check_for_mode_set(self, web_client, data):
-        if data.get('text', []) == "Can I play daddy?" and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
+        if data.get('text', []) == "Can I play daddy?" and len(self.names_of_players) == 1 and data.get('user',[]) in self.names_of_players:
             self.game_mode = 'many_queens'
             self.post(web_client, 'Yes you can!')
-        if data.get('text', []) == "Piece of cake" and len(self.names_of_players) == 1 and data['user'] in self.names_of_players:
+        if data.get('text', []) == "Piece of cake" and len(self.names_of_players) == 1 and data.get('user',[]) in self.names_of_players:
             self.game_mode = 'random_pieces'
             self.post(web_client, 'Pieces will be random, but not the cake (0)!')
         # could refactor into method that takes the mode name and what to pass on to game_mode and a response
 
     def check_for_moves(self, web_client, data):
-        if self.game != None and data.get('text', []) not in ['start', 'stop', 'join'] and data['user'] in self.names_of_players:
+        if self.game != None and data.get('text', []) not in ['start', 'stop', 'join'] and data.get('user',[]) in self.names_of_players:
             if self.__correct_players_turn(data):
                 try:
                     self.__parse_and_execute_move(web_client, data.get('text', []))
@@ -89,11 +89,15 @@ class SlackControl:
         turn_from = text.split('-')[0].lower()
         turn_to = text.split('-')[1].lower()
         move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
-        if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
+        response = self.game.execute_turn(move[0],move[1],move[2],move[3])
+        if response == 'invalid move':
             self.post(web_client, 'Invalid move - try again')
+        if response == 'xxxxx####':
+            self.post(web_client, 'xxxxx####')
+        # canb add more resonses here
 
     def __AI_move(self):
-        AI_move = minimax.Minimax(self.game).minimax()
+        AI_move = minimax.Minimax(self.game).minimaxRoot(2, self.game.board, True)
         print(AI_move)
         self.game.execute_turn(AI_move[0][0],AI_move[0][1],AI_move[1][0],AI_move[1][1])
 
