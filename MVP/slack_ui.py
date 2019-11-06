@@ -20,6 +20,12 @@ class Slack:
             data = payload['data']
             self.post(payload['web_client'], self.__intro_chessy(), data['channel']['id'])
             self.slack_control[data['channel']['id']] = SlackControl(data['channel']['id'])
+        @slack.RTMClient.run_on(event='group_joined')
+        def join_private_channel(**payload):
+            print('data')
+            data = payload['data']
+            self.post(payload['web_client'], self.__intro_chessy(), data['channel']['id'])
+            self.slack_control[data['channel']['id']] = SlackControl(data['channel']['id'])
         @slack.RTMClient.run_on(event='message')
         def run_game(**payload):
             data = payload['data']
