@@ -48,7 +48,7 @@ class SlackControl:
             self.post(web_client, 'Pieces will be random, but not the cake (0)!')
         if data.get('text', []) == "Damn I'm good" and len(self.names_of_players) == 1 and data.get('user',[]) in self.names_of_players:
             self.game_mode = 'ex_bishops'
-            self.post(web_client, 'Pieces will be random, but not the cake (0)!')
+            self.post(web_client, 'Anarchy in the UK!')
         # could refactor into method that takes the mode name and what to pass on to game_mode and a response
 
     def check_for_moves(self, web_client, data):
@@ -93,12 +93,13 @@ class SlackControl:
         turn_to = text.split('-')[1].lower()
         move = coordinate_conversion.Convert().coordinates(turn_from, turn_to)
         response = self.game.execute_turn(move[0],move[1],move[2],move[3])
+        print(f"response {response}")
         if response == 'invalid move':
             self.post(web_client, 'Invalid move - try again')
         if response == 'excommunication':
             self.post(web_client, 'Oh no! bishops were excommunicated!')
         if response == 'rooksale':
-            self.post(web_client, 'Oh no! rooks were sold off! They can't move for 5 turns, while the transaction completes.')
+            self.post(web_client, "Oh no! rooks were sold off! They can't move for 5 turns, while the transaction completes.")
         if response == 'rooksign':
             self.post(web_client, 'Sale complete! All Rooks can move again.')
         if response == 'knight_honour':
