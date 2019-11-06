@@ -1,3 +1,4 @@
+
 import pytest
 import piece
 import game
@@ -90,4 +91,4 @@ class TestExBishop:
                 assert isinstance(test_game.board[7][1], knight.Knight)
 
       
-         
+
