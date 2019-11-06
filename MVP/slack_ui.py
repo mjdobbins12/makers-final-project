@@ -2,9 +2,6 @@ import os
 import slack
 from slack_control import SlackControl
 
-#can run only one game concurrently
-#think about how to run in another channel vs. #chess only
-
 class Slack:
 
     def __init__(self):
