@@ -18,13 +18,18 @@ class Turn:
         piece_to_move = self.board[start_row][start_col]
         if self.ruleset.check_for_invalid_move(self.board, start_row, start_col, end_row, end_col):
             raise ValueError("Invalid Move")
-        if self.ruleset.try_castling(self.board, piece_to_move, end_row, start_col, end_col) == 'invalid move':
-            raise ValueError("Invalid Move")
         if self.ruleset.check_if_move_into_check(self.board, start_row, start_col, end_row, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
         self.board[start_row][start_col] = "-"
         self.__store_piece_if_struck(end_row, end_col)
         self.board[end_row][end_col] = piece_to_move
+        if isinstance(piece_to_move, king.King) and (abs(start_col - end_col) == 2):
+            if end_col == 6:
+                self.board[end_row][5] = self.board[end_row][7]
+                self.board[end_row][7] = '-'
+            elif end_col == 2:
+                self.board[end_row][3] = self.board[end_row][0]
+                self.board[end_row][0] = '-'
         piece_to_move.increment_counter()
         self.__check_pawn_promotion(piece_to_move, end_row, end_col)
 

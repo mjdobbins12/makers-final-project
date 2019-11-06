@@ -48,7 +48,31 @@ class King(Piece):
         return any([
             self.counter > 0,
             start_row in range(1,7),
-            start_row != end_row
+            start_row != end_row,
+            self.__castling_board_constraints(board, end_row, end_col)
+            ])
+
+    def __castling_board_constraints(self, board, end_row, end_col):
+        if end_col == 6 and isinstance(board[end_row][7], Piece):
+            return not self.__check_castle_king_side(board, end_row, end_col)
+        elif end_col == 2 and isinstance(board[end_row][0], Piece):
+            return not self.__check_castle_queen_side(board, end_row, end_col)
+
+    def __check_castle_queen_side(self, board, end_row, end_col):
+        return all([
+            (end_col == 2),
+            isinstance(board[end_row][0], Piece) and (board[end_row][0].counter == 0),
+            (not isinstance(board[end_row][1], Piece)),
+            (not isinstance(board[end_row][2], Piece)),
+            (not isinstance(board[end_row][3], Piece))
+            ])
+
+    def __check_castle_king_side(self, board, end_row, end_col):
+        return all([
+            (end_col == 6),
+            isinstance(board[end_row][7], Piece) and (board[end_row][7].counter == 0),
+            (not isinstance(board[end_row][5], Piece)),
+            (not isinstance(board[end_row][6], Piece)),
             ])
 
     def __king_specific_board_constraints(self, board, start_row, start_col, end_row, end_col):
