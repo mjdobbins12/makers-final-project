@@ -7,6 +7,8 @@ import ex_bishops_mock
 import standard_rules
 import un_rook
 import rook
+import knight
+import sp_knight
 
 @pytest.fixture(autouse=True)
 def run_before_tests():
@@ -34,16 +36,33 @@ class TestExBishop:
         def test_initial_sale_of_rooks(self, run_before_tests):
                 test_game = run_before_tests
                 test_game.execute_turn(6,0,5,0)
-                assert isinstance(test_game.board[7][2], bishop.Bishop)
                 test_game.execute_turn(1,0,2,0)
                 test_game.execute_turn(6,1,5,1)
                 test_game.execute_turn(1,1,2,1)
-                assert test_game.board[7][2] == '-'
                 test_game.execute_turn(6,2,5,2)
                 test_game.execute_turn(1,2,2,2) 
                 test_game.execute_turn(6,3,5,3)
                 assert isinstance(test_game.board[7][0], un_rook.UnRook)
                 test_game.execute_turn(1,3,2,3) 
                 assert isinstance(test_game.board[7][0], rook.Rook)
+                
+        def test_honour_for_knights(self, run_before_tests):
+                test_game = run_before_tests
+                test_game.execute_turn(6,0,5,0)
+                test_game.execute_turn(1,0,2,0)
+                test_game.execute_turn(6,1,5,1)
+                test_game.execute_turn(1,1,2,1)
+                test_game.execute_turn(6,2,5,2)
+                test_game.execute_turn(1,2,2,2) 
+                test_game.execute_turn(6,3,5,3)
+                assert isinstance(test_game.board[7][0], un_rook.UnRook)
+                test_game.execute_turn(1,3,2,3) 
+                assert isinstance(test_game.board[7][0], rook.Rook)
+                assert isinstance(test_game.board[7][1], knight.Knight)
+                test_game.execute_turn(6,4,5,4)
+                test_game.execute_turn(1,4,2,4) 
+                print(test_game.board)
+                assert isinstance(test_game.board[7][1], sp_knight.SpKnight)
+
       
          

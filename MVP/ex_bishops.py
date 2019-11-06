@@ -3,6 +3,8 @@ import piece
 import bishop
 import rook 
 import un_rook
+import knight
+import sp_knight
 from standard_rules import StandardRules
 
 class ExBishops(StandardRules):
@@ -16,6 +18,7 @@ class ExBishops(StandardRules):
                 self.first_trigger = 3
                 self.second_trigger = 5
                 self.third_trigger = 7
+                self.fourth_trigger = 9
                 
         def check_special_events(self, board, piece, log):
                 self.turn_number = len(log) 
@@ -39,6 +42,10 @@ class ExBishops(StandardRules):
                 if self.turn_number >= self.third_trigger:   
                         self.complete_sale_of_rooks(board)
                         self.third_trigger = 100
+                        
+                if self.turn_number >= self.fourth_trigger:   
+                        self.honour_knights(board)
+                        self.fourth_trigger = 100
                 
                    
         def excommunicate_bishops(self, board, colour):
@@ -64,6 +71,14 @@ class ExBishops(StandardRules):
                                         colour = board[i][j].colour
                                         board[i][j] = rook.Rook(colour)
                                         print("Sale complete! All Rooks can move again.")
+                                        
+        def honour_knights(self, board):
+                for i in range(8):
+                        for j in range(8):
+                                if isinstance(board[i][j], knight.Knight):
+                                        colour = board[i][j].colour
+                                        board[i][j] = sp_knight.SpKnight(colour)
+                                        print("Knights receive the hightest honour! They can move in any direction for 3 turns.")
                                         
                                         
         
