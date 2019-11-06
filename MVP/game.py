@@ -63,23 +63,3 @@ class Game:
         colour = 'White' if self.p1_turn else 'Black'
         if self.board[x][y].colour != colour:
             raise ValueError("PlayerDoesNotOwnPiece")
-
-    def show_board(self, p1_name, p2_name):
-        print('')
-        print(p2_name)
-        print("| a | b | c | d | e | f | g | h |")
-        print("_" * 33)
-        ind = 8
-        for row in self.board.board:
-            x = "|"
-            for el in row:
-                if isinstance(el, Piece):
-                    x += f" {el.symbol} |"
-                else:
-                    x += f" {el} |"
-            x += f" {ind}"
-            ind -= 1
-            print(x)
-            print("-" * 33)
-        print(p1_name)
-        print('')

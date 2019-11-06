@@ -1,13 +1,14 @@
-import piece
 import coordinate_conversion
 import game
 import minimax
 import standard_rules
+from ui_board_display import UIBoardDisplay
 
 class UI:
     def __init__(self):
         self.game = ''
         self.ruleset = standard_rules.StandardRules()
+        self.board_display = UIBoardDisplay()
 
     def start(self):
         names = self.get_names()
@@ -23,7 +24,7 @@ class UI:
 
     def loop_turns(self):
         while True:
-            self.show_board(self.game.board, self.game.player_1.name, self.game.player_2.name)
+            self.board_display.show_board(self.game, self.game.board, self.game.player_1.name, self.game.player_2.name)
             if self.game.is_checkmate():
                 if self.game.p1_turn:
                     print(f'Checkmate, {self.game.player_2.name} wins! ')
@@ -57,46 +58,8 @@ class UI:
                 if self.game.execute_turn(move[0],move[1],move[2],move[3]) == 'invalid move':
                     print('Invalid move - try again')
 
-
     def announce_whose_turn(self):
         if self.game.p1_turn == True:
             print(self.game.player_1.name + "'s turn!")
         else:
             print(self.game.player_2.name + "'s turn!")
-
-
-    def show_board(self, board, p1_name, p2_name):
-        print('')
-        print(p2_name)
-        print("| a | b | c | d | e | f | g | h |")
-        print("_" * 33)
-        ind = 8
-        for row in self.game.board:
-            x = "|"
-            for el in row:
-                if isinstance(el, piece.Piece):
-                    x += f" {el.symbol} |"
-                else:
-                    x += f" {el} |"
-            x += f" {ind}"
-            ind -= 1
-            print(x)
-            print("-" * 33)
-        print(p1_name)
-        print('')
-        self.__print_taken_pieces_ifany()
-
-
-    # private methods
-
-    def __print_taken_pieces_ifany(self):
-        if len(self.game.player_2.taken_pieces) > 0:
-            x = 'Taken:'
-            for el in self.game.player_2.taken_pieces:
-                x += f" {el.symbol}"
-            print(x)
-        if len(self.game.player_1.taken_pieces) > 0:
-            x = 'Taken:'
-            for el in self.game.player_1.taken_pieces:
-                x += f" {el.symbol}"
-            print(x)
