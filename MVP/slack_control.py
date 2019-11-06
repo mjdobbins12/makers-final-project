@@ -7,16 +7,18 @@ from slack_board_display import SlackBoardDisplay
 
 class SlackControl:
 
-    def __init__(self):
+    def __init__(self, channel):
         self.game = None
         self.names_of_players = []
         self.game_mode = None
         self.slack_board_display = SlackBoardDisplay()
+        self.channel = channel
 
     def check_for_start(self, web_client, data):
         if data.get('text', []) == 'start' and data.get('bot_id') == None and self.game == None:
             print(data)
             self.names_of_players = [data['user']]
+            print(self.channel)
             self.post(web_client, f" <@{data['user']}> wants to play! Enter join to start the game!")
 
     def check_for_join(self, web_client, data):
@@ -70,9 +72,9 @@ class SlackControl:
             self.names_of_players = []
             self.game_mode = None
 
-    def post(self, client, text, channel = '#chess'):
+    def post(self, client, text):
         output = client.chat_postMessage(
-            channel = channel,
+            channel = self.channel,
             text = text,
             as_user = True)
 
