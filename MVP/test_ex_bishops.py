@@ -18,4 +18,6 @@ class TestExBishop:
                 test_ruleset = ex_bishops.ExBishops()
                 assert isinstance(test_ruleset.first_trigger, int)
                 
+        def test_excommunication_of_bishops(self):
+                
          

@@ -28,7 +28,7 @@ class Turn:
         self.board[end_row][end_col] = piece_to_move
         piece_to_move.increment_counter()
         self.ruleset.check_pawn_promotion(self.board, piece_to_move, end_row, end_col)
-        self.ruleset.check_logs(self.board, piece_to_move, self.game_log)
+        self.ruleset.check_special_events(self.board, piece_to_move, self.game_log)
         
     def __store_piece_if_struck(self, end_row, end_col):
         if self.board[end_row][end_col] != '-' and self.board[end_row][end_col].colour == 'White':

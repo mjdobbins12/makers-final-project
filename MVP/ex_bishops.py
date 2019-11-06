@@ -9,11 +9,16 @@ class ExBishops(StandardRules):
         def __init__(self):
                 super().__init__()
                 self.turn_number = 0
-                self.first_trigger = random.randint(1, 4)
-                self.second_trigger = random.randint(5, 8)
-                self.third_trigger = self.second_trigger + 2
-        
-        def check_logs(self, board, piece, log):
+                # self.first_trigger = random.randint(1, 4)
+                # self.second_trigger = random.randint(5, 8)
+                # self.third_trigger = random.randint(9, 11)
+                
+                self.first_trigger = 3
+                self.second_trigger = 5
+                self.third_trigger = 7
+                
+                
+        def check_special_events(self, board, piece, log):
                 self.turn_number = len(log) 
                   
                 if self.turn_number >= self.first_trigger: 
@@ -33,9 +38,9 @@ class ExBishops(StandardRules):
                         
                                       
                 if self.turn_number >= self.third_trigger:   
-                        self.complete_sale_of_rooks(board, self.sold_rooks_colour)
+                        self.complete_sale_of_rooks(board)
                         self.third_trigger = 100
-                   
+                
                    
         def excommunicate_bishops(self, board, colour):
                 for i in range(8):
@@ -51,9 +56,10 @@ class ExBishops(StandardRules):
                                 if isinstance(board[i][j], rook.Rook):
                                         if board[i][j].colour == colour_1:
                                                 board[i][j] = un_rook.UnRook(colour_2)
+                                                # board[i][j] = rook.Rook(colour_2)
                                                 print(f"Oh no! {colour_1} rooks were sold off! They can't move for 5 turns, while the transaction completes.")
                                                 
-        def complete_sale_of_rooks(self, board, colour):
+        def complete_sale_of_rooks(self, board):
                 for i in range(8):
                         for j in range(8):
                                 if isinstance(board[i][j], un_rook.Rook):
