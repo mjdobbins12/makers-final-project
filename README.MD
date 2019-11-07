@@ -1,3 +1,8 @@
+[![Build Status](https://travis-ci.com/DanGyi23/makers-final-project.svg?branch=master)](https://travis-ci.com/DanGyi23/makers-final-project)
+
+
+# Grandmasters Slack-Based Chess Game
+
 **Running the game (WIP)**
 - RUN ALL commands in Setup.md file in the root directory of this REPO
 - open python interpreter - e.g. `python3` on Mac from the MVP directory
