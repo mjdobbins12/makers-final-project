@@ -15,11 +15,14 @@ python:
 install:
 - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 - python get-pip.py
-- pip install pytest
+- python3 -m pip install pytest
 - pip install slackclient
+- python3 -m pip install pillow
+- python3 -m pip install python-chess
+- python3 -m pip install cairosvg
 
 script:
-- pytest
+- python3 -m pytest
 
 after_script:
 - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
