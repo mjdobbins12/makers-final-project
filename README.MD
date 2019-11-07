@@ -5,14 +5,14 @@
 
 **Running the game in command line**
 - RUN ALL commands in Setup.md file in the root directory of this REPO
-- open python interpreter - e.g. `python3` on Mac from the MVP directory
+- open python interpreter - e.g. `python3` on Mac from the src directory
 - `import ui`
 - `ui = ui.UI()`
 - `ui.start()`
 
 
 **Running the game in Slack**
-- If you want to run in slack, then ensure you have slackclient installed (`python3 -m pip install slackclient`) and the env variable passed when starting the python interpreter (e.g. `SLACK_API_TOKEN="token" python3 slack_ui.py`)
+- If you want to run in slack, then ensure you have slackclient installed (`python3 -m pip install slackclient`) and the env variable passed when starting the python interpreter in src directory (e.g. `SLACK_API_TOKEN="token" python3 slack_ui.py`)
 
 - Open up your workspace and invite Chessy! `/invite @Chessy`
 
@@ -34,12 +34,12 @@
 
 - This is where the headaches started. Programming Check/Checkmate/Stalemate conditions proved tricky. We prevailed!  
 
-- Next, we moved on to implementing in Slack. Volker spent a weekend setting up the AI to accept commands and print the state of the board  
+- Next, we moved on to implementing in Slack. We set up the slack UI to accept commands and print the state of the board in a slack channel
 
 - Finally, we wanted to compete against an AI, and see how complex we could build a chess AI using a minimax algorithm. This required a few different versions and lots of reading/understanding Python iterative methods  
 
 - We finally arrived, by the end of the second week, with a product that:
-  - Has a Python backend that is fully integrated with the Slack API
+  - Has a Python backend that can run a command line UI but also interact with the Slack API to run in slack channels
   - Adheres to all of the rules of chess (legal/illegal moves, check/checkmate/stalemate etc.)
   - Multiple games can be played in parallel by any users that invite the Chessy Bot.
   - Has many different rulesets that can be injected into the game at various points (Bishops excommunicating, Rooks being sold off etc.)
@@ -50,20 +50,18 @@
 
 ## Minimax Algorithm Iterations
 
-**Kamikaze bot** 
+**Kamikaze bot**
 
 ![](https://github.com/DanGyi23/makers-final-project/blob/master/docs/kamikaze_AI.gif)
 
 
 
-**Bot only wants to move its Knights** 
+**Bot only wants to move its Knights**
 
 ![](https://github.com/DanGyi23/makers-final-project/blob/master/docs/Knight_AI.gif)
 
 
 
-**Bot works!** 
+**Bot works!**
 
 ![](https://github.com/DanGyi23/makers-final-project/blob/master/docs/Working_AI.gif)
-
-

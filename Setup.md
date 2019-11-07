@@ -1,6 +1,6 @@
 In CMD:
 **Install Python**
-brew install python
+brew install python (on Mac)
 
 **Install pip, PYtest, pytest-cov and slackclient**
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -12,6 +12,7 @@ python3 -m pip install slackclient
 python3 -m pip install --user pillow
 python3 -m pip install python-chess (need to run python3 -m pytest to allow chess to be imported!)
 python3 -m pip install cairosvg
+brew install cairo (on Mac)
 
 
 **Running PYtest**
