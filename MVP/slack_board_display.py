@@ -15,8 +15,6 @@ class SlackBoardDisplay:
         )
         if self.__list_taken_pieces_ifany(game) != '\n': self.post(web_client, self.__list_taken_pieces_ifany(game), channel)
 
-
-
     def output_board(self, game):
         output = self.__announce_whose_turn(game)
         output +='\n\n\n'
@@ -46,7 +44,6 @@ class SlackBoardDisplay:
             text = text,
             username = 'Chessy')
             # as_user = True)
-
 
     # private
 
