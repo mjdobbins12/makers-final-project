@@ -2,6 +2,7 @@ import os
 import slack
 from slack_control import SlackControl
 
+
 class Slack:
 
     def __init__(self):
