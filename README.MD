@@ -3,13 +3,16 @@
 
 # Grandmasters Slack-Based Chess Game
 
-**Running the game (WIP)**
+**Running the game in command line**
 - RUN ALL commands in Setup.md file in the root directory of this REPO
 - open python interpreter - e.g. `python3` on Mac from the MVP directory
 - `import ui`
 - `ui = ui.UI()`
 - `ui.start()`
-- if you want to use slack, then ensure you have slackclient installed (`python3 -m pip install slackclient`) and the env variable passed when starting the python interpreter (e.g. `SLACK_API_TOKEN="token" python3 slack_ui.py`)
+
+
+**Running the game in Slack**
+- If you want to run in slack, then ensure you have slackclient installed (`python3 -m pip install slackclient`) and the env variable passed when starting the python interpreter (e.g. `SLACK_API_TOKEN="token" python3 slack_ui.py`)
 
 #### MVP user stories:
 ```
