@@ -14,6 +14,9 @@ class SlackControl:
         self.slack_board_display = SlackBoardDisplay()
         self.channel = channel
 
+    def intro_chessy(self, web_client):
+        self.post(web_client, self.__intro_chessy_text())
+
     def check_for_start(self, web_client, data):
         if data.get('text', []) == 'start' and data.get('bot_id') == None and self.game == None:
             self.names_of_players = [data['user']]
@@ -40,16 +43,9 @@ class SlackControl:
             self.__announce_game_modes(web_client, data['user'])
 
     def check_for_mode_set(self, web_client, data):
-        if data.get('text', []) == "Can I play daddy?" and len(self.names_of_players) == 1 and data.get('user',[]) in self.names_of_players:
-            self.game_mode = 'many_queens'
-            self.post(web_client, 'Yes you can!')
-        if data.get('text', []) == "Piece of cake" and len(self.names_of_players) == 1 and data.get('user',[]) in self.names_of_players:
-            self.game_mode = 'random_pieces'
-            self.post(web_client, 'Pieces will be random, but not the cake (0)!')
-        if data.get('text', []) == "Damn I'm good" and len(self.names_of_players) == 1 and data.get('user',[]) in self.names_of_players:
-            self.game_mode = 'ex_bishops'
-            self.post(web_client, 'Anarchy in the UK!')
-        # could refactor into method that takes the mode name and what to pass on to game_mode and a response
+        self.__mode_set(web_client, data, "Can I play daddy?", 'many_queens', 'Yes you can!')
+        self.__mode_set(web_client, data, "Piece of cake", 'random_pieces', 'Pieces will be random, but not the cake (0)!')
+        self.__mode_set(web_client, data, "Damn I'm good", 'ex_bishops', 'Anarchy in the UK!')
 
     def check_for_moves(self, web_client, data):
         if self.game != None and data.get('text', []) not in ['start', 'stop', 'join'] and data.get('user',[]) in self.names_of_players:
@@ -86,6 +82,11 @@ class SlackControl:
 
     # private methods
 
+    def __mode_set(self, web_client, data, text_to_look_for, mode_text, response_text):
+        if data.get('text', []) == text_to_look_for and len(self.names_of_players) == 1 and data.get('user',[]) in self.names_of_players:
+            self.game_mode = mode_text
+            self.post(web_client, response_text)
+
     def __launch_game(self, web_client, user_launched_game, names, ruleset = 'standard'):
         self.game = game.Game(names[0], names[1], ruleset)
         self.__announce_start(web_client, user_launched_game, names)
@@ -110,7 +111,7 @@ class SlackControl:
             self.post(web_client, 'Knights receive the hightest honour! They can now move in any direction, for 2 turns.')
         if response == 'knight_normal':
             self.post(web_client, 'The fun has worn off! Knights can no longer move in any direction')
-        # canb add more resonses here
+        # canb add more responses here
 
     def __AI_move(self):
         AI_move = minimax.Minimax(self.game).minimaxRoot(2, self.game.board, True)
@@ -144,3 +145,9 @@ class SlackControl:
         self.post(web_client, ' - Can I play daddy?')
         self.post(web_client, ' - Piece of cake')
         self.post(web_client, " - Damn I'm good")
+
+    def __intro_chessy_text(self):
+        output = 'Hi I am Chessy!\n'
+        output += 'Let others play their games, the game of kings is still the ♔ of games!\n'
+        output += 'Enter start to start the game!\n'
+        return output
