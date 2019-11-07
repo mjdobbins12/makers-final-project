@@ -34,19 +34,7 @@ class Turn:
         piece_to_move.increment_counter()
 
         self.ruleset.check_pawn_promotion(self.board, piece_to_move, end_row, end_col)
-        response = self.ruleset.check_special_events(self.board, piece_to_move, self.game_log)
-        
-        if response == 'excommunication':
-            return 'excommunication'
-        elif response == 'rooksale':
-            return "rooksale"
-        elif response == 'rooksign':
-            return "rooksign"
-        elif response == 'knight_honour':
-            return 'knight_honour'
-        elif response == 'knight_normal':
-            return 'knight_normal'
- 
+        return self.ruleset.check_special_events(self.board, piece_to_move, self.game_log)
 
     # private methods
 
