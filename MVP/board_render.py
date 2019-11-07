@@ -9,12 +9,24 @@ import queen
 import pawn
 import knight
 import bishop
+from cairosvg import svg2png
 
 class BoardRender:
 
         def __init__(self,game):
                 self.game = copy.deepcopy(game)
         
+        def draw_board(self):
+                board = chess.Board(self.generate_fen())
+                img = chess.svg.board(board=board)
+                file = open("index.html", "w")
+                file.write(img)
+                self.write_svg_to_image(img)
+
+
+        def write_svg_to_image(self, svg):
+                svg2png(bytestring=svg,write_to='output.png')
+
         def generate_fen(self):
                 board = (self.game.board)
                 for i in range(0,8):
@@ -48,20 +60,15 @@ class BoardRender:
                                                         board[i][j] = "bn"
                                                 elif board[i][j].name == "Pawn":
                                                         board[i][j] = "bp"
-                
-                print(self.main(board))
-
                 return self.main(board)
 
-        def draw_board(self):
-                board = chess.Board(self.generate_fen())
-                img = chess.svg.board(board=board)
-                file = open("index.html", "w")
-                file.write(img)
-                # print(file)
+        
 
 
+        def main(self, board):
+                return self.fen_from_board(board)
 
+        
 
         def convert_cell(self, value):
                 if value == 'em':
@@ -77,20 +84,5 @@ class BoardRender:
                         for value, count in run_length.encode(map(self.convert_cell, rank))
                 )
 
-
         def fen_from_board(self, board):
                 return '/'.join(map(self.convert_rank, board)) + ' w KQkq - 0 1'
-
-
-        def main(self, board):
-                # board = [
-                #         ['bk', 'em', 'em', 'em', 'em', 'em', 'em', 'em'],
-                #         ['em', 'bn', 'em', 'wr', 'em', 'wp', 'em', 'em'],
-                #         ['br', 'em', 'bp', 'em', 'em', 'bn', 'wn', 'em'],
-                #         ['em', 'em', 'bp', 'bp', 'bp', 'em', 'wp', 'bp'],
-                #         ['bp', 'bp', 'em', 'bp', 'wn', 'em', 'wp', 'em'],
-                #         ['em', 'em', 'em', 'em', 'em', 'em', 'em', 'em'],
-                #         ['em', 'em', 'em', 'wk', 'em', 'em', 'em', 'em'],
-                #         ['em', 'em', 'em', 'em', 'em', 'em', 'em', 'em'],
-                # ]
-                return self.fen_from_board(board)
