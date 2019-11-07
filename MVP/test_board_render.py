@@ -14,6 +14,7 @@ class TestBoardRender:
                 test_game = run_before_tests
                 test_game.execute_turn(6,4,4,4)
                 test_game.execute_turn(1,0,3,0)
+                test_game.execute_turn(4,4,3,4)
                 render = board_render.BoardRender(test_game)
                 draw_board = render.draw_board()
                 

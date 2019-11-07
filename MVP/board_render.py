@@ -19,8 +19,6 @@ class BoardRender:
         def draw_board(self):
                 board = chess.Board(self.generate_fen())
                 img = chess.svg.board(board=board)
-                file = open("index.html", "w")
-                file.write(img)
                 self.write_svg_to_image(img)
 
 
