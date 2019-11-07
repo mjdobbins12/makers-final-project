@@ -2,3 +2,4 @@ __pycache__/
 get-pip.py
 .coverage
 /notes
+/mvp/output.png
