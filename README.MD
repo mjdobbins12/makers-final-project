@@ -14,6 +14,8 @@
 **Running the game in Slack**
 - If you want to run in slack, then ensure you have slackclient installed (`python3 -m pip install slackclient`) and the env variable passed when starting the python interpreter (e.g. `SLACK_API_TOKEN="token" python3 slack_ui.py`)
 
+- Open up your workspace and invite Chessy! `/invite @Chessy`
+
 ### Our process
 
 - We focused on a feature lead design with a strict focus on TDD using Pytest. We made sure that we built each module was easily abstractable, and could be replaced easily (e.g. Rulesets, pieces etc.)
