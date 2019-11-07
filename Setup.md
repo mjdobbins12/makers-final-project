@@ -13,5 +13,5 @@ python3 -m pip install --user pillow
 python3 -m pip install python-chess (need to run python3 -m pytest to allow chess to be imported!)
 
 **Running PYtest**
-In Project root dir, as with rspec, just type `pytest`
+In Project root dir, as with rspec, just type `python3 -m pytest`
 Coverage report pytest --cov ./
