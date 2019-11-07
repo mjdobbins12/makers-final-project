@@ -30,9 +30,11 @@
 <img src="https://github.com/dangyi23/makers-final-project/blob/master/docs/Chessy_with_AI.gif" width=40%>
 
 
-- Once we had a working MVP, we moved on to creating a module for each piece type, and making sure they each inherited from a master Piece class   
+- Once we had a working MVP, we moved on to creating a module for each piece type, and making sure they each inherited from a master `Piece` class   
 
 - This is where the headaches started. Programming Check/Checkmate/Stalemate conditions proved tricky. We prevailed!  
+
+- We extracted rules to a `StandardRules` class, from which weird and wonderful new game variants could inherit
 
 - Next, we moved on to implementing in Slack. We set up the slack UI to accept commands and print the state of the board in a slack channel
 
