@@ -9,7 +9,9 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 pip install pytest
 pip install pytest-cov
 pip3 install slackclient
+python3 -m pip install --user pillow
+python3 -m pip install python-chess (need to run python3 -m pytest to allow chess to be imported!)
 
 **Running PYtest**
 In Project root dir, as with rspec, just type `pytest`
-Coverage report pytest --cov
+Coverage report pytest --cov ./
