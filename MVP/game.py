@@ -80,3 +80,6 @@ class Game:
         colour = 'White' if self.p1_turn else 'Black'
         if self.board[x][y].colour != colour:
             raise ValueError("PlayerDoesNotOwnPiece")
+
+    def check_if_self_in_check(self, start_row, start_col, end_row, end_col):
+        turn.Turn(self.ruleset, self.board, self.log, self.player_1, self.player_2).check_if_self_in_check(start_row, start_col, end_row, end_col)

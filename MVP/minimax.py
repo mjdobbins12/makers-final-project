@@ -38,7 +38,7 @@ class Minimax:
                 if(depth == 0):
                         heur = Heuristics(self.game)
                         return heur.evaluate(board)
-                
+
                 if(is_maximizing):
                         bestMove = -9999
                         for x in possibleMoves:
@@ -69,14 +69,13 @@ class Minimax:
                                         if self.game.p1_turn == True:
                                                 if board[i][j].colour == "White":
                                                         for k in board[i][j].available_moves(board, i, j):
+                                                            if self.game.check_if_self_in_check(i, j, k[0], k[1]) != 'invalid move':
                                                                 array.append([[i,j], k])
                                         elif self.game.p1_turn == False:
                                                 if board[i][j].colour == "Black":
                                                         for k in board[i][j].available_moves(board, i, j):
+                                                            if self.game.check_if_self_in_check(i, j, k[0], k[1]) != 'invalid move':
                                                                 array.append([[i,j], k])
                 # array = list(filter(lambda a: a != [], array)) # removes empty arrays from available moves array
                 # print(array)
                 return array
-
-
-        
