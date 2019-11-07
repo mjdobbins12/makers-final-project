@@ -17,4 +17,13 @@ class TestSpKnight:
             assert test_sp_knight_b.value == -30
             assert test_sp_knight_w.value == 30
             
-        
+class TestLegalMoves:
+
+        def test_sp_knight_can_move_diagonally(self):
+            assert test_sp_knight_b.invalid_move_types(5, 5, 4, 4) == False
+
+        def test_sp_knight_can_move_laterally(self):
+            assert test_sp_knight_b.invalid_move_types(5, 5, 5, 6) == False
+
+        def test_sp_knight_cannot_jump(self):
+            assert test_sp_knight_b.invalid_move_types(5,5,7,4) == True
