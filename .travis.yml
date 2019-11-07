@@ -19,6 +19,7 @@ install:
 - pip install slackclient
 - python3 -m pip install pillow
 - python3 -m pip install python-chess
+- python3 -m pip install cairosvg
 
 script:
 - python3 -m pytest
