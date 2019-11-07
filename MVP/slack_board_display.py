@@ -1,6 +1,21 @@
 from piece import Piece
+import board_render
+
 
 class SlackBoardDisplay:
+
+    def render_board(self, game, web_client, channel):
+        self.post(web_client, self.__announce_whose_turn(game), channel)
+        board_render.BoardRender(game).draw_board()
+        web_client.files_upload(
+            channels = channel,
+            file = 'output.png',
+            title = 'Board',
+            username = 'Chessy'
+        )
+        if self.__list_taken_pieces_ifany(game) != '\n': self.post(web_client, self.__list_taken_pieces_ifany(game), channel)
+
+
 
     def output_board(self, game):
         output = self.__announce_whose_turn(game)
@@ -24,6 +39,14 @@ class SlackBoardDisplay:
         output += '\n'
         output += self.__list_taken_pieces_ifany(game)
         return output
+
+    def post(self, client, text, channel):
+        output = client.chat_postMessage(
+            channel = channel,
+            text = text,
+            username = 'Chessy')
+            # as_user = True)
+
 
     # private
 
