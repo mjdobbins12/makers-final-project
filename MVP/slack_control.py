@@ -59,11 +59,14 @@ class SlackControl:
                 except:
                     self.post(web_client, 'Invalid move - try again')
                 self.__check_for_checkmate()
-                self.post(web_client, self.slack_board_display.output_board(self.game))
+                # self.post(web_client, self.slack_board_display.output_board(self.game))
+                self.slack_board_display.render_board(self.game, web_client, self.channel)
             if self.game.player_2.name == 'AI' and self.game.p1_turn == False:
                 self.__AI_move()
                 self.__check_for_checkmate()
-                self.post(web_client, self.slack_board_display.output_board(self.game))
+                # self.post(web_client, self.slack_board_display.output_board(self.game))
+                self.slack_board_display.render_board(self.game, web_client, self.channel)
+
         # this could use some refactor - but needs to retain the AI move trigger after processing the player move
 
     def check_for_stop(self, web_client, data):
@@ -86,7 +89,8 @@ class SlackControl:
     def __launch_game(self, web_client, user_launched_game, names, ruleset = 'standard'):
         self.game = game.Game(names[0], names[1], ruleset)
         self.__announce_start(web_client, user_launched_game, names)
-        self.post(web_client, self.slack_board_display.output_board(self.game))
+        # self.post(web_client, self.slack_board_display.output_board(self.game))
+        self.slack_board_display.render_board(self.game, web_client, self.channel)
 
     def __parse_and_execute_move(self, web_client, text):
         turn_from = text.split('-')[0].lower()
