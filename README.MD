@@ -46,7 +46,7 @@
   - Renders a PNG image of the board after each legal turn is made, so that each player can see the state of the board before they make their turn.
   - Is great fun!
 
-##### Minimax Algorithm Iterations
+## Minimax Algorithm Iterations
 
 **Kamikaze bot** 
 
