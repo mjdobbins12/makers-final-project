@@ -2,21 +2,47 @@
 
 
 # Grandmasters Slack-Based Chess Game
+-----------------------
+
+### Setup
+- Ensure you have [Python3.7.5](https://www.python.org/downloads/release/python-375/) and [PIP](https://pypi.org/project/pip/) installed
+- RUN ALL commands in Setup.md file in the root directory of this REPO
+<br><br><br>
+
+
 
 **Running the game in command line**
-- RUN ALL commands in Setup.md file in the root directory of this REPO
 - open python interpreter - e.g. `python3` on Mac from the src directory
 - `import ui`
 - `ui = ui.UI()`
 - `ui.start()`
-
+<br><br><br>
 
 **Running the game in Slack**
 - If you want to run in slack, then ensure you have slackclient installed (`python3 -m pip install slackclient`) and the env variable passed when starting the python interpreter in src directory (e.g. `SLACK_API_TOKEN="token" python3 slack_ui.py`)
 
 - Open up your workspace and invite Chessy! `/invite @Chessy`
+<br><br><br>
 
-### Our process
+### Techstack  
+-------------------
+
+
+| Tech used        | What does it do?    | How we used it  |
+| :----------------: |:-----------------------------:| :------------------:|
+| Python 3   | Backend, (MVC)      | In MVC layers   |
+| Pytest      | Python Testing Framework  | TDD, TDD, TDD!                |
+| Pytest-Cov      | Measures test coverage  | Measure test coverage                |
+| Slack API  | Allows you to interface with Slack   | Created an API with our Python Chess Logic |
+| SlackClient           | Launches your Slack App from CMD with an AUTH token | Resurrecting Chessy the Chess Bot      |
+| CairoSVG    | Converts SVG format images to other image types | Converting SVG to PNG and rendering the current board   |
+| Python-Chess     | Python Chess Library | **ONLY** used for front-end board-rendering      |
+| Pillow      | Python Image Library | Manipulating Images/saving files in board rendering |
+| Travis           | CI Tool                    | To make sure pull requests weren't breaking our functionality     |
+
+-------------------------  
+<br><br><br>
+### Our Process
 
 - We focused on a feature lead design with a strict focus on TDD using Pytest. We made sure that we built each module was easily abstractable, and could be replaced easily (e.g. Rulesets, pieces etc.)
 - We worked in 2 day sprints, and paired on the more technically difficult parts of the script. Working on modular design with clear separate responsibilities for each team member meant that there were barely any merge conflicts throughout  
@@ -49,7 +75,7 @@
   - This AI option can be modified to increase/decrease the depth (though increasing the depth has an exponential performance trade-off)
   - Renders a PNG image of the board after each legal turn is made, so that each player can see the state of the board before they make their turn.
   - Is great fun!
-
+<br><br><br>
 ## Minimax Algorithm Iterations
 
 **Kamikaze bot**
