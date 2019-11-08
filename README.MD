@@ -2,7 +2,6 @@
 
 
 # Grandmasters Slack-Based Chess Game
------------------------
 
 ### Setup
 - Ensure you have [Python3.7.5](https://www.python.org/downloads/release/python-375/) and [PIP](https://pypi.org/project/pip/) installed
