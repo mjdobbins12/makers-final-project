@@ -74,4 +74,5 @@ class Game:
             "many_queens": many_queens.ManyQueens(),
             "random_pieces": random_pieces.RandomPieces(),
             "ex_bishops": ExBishops()
+            }
         self.ruleset = ruleset_options.get(ruleset, standard_rules.StandardRules())
