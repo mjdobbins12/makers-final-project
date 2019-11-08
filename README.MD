@@ -3,6 +3,9 @@
 
 # Grandmasters Slack-Based Chess Game
 
+![](https://github.com/DanGyi23/makers-final-project/blob/master/docs/Final_slack_version.png)
+
+
 ### Setup
 - Ensure you have [Python3.7.5](https://www.python.org/downloads/release/python-375/) and [PIP](https://pypi.org/project/pip/) installed
 - RUN ALL commands in Setup.md file in the root directory of this REPO
