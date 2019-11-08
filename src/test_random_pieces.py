@@ -21,7 +21,3 @@ class TestRandomPieces:
                 test_ruleset = random_pieces.RandomPieces()
                 assert len(test_ruleset.starting_board) == 8
                 assert len(test_ruleset.starting_board[0]) == 8
-                
-        # def test_ruleset_creates_a_rank_with_king(self):
-        #         test_ruleset = random_pieces.RandomPieces()
-        #         assert isinstance(test_ruleset.starting_board[0][3], king.King)
