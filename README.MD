@@ -48,11 +48,15 @@
 
 - By the end of the second day we had arrived at our MVP:  
 
+*Command-line version using unicode chars*
 <br>
 <img src="https://github.com/dangyi23/makers-final-project/blob/master/docs/MVP.gif" width=40%>
+<br>
 
+*First Slack Version*
 <br>
 <img src="https://github.com/dangyi23/makers-final-project/blob/master/docs/Chessy_with_AI.gif" width=40%>
+<br>
 
 
 - Once we had a working MVP, we moved on to creating a module for each piece type, and making sure they each inherited from a master `Piece` class   
