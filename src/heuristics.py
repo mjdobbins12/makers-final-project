@@ -13,7 +13,7 @@ class Heuristics:
                 [ 0,  0,    0,  0,  0,  0,    0,  0],
                 [ 0,  0,    0,  0,  0,  0,    0,  0],
                 [ 0,  0,    0,  0,  0,  0,    0,  0],
-                [ 0,  0,  -80,  0,  0,  0,  -80,  0]
+                [ 0,  0,  80,  0,  0,  0,  80,  0]
                 ])
         WHITE_KNIGHTS_GRID = ([
                 [-20, -20, -10, -10, -10, -10, -20, -20],
@@ -71,7 +71,7 @@ class Heuristics:
                 ])
 
         BLACK_KINGS_GRID = ([
-                [ 0,  0,  80,  0,  0,  0,  80,  0],
+                [ 0,  0,  -80,  0,  0,  0,  -80,  0],
                 [ 0,  0,    0,  0,  0,  0,    0,  0],
                 [ 0,  0,    0,  0,  0,  0,    0,  0],
                 [ 0,  0,    0,  0,  0,  0,    0,  0],
@@ -80,7 +80,7 @@ class Heuristics:
                 [ 0,  0,    0,  0,  0,  0,    0,  0],
                 [ 0,  0,  80,  0,  0,  0,  80,  0]
                 ])
-        
+
         BLACK_PAWNS_GRID = ([
                 [ 0,  0,  0,  0,  0,  0,  0,  0],
                 [ -5, -10, -10,20,20, -10, -10,  -5],
@@ -136,9 +136,9 @@ class Heuristics:
                 [20, 10, 10, 5, 5, 10, 10, 20]
                 ])
 
-       
 
-        
+
+
 
         def evaluate(self, board):
                 material = Heuristics.get_material_score(self.game.board)
@@ -187,6 +187,3 @@ class Heuristics:
                                         else:
                                                 black += piece.value
                 return white + black
-
-
-                
