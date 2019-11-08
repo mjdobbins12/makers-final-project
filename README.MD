@@ -3,7 +3,9 @@
 
 # Grandmasters Slack-Based Chess Game
 
-![](https://github.com/DanGyi23/makers-final-project/blob/master/docs/Final_slack_version.png)
+<kbd>
+  <img src="https://github.com/DanGyi23/makers-final-project/blob/master/docs/Final_slack_version.png">
+</kbd>
 
 
 ### Setup
