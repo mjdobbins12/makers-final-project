@@ -28,6 +28,15 @@
 - Open up your workspace and invite Chessy! `/invite @Chessy`
 <br><br><br>
 
+**Running Tests**
+- Once pytest is installed, as per Setup MD, you can run tests from your project directory in CMD using `python3 -m pytest`
+- To include coverage, use `python3 -m pytest ./`
+<kbd>
+  <img src="https://github.com/DanGyi23/makers-final-project/blob/master/docs/pytest-coverage.png">
+</kbd>
+
+<br><br><br>
+
 ### Techstack  
 -------------------
 
