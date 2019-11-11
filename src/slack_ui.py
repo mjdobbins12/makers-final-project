@@ -19,14 +19,13 @@ class Slack:
         @slack.RTMClient.run_on(event='channel_joined')
         def join_channel(**payload):
             data = payload['data']
-            self.post(payload['web_client'], self.__intro_chessy(), data['channel']['id'])
             self.slack_control[data['channel']['id']] = SlackControl(data['channel']['id'])
+            self.slack_control[data['channel']['id']].intro_chessy(payload['web_client'])
         @slack.RTMClient.run_on(event='group_joined')
         def join_private_channel(**payload):
-            print('data')
             data = payload['data']
-            self.post(payload['web_client'], self.__intro_chessy(), data['channel']['id'])
             self.slack_control[data['channel']['id']] = SlackControl(data['channel']['id'])
+            self.slack_control[data['channel']['id']].intro_chessy(payload['web_client'])
         @slack.RTMClient.run_on(event='message')
         def run_game(**payload):
             data = payload['data']
@@ -48,14 +47,6 @@ class Slack:
         slack_token = os.environ["SLACK_API_TOKEN"]
         rtm_client = slack.RTMClient(token=slack_token)
         rtm_client.start()
-
-    # private methods
-
-    def __intro_chessy(self):
-        output = 'Hi I am Chessy!\n'
-        output += 'Let others play their games, the game of kings is still the ♔ of games!\n'
-        output += 'Enter start to start the game!\n'
-        return output
 
 slack_instance = Slack()
 slack_instance.start_listen()

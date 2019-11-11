@@ -27,7 +27,6 @@ class UI:
             self.board_display.show_board(self.game, self.game.board, self.game.player_1.name, self.game.player_2.name)
             if self.checkmate_or_draw(): break
             self.announce_whose_turn()
-            # print(self.AImove())
             if self.game.player_2.name == 'AI' and self.game.p1_turn == False:
                 self.AImove()
             else:

@@ -18,7 +18,7 @@ class King(Piece):
             for j in range(0,8):
                 if isinstance(board[i][j], Piece):
                     if board[i][j].colour != self.colour:
-                        if [start_row,start_col] in board[i][j].available_moves(board, i, j):
+                        if board[i][j].illegal_directions(board, i, j, start_row, start_col) == False:
                             check_evaluations.append(True)
                         else:
                             check_evaluations.append(False)
@@ -94,14 +94,14 @@ class King(Piece):
     def __find_opposite_colour_king(self, board, start_row, start_col):
         if isinstance(board[start_row][start_col], King):
             if board[start_row][start_col].colour == "White":
-                        for i in range(0,8):
-                            for j in range(0,8):
-                                if isinstance(board[i][j], King):
-                                    if board[i][j].colour == "Black":
-                                        return [i,j]
+                for i in range(0,8):
+                    for j in range(0,8):
+                        if isinstance(board[i][j], King):
+                            if board[i][j].colour == "Black":
+                                return [i,j]
             elif board[start_row][start_col].colour == "Black":
-                        for i in range(0,8):
-                            for j in range(0,8):
-                                if isinstance(board[i][j], King):
-                                    if board[i][j].colour == "White":
-                                        return [i,j]
+                for i in range(0,8):
+                    for j in range(0,8):
+                        if isinstance(board[i][j], King):
+                            if board[i][j].colour == "White":
+                                return [i,j]

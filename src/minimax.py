@@ -21,7 +21,6 @@ class Minimax:
                                 self.game.revert_turn(x[0][0], x[0][1], x[1][0], x[1][1], original_pieces[0], original_pieces[1])
                         else:
                                 value = max(bestMove, self.minimax(depth - 1, board, not isMaximizing))
-                        # print(value)
                         if( value > bestMove):
                                 # print("Best score: " ,str(bestMove))
                                 # print("Best move: ",str(bestMoveFinal))
@@ -36,7 +35,6 @@ class Minimax:
 
         def minimax(self, depth, board, is_maximizing):
                 possibleMoves = self.available_moves(self.game.board)
-                # print(possibleMoves)
                 if(depth == 0):
                         heur = Heuristics(self.game)
                         return heur.evaluate(board)
@@ -83,6 +81,4 @@ class Minimax:
                                                         for k in board[i][j].available_moves(board, i, j):
                                                             # if self.game.check_if_self_in_check(i, j, k[0], k[1]) != 'invalid move':
                                                                 array.append([[i,j], k])
-                # array = list(filter(lambda a: a != [], array)) # removes empty arrays from available moves array
-                # print(array)
                 return array

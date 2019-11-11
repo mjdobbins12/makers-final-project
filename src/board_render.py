@@ -25,6 +25,26 @@ class BoardRender:
         def write_svg_to_image(self, svg):
                 svg2png(bytestring=svg,write_to='output.png')
 
+        def main(self, board):
+                return self.fen_from_board(board)
+
+        def convert_cell(self, value):
+                if value == 'em':
+                        return None
+                else:
+                        color, piece = value
+                        return piece.upper() if color == 'w' else piece.lower()
+
+
+        def convert_rank(self, rank):
+                return ''.join(
+                        value * count if value else str(count)
+                        for value, count in run_length.encode(map(self.convert_cell, rank))
+                )
+
+        def fen_from_board(self, board):
+                return '/'.join(map(self.convert_rank, board)) + ' w KQkq - 0 1'
+
         def generate_fen(self):
                 board = (self.game.board)
                 for i in range(0,8):
@@ -59,28 +79,3 @@ class BoardRender:
                                                 elif board[i][j].name == "Pawn":
                                                         board[i][j] = "bp"
                 return self.main(board)
-
-        
-
-
-        def main(self, board):
-                return self.fen_from_board(board)
-
-        
-
-        def convert_cell(self, value):
-                if value == 'em':
-                        return None
-                else:
-                        color, piece = value
-                        return piece.upper() if color == 'w' else piece.lower()
-
-
-        def convert_rank(self, rank):
-                return ''.join(
-                        value * count if value else str(count)
-                        for value, count in run_length.encode(map(self.convert_cell, rank))
-                )
-
-        def fen_from_board(self, board):
-                return '/'.join(map(self.convert_rank, board)) + ' w KQkq - 0 1'
