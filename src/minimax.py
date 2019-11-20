@@ -9,29 +9,36 @@ class Minimax:
 
         def minimaxRoot(self, depth, board, isMaximizing):
                 possibleMoves = self.available_moves(board)
-                bestMove = -9999
-                secondBest = -9999
-                thirdBest = -9999
-                bestMoveFinal = None
-                for x in possibleMoves:
-                        move = x
-                        original_pieces = self.game.get_original_pieces(board, x[0][0], x[0][1], x[1][0], x[1][1])
-                        if self.game.execute_turn(x[0][0], x[0][1], x[1][0], x[1][1]) == 'valid move':
-                                value = max(bestMove, self.minimax(depth - 1, board, not isMaximizing))
-                                self.game.revert_turn(x[0][0], x[0][1], x[1][0], x[1][1], original_pieces[0], original_pieces[1])
-                        else:
-                                value = max(bestMove, self.minimax(depth - 1, board, not isMaximizing))
-                        if( value > bestMove):
-                                # print("Best score: " ,str(bestMove))
-                                # print("Best move: ",str(bestMoveFinal))
-                                # print("Second best: ", str(secondBest))
-                                thirdBest = secondBest
-                                secondBest = bestMove
-                                bestMove = value
-                                bestMoveFinal = move
-                # print(bestMoveFinal)
-                print(bestMove)
-                return bestMoveFinal
+                if(isMaximizing):
+                        bestMove = -9999
+                        bestMoveFinal = None
+                        for x in possibleMoves:
+                                move = x
+                                original_pieces = self.game.get_original_pieces(board, x[0][0], x[0][1], x[1][0], x[1][1])
+                                if self.game.execute_turn(x[0][0], x[0][1], x[1][0], x[1][1]) == 'valid move':
+                                        value = max(bestMove, self.minimax(depth - 1, board, not isMaximizing))
+                                        self.game.revert_turn(x[0][0], x[0][1], x[1][0], x[1][1], original_pieces[0], original_pieces[1])
+                                else:
+                                        value = bestMove
+                                if( value > bestMove):
+                                        bestMove = value
+                                        bestMoveFinal = move
+                        return bestMoveFinal
+                else: 
+                        bestMove = 9999
+                        bestMoveFinal = None
+                        for x in possibleMoves:
+                                move = x
+                                original_pieces = self.game.get_original_pieces(board, x[0][0], x[0][1], x[1][0], x[1][1])
+                                if self.game.execute_turn(x[0][0], x[0][1], x[1][0], x[1][1]) == 'valid move':
+                                        value = min(bestMove, self.minimax(depth - 1, board, not isMaximizing))
+                                        self.game.revert_turn(x[0][0], x[0][1], x[1][0], x[1][1], original_pieces[0], original_pieces[1])
+                                else:
+                                        value = bestMove
+                                if( value < bestMove):
+                                        bestMove = value
+                                        bestMoveFinal = move
+                        return bestMoveFinal 
 
         def minimax(self, depth, board, is_maximizing):
                 possibleMoves = self.available_moves(self.game.board)
