@@ -22,7 +22,7 @@ class Turn:
         if self.ruleset.check_if_move_into_check(self.board, start_row, start_col, end_row, end_col) == 'invalid move':
             raise ValueError("Invalid Move")
         self.board[start_row][start_col] = "-"
-        self.__store_piece_if_struck(end_row, end_col)
+        self._store_piece_if_struck(end_row, end_col)
         self.board[end_row][end_col] = piece_to_move
         if isinstance(piece_to_move, king.King) and (abs(start_col - end_col) == 2):
             if end_col == 6:
@@ -36,7 +36,7 @@ class Turn:
         self.ruleset.check_pawn_promotion(self.board, piece_to_move, end_row, end_col)
         return self.ruleset.check_special_events(self.board, piece_to_move, self.game_log)
 
-    def __store_piece_if_struck(self, end_row, end_col):
+    def _store_piece_if_struck(self, end_row, end_col):
         if self.board[end_row][end_col] != '-' and self.board[end_row][end_col].colour == 'White':
             self.player_2.store_piece(self.board[end_row][end_col])
             return self.board[end_row][end_col]
